@@ -44,10 +44,18 @@ public class PlayerController : MonoBehaviour
         // 바늘 아이템 사용시
         if (Input.GetKeyDown(KeyCode.Alpha1) && isStuckWater && niddleCount != 0)
         {
+            Debug.Log("바늘 아이템 사용");
             niddleCount--;
             isStuckWater = false;
             //TODO 물풍선 빠져나오는 애니메이션
         }
+
+        // {임의로 물에 갇힌 상황 표현
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            isStuckWater = true; 
+        }
+        // } 임의로 물에 갇힌 상황 표현
 
 
     }//Update()
