@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRB;
+    private Animator animator;
     private int waterBalloonCount = 1;
 
     private int niddleCount = 0;
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
     }//Start()
 
     void Update()
@@ -25,6 +28,9 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
+
+        animator.SetInteger("Horizontal", (int)horizontal);
+        animator.SetInteger("Vertical", (int)vertical);
 
         // { 물풍선 설치 개수 제한
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
@@ -44,10 +50,21 @@ public class PlayerController : MonoBehaviour
         // 바늘 아이템 사용시
         if (Input.GetKeyDown(KeyCode.Alpha1) && isStuckWater && niddleCount != 0)
         {
+            Debug.Log("바늘 아이템 사용");
             niddleCount--;
             isStuckWater = false;
             //TODO 물풍선 빠져나오는 애니메이션
+            animator.SetBool("StuckWater", isStuckWater);
         }
+
+        // {임의로 물에 갇힌 상황 표현
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            isStuckWater = true;
+            animator.SetBool("StuckWater", isStuckWater);
+            animator.SetTrigger("StuckTrigger");
+        }
+        // } 임의로 물에 갇힌 상황 표현
 
 
     }//Update()
@@ -105,6 +122,7 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         //TODO 죽었을때 함수, 다이 애니메이션 추가
+        //TODO 죽었을때 lose, 상대방이 죽을경우 Win
     }
 
     private void UsingNiddle()
