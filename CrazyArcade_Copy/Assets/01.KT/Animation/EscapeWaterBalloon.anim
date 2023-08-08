@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StuckWaterBalloon
+  m_Name: EscapeWaterBalloon
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,18 +20,16 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 1192916937, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
-    - time: 1
-      value: {fileID: -672455262, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
-    - time: 2
-      value: {fileID: 863671734, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
-    - time: 3
-      value: {fileID: 751806124, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
+      value: {fileID: -1526993201, guid: ebdab4b1e5603427dbf93bc9a87c37fc, type: 3}
+    - time: 0.125
+      value: {fileID: 380980645, guid: ebdab4b1e5603427dbf93bc9a87c37fc, type: 3}
+    - time: 0.25
+      value: {fileID: 80543798, guid: ebdab4b1e5603427dbf93bc9a87c37fc, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 1
+  m_SampleRate: 8
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -46,16 +44,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 1192916937, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
-    - {fileID: -672455262, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
-    - {fileID: 863671734, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
-    - {fileID: 751806124, guid: fd6cfe80095e746e5bd6c9413236c22b, type: 3}
+    - {fileID: -1526993201, guid: ebdab4b1e5603427dbf93bc9a87c37fc, type: 3}
+    - {fileID: 380980645, guid: ebdab4b1e5603427dbf93bc9a87c37fc, type: 3}
+    - {fileID: 80543798, guid: ebdab4b1e5603427dbf93bc9a87c37fc, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 4
+    m_StopTime: 0.375
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
