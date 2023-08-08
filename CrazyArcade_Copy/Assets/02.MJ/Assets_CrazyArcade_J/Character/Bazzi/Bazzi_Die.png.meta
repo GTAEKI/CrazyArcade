@@ -1,0 +1,414 @@
+fileFormatVersion: 2
+guid: 2b30ded7583a440dba0512509890d45d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bazzi_Die_3
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 615
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b3678b66c8cf4843a99571c9baec4c9
+      internalID: -505859425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_4
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 615
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 611d331a6e78c49879cf9699b7b104ab
+      internalID: 1863839800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_5
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 615
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6615ce901dce34320b4f775f839c9095
+      internalID: -219053729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_28
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 498
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f3e3f6ec860a4cdd8b4218008971de8
+      internalID: 1490786689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_29
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 506
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44e03dd5ed9f24304b1fd410a0d98064
+      internalID: -813561068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_30
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 513
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eefebafac02804e4cbe588c898ef6ead
+      internalID: -1789995105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_31
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 514
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438b9507df28a43668b87921cbd1738e
+      internalID: -705406053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_32
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 420
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f93f173001464323b9b86e649e8c98f
+      internalID: -2075660347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_33
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 389
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c93f3c6c3473b40a48cdcf4c7232b866
+      internalID: -282783972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_34
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 438
+        width: 42
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59e8dfc6b4e2d47a799dbafea6a2c4f3
+      internalID: 567536811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bazzi_Die_0
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 615
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8285931de4394614b61ba80110330b0
+      internalID: 844393681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Bazzi_Die_0: 844393681
+      Bazzi_Die_1: -1009370098
+      Bazzi_Die_10: 1046879862
+      Bazzi_Die_11: -903731807
+      Bazzi_Die_12: -1565835365
+      Bazzi_Die_13: 935744343
+      Bazzi_Die_14: 296529468
+      Bazzi_Die_15: -1580580226
+      Bazzi_Die_16: -582161670
+      Bazzi_Die_17: 1216897135
+      Bazzi_Die_18: -888634011
+      Bazzi_Die_19: 967811467
+      Bazzi_Die_2: 1974691461
+      Bazzi_Die_20: 1318753052
+      Bazzi_Die_21: -1626537436
+      Bazzi_Die_22: 505576989
+      Bazzi_Die_23: 88134588
+      Bazzi_Die_24: 2134976361
+      Bazzi_Die_25: -1748307280
+      Bazzi_Die_26: 1509378448
+      Bazzi_Die_27: -1061833967
+      Bazzi_Die_28: 1490786689
+      Bazzi_Die_29: -813561068
+      Bazzi_Die_3: -505859425
+      Bazzi_Die_30: -1789995105
+      Bazzi_Die_31: -705406053
+      Bazzi_Die_32: -2075660347
+      Bazzi_Die_33: -282783972
+      Bazzi_Die_34: 567536811
+      Bazzi_Die_35: 668711691
+      Bazzi_Die_4: 1863839800
+      Bazzi_Die_5: -219053729
+      Bazzi_Die_6: -116367424
+      Bazzi_Die_7: 721332222
+      Bazzi_Die_8: 635574657
+      Bazzi_Die_9: -627154317
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
