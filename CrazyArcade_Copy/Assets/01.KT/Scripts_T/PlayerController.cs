@@ -102,7 +102,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.isTrigger = false;
+        if(collision.tag == "WaterBalloon")
+        {
+            collision.isTrigger = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
