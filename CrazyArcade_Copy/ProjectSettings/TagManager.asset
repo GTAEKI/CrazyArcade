@@ -11,6 +11,8 @@ TagManager:
   - SpeedItem
   - BalloonItem
   - WaterBalloon
+  - Bullet
+  - Tile
   layers:
   - Default
   - TransparentFX
@@ -47,4 +49,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGroundTile
+    uniqueID: 1004686253
+    locked: 0
+  - name: WaterBalloon
+    uniqueID: 3470517441
+    locked: 0
+  - name: Player
+    uniqueID: 2113957557
     locked: 0
