@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
             //Press the spacebar to create a water balloon
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.7f);
+                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
                 Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
             }
         }
