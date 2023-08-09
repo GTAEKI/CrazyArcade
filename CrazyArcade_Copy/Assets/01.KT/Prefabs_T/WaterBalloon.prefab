@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8756932164809349166}
   - component: {fileID: 5511018058050977977}
-  - component: {fileID: 88622379131368285}
   - component: {fileID: 8367938664281762373}
   - component: {fileID: -607313906073048193}
+  - component: {fileID: -5300071647313546409}
+  - component: {fileID: 5110976618948410381}
   m_Layer: 0
   m_Name: WaterBalloon
   m_TagString: WaterBalloon
@@ -87,18 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &88622379131368285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3617638635874959152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &8367938664281762373
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,3 +135,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-5300071647313546409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617638635874959152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 2997079053500483583, guid: 2c7ff7e164d1242a9bf5e6076c7fb5ad, type: 3}
+  powerV: 3
+--- !u!95 &5110976618948410381
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617638635874959152}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3c8997afc0cb458d9425b43f74575d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
