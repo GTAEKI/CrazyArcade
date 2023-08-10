@@ -8,3 +8,6 @@ CrazyArcade_Copy
 오전 09:31 2023-08-10
 [MJ] add : "Pirate Map Complete"
 [KT] feat : "Create WaterBalloon Explosion Scripts"
+
+오후 14:28 2023-08-10
+[KT] feat : "Create WaterBalloon Explosion Fuction"
