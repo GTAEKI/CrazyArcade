@@ -13,6 +13,8 @@ TagManager:
   - WaterBalloon
   - Bullet
   - Tile
+  - FixedBox
+  - MoveBox
   layers:
   - Default
   - TransparentFX
