@@ -11,3 +11,6 @@ CrazyArcade_Copy
 
 오후 14:28 2023-08-10
 [KT] feat : "Create WaterBalloon Explosion Fuction"
+
+오후 14:37 2023-08-10
+[MJ] feat : "Potion Animation"
