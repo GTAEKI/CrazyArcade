@@ -58,14 +58,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("StuckWater", isStuckWater);
         }
 
-        // {임의로 물에 갇힌 상황 표현
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            isStuckWater = true;
-            animator.SetBool("StuckWater", isStuckWater);
-            animator.SetTrigger("StuckTrigger");
-        }
-        // } 임의로 물에 갇힌 상황 표현
+        //// {임의로 물에 갇힌 상황 표현
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    isStuckWater = true;
+        //    animator.SetBool("StuckWater", isStuckWater);
+        //    animator.SetTrigger("StuckTrigger");
+        //}
+        //// } 임의로 물에 갇힌 상황 표현
 
 
     }//Update()
@@ -99,10 +99,9 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             niddleCount++;
         }
-        else if(collision.tag == "tile")
+        else if(collision.tag == "WaterExplosion")
         {
-            Debug.Log("On tile");
-            collision.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+            StuckWaterBalloon();
         }
     }
 
@@ -131,6 +130,8 @@ public class PlayerController : MonoBehaviour
     {
         //TODO 물방울 갇혔을때 함수
         isStuckWater = true;
+        animator.SetBool("StuckWater", isStuckWater);
+        animator.SetTrigger("StuckTrigger");
     }
 
     private void Die()

@@ -15,6 +15,7 @@ TagManager:
   - Tile
   - FixedBox
   - MoveBox
+  - WaterExplosion
   layers:
   - Default
   - TransparentFX
