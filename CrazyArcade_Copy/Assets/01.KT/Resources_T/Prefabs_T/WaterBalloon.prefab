@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 1
+  power: 3
   BombWater_Center: {fileID: 7212866677644403439, guid: 56828181648c54230b32ac6d28b88c1a, type: 3}
   BombWater_Down_Last: {fileID: 8006612671006982148, guid: abaa318920d43480babfbe09aea7f72a, type: 3}
   BombWater_Down_Mid: {fileID: 1050779286167931439, guid: 2cd50e00829f644079b7ce8c74efeebe, type: 3}
@@ -157,6 +157,7 @@ MonoBehaviour:
   BombWater_Right_Mid: {fileID: 3336293872610607449, guid: 7ab94b72a2cf24d8284ec96da65e51d7, type: 3}
   BombWater_Up_Last: {fileID: 4483874884231324698, guid: 642c7d78ab48f462b9c23006dfde8f00, type: 3}
   BombWater_Up_Mid: {fileID: 10878030776164239, guid: 65adf86c3d33548099a96022e48fe09b, type: 3}
+  boxSize: {x: 0.67, y: 0.67}
 --- !u!95 &5110976618948410381
 Animator:
   serializedVersion: 5

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaterBalloonController : MonoBehaviour
@@ -18,6 +19,9 @@ public class WaterBalloonController : MonoBehaviour
     public GameObject BombWater_Up_Last;
     public GameObject BombWater_Up_Mid;
     
+    // Overlap 변수
+    public Vector2 boxSize = new Vector2(0.67f, 0.67f);
+
 
     void Start()
     {
@@ -30,38 +34,180 @@ public class WaterBalloonController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
 
-        // X축 Horizontal, Z축(vector3에서는 Y축) Vertical방향으로 Power만큼 폭발
-        for (float i = -power; i <= power;i = i+0.5f)
+        // CenterExplosion
+        BombHorizontal(BombWater_Center, 0);
+
+        // LeftExplosion
+        for (float i = 0; i >= -power; i = i - 0.5f)
         {
-            if(i== -power)
+            // 폭발방향의 타일을 체크
+            bool CheckTile = CheckTile_Horizontal(i);
+
+            // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
+            if (CheckTile)
+            {
+                if (i == -power)
+                {
+                    BombHorizontal(BombWater_Left_Last, i);
+                }
+                else if (i < 0)
+                {
+                    BombHorizontal(BombWater_Left_Mid, i);
+                }
+                break;
+            }
+
+            if(i == 0)
+            {
+                continue;
+            }
+            else if (i == -power)
             {
                 BombHorizontal(BombWater_Left_Last, i);
-                BombVertical(BombWater_Down_Last, i);
-            }
-            else if(i == power)
-            {
-                BombHorizontal(BombWater_Right_Last, i);
-                BombVertical(BombWater_Up_Last, i);
-            }
-            else if (i == 0)
-            {
-                BombHorizontal(BombWater_Center, i);
-            }
-            else if(i > 0)
-            {
-                BombHorizontal(BombWater_Right_Mid, i);
-                BombVertical(BombWater_Up_Mid, i);
             }
             else if(i < 0)
             {
                 BombHorizontal(BombWater_Left_Mid, i);
+            }
+        }
+
+        // RightExplosion
+        for (float i = 0; i <= power; i = i + 0.5f)
+        {
+            // 폭발방향의 타일을 체크
+            bool CheckTile = CheckTile_Horizontal(i);
+
+            // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
+            if (CheckTile)
+            {
+                if (i == power)
+                {
+                    BombHorizontal(BombWater_Left_Last, i);
+                }
+                else if (i > 0)
+                {
+                    BombHorizontal(BombWater_Left_Mid, i);
+                }
+                break;
+            }
+
+            if (i == 0)
+            {
+                continue;
+            }
+            else if (i == power)
+            {
+                BombHorizontal(BombWater_Right_Last, i);
+            }
+            else if (i > 0)
+            {
+                BombHorizontal(BombWater_Right_Mid, i);
+            }
+        }
+        // UpExplosion
+        for (float i = 0; i <= power; i = i + 0.5f)
+        {
+            // 폭발방향의 타일을 체크
+            bool CheckTile = CheckTile_Vertical(i);
+
+            // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
+            if (CheckTile)
+            {
+                 if (i == power)
+                {
+                    BombVertical(BombWater_Up_Last, i);
+                }
+                else if (i > 0)
+                {
+                    BombVertical(BombWater_Up_Mid, i);
+                }
+                break;
+            }
+
+            if (i == 0)
+            {
+                continue;
+            }
+            else if (i == power)
+            {
+                BombVertical(BombWater_Up_Last, i);
+            }
+            else if (i > 0)
+            {
+                BombVertical(BombWater_Up_Mid, i);
+            }
+        }
+        // DownExplosion
+        for (float i = 0; i >= -power; i = i - 0.5f)
+        {
+            // 폭발방향의 타일을 체크
+            bool CheckTile = CheckTile_Vertical(i);
+
+            // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
+            if (CheckTile)
+            {
+                if (i == -power)
+                {
+                    BombVertical(BombWater_Down_Last, i);
+                }
+                else if (i < 0)
+                {
+                    BombVertical(BombWater_Down_Mid, i);
+                }
+
+                break;
+            }
+
+            if (i == 0)
+            {
+                continue;
+            }
+            else if (i == -power)
+            {
+                BombVertical(BombWater_Down_Last, i);
+            }
+            else if (i < 0)
+            {
                 BombVertical(BombWater_Down_Mid, i);
             }
-        } //for
+        }
 
         // 오브젝트 삭제
         Destroy(gameObject);
     }//IEnumerator Explosion()
+
+    // Overlap을 이용해서 타일을 체크하여 물줄기 제어
+    private bool CheckTile_Horizontal(float i)
+    {
+        Vector2 m_tr_Vector2 = new Vector2(transform.position.x+i, transform.position.y);
+        Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.5f, 0);
+
+        foreach (Collider2D col in cols)
+        {
+            if(col.tag== "FixedBox" || col.tag == "MoveBox")
+            {
+                Debug.Log(col.name);
+                return true;
+            }
+        }
+        return false;
+    }//CheckTile_Horizontal()
+
+    private bool CheckTile_Vertical(float i)
+    {
+        Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y + i);
+        Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.5f, 0);
+
+        foreach (Collider2D col in cols)
+        {
+            if (col.tag == "FixedBox" || col.tag == "MoveBox")
+            {
+                Debug.Log(col.name);
+                return true;
+            }
+        }
+        return false;
+    }//CheckTile_Vertical()
 
     // 수평축 물풍선 폭발 오브젝트 처리 함수
     private void BombHorizontal(GameObject tilePrefab, float i)
