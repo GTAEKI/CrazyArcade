@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour
             //Press the spacebar to create a water balloon
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Instantiate(waterBalloon, transform.position, Quaternion.identity);
+                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
+                Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
             }
         }
         // } 물풍선 설치 개수 제한
@@ -98,6 +99,11 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             niddleCount++;
         }
+        else if(collision.tag == "tile")
+        {
+            Debug.Log("On tile");
+            collision.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -105,6 +111,11 @@ public class PlayerController : MonoBehaviour
         if(collision.tag == "WaterBalloon")
         {
             collision.isTrigger = false;
+        }
+
+        if(collision.tag == "tile")
+        {
+            collision.gameObject.GetComponent<SpriteRenderer>().color = Color.clear; 
         }
     }
 

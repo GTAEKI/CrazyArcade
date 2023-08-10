@@ -136,8 +136,8 @@ TextureImporter:
         y: 2
         width: 39
         height: 59
-      alignment: 9
-      pivot: {x: 0.50994045, y: 0.975288}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -156,9 +156,9 @@ TextureImporter:
         x: 64
         y: 0
         width: 39
-        height: 57
-      alignment: 9
-      pivot: {x: 0.50662625, y: 0.98743063}
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -166,27 +166,6 @@ TextureImporter:
       bones: []
       spriteID: 0f9fe73527093423db6187ef729617b9
       internalID: -1949194724
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: potion_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 68
-        width: 19
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 061a208dee4024e5f9fcda954407f255
-      internalID: 525055185
       vertices: []
       indices: 
       edges: []
