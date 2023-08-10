@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     private int niddleCount = 0;
     private bool isStuckWater = false;
     public float speed = 4.0f;
+
+    public int power = 1;
+
+    private int maxPower = 6;
     public GameObject waterBalloon;
 
     public GameObject[] waterBalloons;
@@ -51,22 +55,8 @@ public class PlayerController : MonoBehaviour
         // 바늘 아이템 사용시
         if (Input.GetKeyDown(KeyCode.Alpha1) && isStuckWater && niddleCount != 0)
         {
-            Debug.Log("바늘 아이템 사용");
-            niddleCount--;
-            isStuckWater = false;
-            //TODO 물풍선 빠져나오는 애니메이션
-            animator.SetBool("StuckWater", isStuckWater);
+            UsingNiddle();
         }
-
-        //// {임의로 물에 갇힌 상황 표현
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    isStuckWater = true;
-        //    animator.SetBool("StuckWater", isStuckWater);
-        //    animator.SetTrigger("StuckTrigger");
-        //}
-        //// } 임의로 물에 갇힌 상황 표현
-
 
     }//Update()
 
@@ -85,11 +75,13 @@ public class PlayerController : MonoBehaviour
         }
         else if(collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
         {
+            power += 1;
             Destroy(collision.gameObject);
             //TODO 파워 +1;
         }
         else if(collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
         {
+            power = maxPower;
             Destroy(collision.gameObject);
             //TODO 파워 MAX;
 
@@ -142,7 +134,9 @@ public class PlayerController : MonoBehaviour
 
     private void UsingNiddle()
     {
-        //바늘 사용 함수
+        niddleCount--;
+        isStuckWater = false;
+        animator.SetBool("StuckWater", isStuckWater);
     }
 
 }

@@ -6,7 +6,9 @@ using UnityEngine;
 public class WaterBalloonController : MonoBehaviour
 {
     // 물풍선 파워
-    public int power = 1;
+    public int power;
+    public GameObject player;
+    private PlayerController playerController;
 
     // 물풍선 터졌을때 나오는 애니메이션
     public GameObject BombWater_Center;
@@ -25,15 +27,29 @@ public class WaterBalloonController : MonoBehaviour
 
     void Start()
     {
+
+        player = GameObject.Find("PlayerBazzi");
+        power = player.GetComponent<PlayerController>().power;
+
+        Debug.Log(power);
         // 물풍선 설치시 2.5초뒤 폭발
         StartCoroutine(Explosion());
+
     }//Start()
 
     // 2.5초 뒤 실행할 물풍선 폭발 관련 내용 전체
-    IEnumerator Explosion()
+    public IEnumerator Explosion()
     {
         yield return new WaitForSeconds(2.5f);
 
+        ExplosionFunc();
+
+        // 오브젝트 삭제
+        Destroy(gameObject);
+    }//IEnumerator Explosion()
+
+    public void ExplosionFunc()
+    {
         // CenterExplosion
         BombHorizontal(BombWater_Center, 0);
 
@@ -57,7 +73,7 @@ public class WaterBalloonController : MonoBehaviour
                 break;
             }
 
-            if(i == 0)
+            if (i == 0)
             {
                 continue;
             }
@@ -65,7 +81,7 @@ public class WaterBalloonController : MonoBehaviour
             {
                 BombHorizontal(BombWater_Left_Last, i);
             }
-            else if(i < 0)
+            else if (i < 0)
             {
                 BombHorizontal(BombWater_Left_Mid, i);
             }
@@ -113,7 +129,7 @@ public class WaterBalloonController : MonoBehaviour
             // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
             if (CheckTile)
             {
-                 if (i == power)
+                if (i == power)
                 {
                     BombVertical(BombWater_Up_Last, i);
                 }
@@ -171,10 +187,7 @@ public class WaterBalloonController : MonoBehaviour
                 BombVertical(BombWater_Down_Mid, i);
             }
         }
-
-        // 오브젝트 삭제
-        Destroy(gameObject);
-    }//IEnumerator Explosion()
+    }
 
     // Overlap을 이용해서 타일을 체크하여 물줄기 제어
     private bool CheckTile_Horizontal(float i)

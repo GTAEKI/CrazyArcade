@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  power: 1
   waterBalloon: {fileID: 3617638635874959152, guid: 2910b164289a54dccbe23623e5a57e08, type: 3}
   waterBalloons: []
 --- !u!50 &8183286697827707930
@@ -169,5 +170,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0

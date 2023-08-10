@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8756932164809349166}
   - component: {fileID: 5511018058050977977}
-  - component: {fileID: 8367938664281762373}
   - component: {fileID: -607313906073048193}
   - component: {fileID: -5300071647313546409}
   - component: {fileID: 5110976618948410381}
+  - component: {fileID: 2579084071797435355}
   m_Layer: 0
   m_Name: WaterBalloon
   m_TagString: WaterBalloon
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -824449855
-  m_SortingLayer: 2
+  m_SortingLayerID: 2113957557
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1420135021, guid: 8a8a39672407c43cc952166818aee51f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -88,32 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8367938664281762373
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3617638635874959152}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4, y: 0.41}
-    newSize: {x: 0.4, y: 0.41}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
-  m_EdgeRadius: 0
 --- !u!50 &-607313906073048193
 Rigidbody2D:
   serializedVersion: 4
@@ -147,7 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 3
+  power: 0
+  player: {fileID: 8183286697827707943, guid: 3fb2ce6762ed84bf28dd59fbb9f78b8e, type: 3}
   BombWater_Center: {fileID: 7212866677644403439, guid: 56828181648c54230b32ac6d28b88c1a, type: 3}
   BombWater_Down_Last: {fileID: 8006612671006982148, guid: abaa318920d43480babfbe09aea7f72a, type: 3}
   BombWater_Down_Mid: {fileID: 1050779286167931439, guid: 2cd50e00829f644079b7ce8c74efeebe, type: 3}
@@ -179,3 +154,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &2579084071797435355
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617638635874959152}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.19

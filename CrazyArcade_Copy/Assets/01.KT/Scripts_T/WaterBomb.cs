@@ -15,22 +15,8 @@ public class WaterBomb : MonoBehaviour
     // 폭발 시작시 1초뒤 삭제
     void Start()
     {
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 0.5f);
     }
-
-    //private void Update()
-    //{
-    //    Vector2 m_tr_Vector2 = new Vector2(m_tr.position.x, m_tr.position.y);
-    //    Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.5f,0);
-
-    //    foreach(Collider2D col in cols)
-    //    {
-    //        Debug.Log(col.name);
-    //    }
-        
-
-
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,18 +26,21 @@ public class WaterBomb : MonoBehaviour
         }
         else if(collision.tag == "WaterBalloon")
         {
-            // TODO 물풍선 터지게 만들기
+            WaterBalloonController waterBalloonFuc;
+            waterBalloonFuc = collision.GetComponent<WaterBalloonController>();
+            waterBalloonFuc.ExplosionFunc();
+            Destroy(collision.gameObject);
         }
         else if(collision.tag == "FixedBox")
         {
             Destroy(collision.gameObject);
-            // TODO FixedBox 만날시 파괴, 필요한 내용 작성
+            // TODO 아이템 리스폰 내용 작성
         }
         else if(collision.tag == "MoveBox")
         {
             Destroy(collision.gameObject);
 
-            //TODO MoveBox 만날시 파괴, 필요한 내용 작성
+            //TODO 아이템 리스폰 내용 작성
         }
     }
 
