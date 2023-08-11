@@ -11,13 +11,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/01.KT/Scenes_T/KT_Scene.unity
     guid: e85c5d5d8e6ce4b8b8ab73a5e31ec4f1
-  - enabled: 1
+  - enabled: 0
     path: Assets/02.MJ/Scenes_J/StartScene_J.unity
     guid: 92b66b59c99347641b90c6109bdc7bcf
-  - enabled: 1
+  - enabled: 0
     path: Assets/02.MJ/Scenes_J/ReadyScene_J.unity
     guid: 0dd444588fc4d664a855f901d5ec543f
-  - enabled: 1
+  - enabled: 0
     path: Assets/02.MJ/Scenes_J/PlayScene_J.unity
     guid: 74e578e338ac8f340a7a7487890c826a
+  - enabled: 1
+    path: Assets/01.KT/Scenes_T/MJ_Scene_COPY_KT.unity
+    guid: c368180b1deef4f99a346b5f71fd87b5
   m_configObjects: {}

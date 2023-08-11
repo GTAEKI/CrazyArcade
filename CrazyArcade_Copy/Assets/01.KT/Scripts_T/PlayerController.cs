@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private int niddleCount = 0;
     private bool isStuckWater = false;
     public float speed = 4.0f;
+    public float stuckSpeed = 0.5f;
+    private float remainSpeed = default;
 
     public int power = 1;
 
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        remainSpeed = speed; //최초 속도 저장
 
     }//Start()
 
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
         if(waterBalloons.Length < waterBalloonCount)
         {
             //Press the spacebar to create a water balloon
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
             {
                 Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
                 Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
@@ -57,7 +60,6 @@ public class PlayerController : MonoBehaviour
         {
             UsingNiddle();
         }
-
     }//Update()
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             speed += 5.0f;
+            remainSpeed = speed;
         }
         else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우
         {
@@ -124,6 +127,7 @@ public class PlayerController : MonoBehaviour
         isStuckWater = true;
         animator.SetBool("StuckWater", isStuckWater);
         animator.SetTrigger("StuckTrigger");
+        speed = stuckSpeed;
     }
 
     private void Die()
@@ -137,6 +141,7 @@ public class PlayerController : MonoBehaviour
         niddleCount--;
         isStuckWater = false;
         animator.SetBool("StuckWater", isStuckWater);
+        speed = remainSpeed;
     }
 
 }
