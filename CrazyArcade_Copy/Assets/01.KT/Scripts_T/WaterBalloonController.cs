@@ -28,7 +28,7 @@ public class WaterBalloonController : MonoBehaviour
     void Start()
     {
 
-        player = GameObject.Find("PlayerBazzi");
+        player = GameObject.Find("PlayerBazzi(Clone)");
         power = player.GetComponent<PlayerController>().power;
 
         Debug.Log(power);

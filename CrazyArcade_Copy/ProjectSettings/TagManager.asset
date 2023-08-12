@@ -18,6 +18,7 @@ TagManager:
   - WaterExplosion
   - ItemRespawnPoint
   - CharactorRespawnPoint
+  - ShoeItem
   layers:
   - Default
   - TransparentFX
