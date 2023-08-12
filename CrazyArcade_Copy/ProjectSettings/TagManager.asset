@@ -17,6 +17,7 @@ TagManager:
   - MoveBox
   - WaterExplosion
   - ItemRespawnPoint
+  - CharactorRespawnPoint
   layers:
   - Default
   - TransparentFX
