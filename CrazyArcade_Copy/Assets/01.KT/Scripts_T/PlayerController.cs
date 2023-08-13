@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviourPun
 
     private void FixedUpdate()
     {
+        if(!photonView.IsMine) { return; }
         Move();
     }
 
@@ -77,6 +78,8 @@ public class PlayerController : MonoBehaviourPun
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(!photonView.IsMine) { return; }
+
         if(collision.tag == "SpeedItem") // 스피드아이템일 경우
         {
             Destroy(collision.gameObject);

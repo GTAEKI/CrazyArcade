@@ -5082,6 +5082,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2136757143}
     m_Modifications:
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1432805329
+      objectReference: {fileID: 0}
     - target: {fileID: 1186859091391105062, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
       propertyPath: m_Name
       value: Bollard (4)
@@ -5925,6 +5933,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2136757143}
     m_Modifications:
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1432805329
+      objectReference: {fileID: 0}
     - target: {fileID: 1186859091391105062, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
       propertyPath: m_Name
       value: Bollard (2)
@@ -7555,6 +7571,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4086750012245422301, guid: 7e82f373da288994faff3172eb5af893, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086750012245422301, guid: 7e82f373da288994faff3172eb5af893, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1432805329
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e82f373da288994faff3172eb5af893, type: 3}
 --- !u!4 &397441623 stripped
@@ -8271,8 +8295,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1432805329
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -16357,6 +16381,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2136757143}
     m_Modifications:
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1432805329
+      objectReference: {fileID: 0}
     - target: {fileID: 1186859091391105062, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
       propertyPath: m_Name
       value: Bollard (1)
@@ -34711,6 +34743,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2136757143}
     m_Modifications:
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186859091391105060, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1432805329
+      objectReference: {fileID: 0}
     - target: {fileID: 1186859091391105062, guid: e07c656e668526b4c9d7c798ea2ea25c, type: 3}
       propertyPath: m_Name
       value: Bollard
