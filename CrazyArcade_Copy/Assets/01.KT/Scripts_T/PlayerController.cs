@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
     public float stuckSpeed = 0.5f;
     private float remainSpeed = default;
 
-    public int power = 1;
+    public float power = 0.66666f;
+    private float maxPower = 3.99996f;
 
-    private int maxPower = 6;
     public GameObject waterBalloon;
 
     public GameObject[] waterBalloons;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if(collision.tag == "SpeedItem") // 스피드아이템일 경우
         {
             Destroy(collision.gameObject);
-            speed += 5.0f;
+            speed += 1.0f;
             remainSpeed = speed;
         }
         else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우
@@ -78,16 +78,17 @@ public class PlayerController : MonoBehaviour
         }
         else if(collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
         {
-            power += 1;
+            if(power < maxPower) //Max파워를 넘지 못하도록 조정
+            {
+                power += 0.66666f;
+            }
+
             Destroy(collision.gameObject);
-            //TODO 파워 +1;
         }
         else if(collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
         {
             power = maxPower;
             Destroy(collision.gameObject);
-            //TODO 파워 MAX;
-
         }
         else if(collision.tag == "Niddle") // 바늘일 경우
         {
@@ -97,6 +98,12 @@ public class PlayerController : MonoBehaviour
         else if(collision.tag == "WaterExplosion")
         {
             StuckWaterBalloon();
+        }
+        else if (collision.tag == "ShoeItem") // 신발 아이템일 경우
+        {
+            
+
+            Destroy(collision.gameObject);
         }
     }
 

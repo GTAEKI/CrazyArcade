@@ -19,6 +19,7 @@ TagManager:
   - ItemRespawnPoint
   - CharactorRespawnPoint
   - ShoeItem
+  - Wall
   layers:
   - Default
   - TransparentFX

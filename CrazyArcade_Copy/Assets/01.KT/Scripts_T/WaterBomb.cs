@@ -12,9 +12,10 @@ public class WaterBomb : MonoBehaviour
     //// Overlap 예제
 
 
-    // 폭발 시작시 1초뒤 삭제
+    // 폭발 시작시 0.5초뒤 삭제
     void Start()
     {
+
         Destroy(gameObject, 0.5f);
     }
 
