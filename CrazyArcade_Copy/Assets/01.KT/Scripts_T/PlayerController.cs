@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     private Rigidbody2D playerRB;
     private Animator animator;
     private int waterBalloonCount = 1;
+
+    private PhotonView pv;
 
     private int niddleCount = 0;
     private bool isStuckWater = false;
@@ -31,13 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Implement player movement using GetAxisRaw
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
-
-        animator.SetInteger("Horizontal", (int)horizontal);
-        animator.SetInteger("Vertical", (int)vertical);
+        if (!photonView.IsMine) { return; }
 
         // { 물풍선 설치 개수 제한
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
@@ -62,12 +59,28 @@ public class PlayerController : MonoBehaviour
         }
     }//Update()
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void Move()
+    {
+        //Implement player movement using GetAxisRaw
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
+
+        animator.SetInteger("Horizontal", (int)horizontal);
+        animator.SetInteger("Vertical", (int)vertical);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "SpeedItem") // 스피드아이템일 경우
         {
             Destroy(collision.gameObject);
-            speed += 5.0f;
+            speed += 1.0f;
             remainSpeed = speed;
         }
         else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우

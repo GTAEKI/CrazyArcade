@@ -16,7 +16,7 @@ public class CharactorRespawnController : MonoBehaviour
     void Awake()
     {
         CharactorRespawnPoints = GameObject.FindGameObjectsWithTag("CharactorRespawnPoint");
-        CreatePlayer(Player,2);
+        CreatePlayer(Player,1);
     }
 
     private void CreatePlayer(GameObject player, int playerAmount)
