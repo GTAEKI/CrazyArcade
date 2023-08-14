@@ -11,10 +11,12 @@ public class WaterBomb : MonoBehaviour
     //public LayerMask m_LayerMask = -1;
     //// Overlap 예제
 
+    public Animator waterBombAnimator;
 
     // 폭발 시작시 0.5초뒤 삭제
     void Start()
     {
+        waterBombAnimator = GetComponent<Animator>();
 
         Destroy(gameObject, 0.5f);
     }

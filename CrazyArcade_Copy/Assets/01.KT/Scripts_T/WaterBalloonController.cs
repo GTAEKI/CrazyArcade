@@ -42,17 +42,14 @@ public class WaterBalloonController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
 
+        Destroy(gameObject);
         ExplosionFunc();
 
         // 오브젝트 삭제
-        Destroy(gameObject);
     }//IEnumerator Explosion()
 
     public void ExplosionFunc()
     {
-        //// CenterExplosion
-        //Bomb(BombWater_Center, Vector2.zero);
-
         // LeftExplosion
         for (float i = 0; i >= -power; i = i - plusPosition)
         {
@@ -116,8 +113,7 @@ public class WaterBalloonController : MonoBehaviour
         foreach (Collider2D col in cols)
         {
             if (col.tag == "FixedBox" || col.tag == "MoveBox")
-            {
-                Debug.Log(col.name);
+            {                
                 Bomb(BombWater_Center, col.transform.position);
 
                 return true;
@@ -146,10 +142,8 @@ public class WaterBalloonController : MonoBehaviour
         foreach (Collider2D col in cols)
         {
             if (col.tag == "FixedBox" || col.tag == "MoveBox")
-            {
-                Debug.Log(col.name);
+            {             
                 Bomb(BombWater_Center, col.transform.position);
-
                 return true;
             }
             else if (col.tag == "Wall")
@@ -172,7 +166,7 @@ public class WaterBalloonController : MonoBehaviour
     private void Bomb(GameObject tilePrefab,Vector2 bombPosition)
     {
         //Vector3 bombPosition = new Vector3(transform.position.x, transform.position.y, 0);
-        Instantiate(tilePrefab, bombPosition, Quaternion.identity);
+        GameObject obj = Instantiate(tilePrefab, bombPosition, Quaternion.identity);
     }//BombHorizontal()
 
     // 타일 중앙에 맞춰서 물풍선 포지션값 조정하는 함수
@@ -183,7 +177,4 @@ public class WaterBalloonController : MonoBehaviour
             transform.position = collision.transform.position;
         }
     }//OnTriggerEnter2D()
-
-    
-
 }//class WaterBalloonController

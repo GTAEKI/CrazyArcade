@@ -3,57 +3,136 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveBox : MonoBehaviour
-{
-    private Rigidbody2D MoveBoxRB;
+{    
+    public float range = 0.34f;
 
     private Vector2 collisionPosition;
-    // Start is called before the first frame update
-    void Start()
-    {
-        MoveBoxRB = GetComponent<Rigidbody2D>();
-    }
+    private bool isMove;
+    private bool isWall;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //오버랩 변수
+    public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if(collision.tag == "Tile")
+        if(isMove && !isWall)
         {
-            MoveBoxRB.velocity = Vector2.zero;
-            collisionPosition = collision.transform.position;
-            transform.position = Vector2.Lerp(transform.position, collision.transform.position,Time.deltaTime);
-            StartCoroutine(CenterMatch());
-
-
-            //TODO Lerp로 구현하기
+            if(transform.position.x == collisionPosition.x)
+            {
+                isMove = false;
+            }
+            else if(transform.position.x != collisionPosition.x)
+            {
+                transform.position = Vector2.Lerp(transform.position, collisionPosition, Time.deltaTime*3);
+            }
         }
-    }
+        //isWall = false;
+    }//Update()
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            //TODO 플레이어 만나면 내 현재 좌표를 변수에 기억해두기
-        }
-    }
+            if (collision.transform.position.x - transform.position.x < 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
+            {
+                Vector2 m_tr_Vector2 = new Vector2(transform.position.x + 0.67f, transform.position.y);
+                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            //TODO 이동을 하지 않았다면 CollisionEnter2D에서 기억하고있는 현재 내 좌표로 다시 돌아감
-        }
-    }
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                    {
+                        isWall = true;
+                        return;
+                    }
+                }
 
-    IEnumerator CenterMatch()
-    {
-        yield return new WaitForSeconds(0.5f);
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "Tile")
+                    {
+                        isWall = false;
+                        isMove = true;
+                        collisionPosition = col.transform.position;                                  
+                    }
+                }
+            }//if()
 
-        transform.position = collisionPosition;
+            else if (collision.transform.position.x - transform.position.x > 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
+            {
+                Vector2 m_tr_Vector2 = new Vector2(transform.position.x - 0.67f, transform.position.y);
+                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
 
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                    {
+                        isWall = true;
+                        return;
+                    }
+                }
+
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "Tile")
+                    {
+                        isWall = false;
+                        isMove = true;
+                        collisionPosition = col.transform.position;
+                    }
+                }
+            }//else if()
+
+            else if (collision.transform.position.y - transform.position.y > 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
+            {
+                Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y - 0.67f);
+                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                    {
+                        isWall = true;
+                        return;
+                    }
+                }
+
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "Tile")
+                    {
+                        isWall = false;
+                        isMove = true;
+                        collisionPosition = col.transform.position;
+                    }
+                }
+            }//else if()
+
+            else if (collision.transform.position.y - transform.position.y < 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
+            {
+                Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y + 0.67f);
+                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                    {
+                        isWall = true;
+                        return;
+                    }
+                }
+
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "Tile")
+                    {
+                        isWall = false;
+                        isMove = true;
+                        collisionPosition = col.transform.position;
+                    }
+                }
+            }//else if()
+
+        }//OnCollisionEnter2D()
     }
 }
