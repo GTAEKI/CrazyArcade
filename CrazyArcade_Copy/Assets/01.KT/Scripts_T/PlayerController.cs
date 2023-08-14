@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviourPun
     private Animator animator;
     private int waterBalloonCount = 1;
 
-    private PhotonView pv;
+    //private PhotonView pv;
 
     private int niddleCount = 0;
     private bool isStuckWater = false;
@@ -30,27 +30,26 @@ public class PlayerController : MonoBehaviourPun
         animator = GetComponent<Animator>();
         remainSpeed = speed; //최초 속도 저장
 
+        //// 포톤뷰 컴포넌트 연결
+        //pv = GetComponent<PhotonView>();
+
     }//Start()
 
     void Update()
     {
         if (!photonView.IsMine) { return; }
 
-        // { 물풍선 설치 개수 제한
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
         waterBalloons = GameObject.FindGameObjectsWithTag("WaterBalloon");
 
-        //waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
-        if(waterBalloons.Length < waterBalloonCount)
+        // 로컬 유저일 때만 물풍선 설치
+        if (photonView.IsMine && Input.GetKeyDown(KeyCode.Space))
         {
-            //Press the spacebar to create a water balloon
-            if (Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
-            {
-                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
-            }
+            PutBalloon();
+
+            //RPC로 원격지에 있는 함수 호출
+            photonView.RPC("PutBalloon", RpcTarget.Others, null);
         }
-        // } 물풍선 설치 개수 제한
 
         // 바늘 아이템 사용시
         if (Input.GetKeyDown(KeyCode.Alpha1) && isStuckWater && niddleCount != 0)
@@ -59,9 +58,27 @@ public class PlayerController : MonoBehaviourPun
         }
     }//Update()
 
+    // 물풍선 설치 함수 
+    [PunRPC]
+    private void PutBalloon()
+    {
+        // { 물풍선 설치 개수 제한
+        //waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
+        if (waterBalloons.Length < waterBalloonCount)
+        {
+            //Press the spacebar to create a water balloon
+            if (!isStuckWater)
+            {
+                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
+                Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
+            }
+        }
+        // } 물풍선 설치 개수 제한
+    }
+
     private void FixedUpdate()
     {
-        if(!photonView.IsMine) { return; }
+        if (!photonView.IsMine) { return; }
         Move();
     }
 
@@ -78,39 +95,39 @@ public class PlayerController : MonoBehaviourPun
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!photonView.IsMine) { return; }
+        if (!photonView.IsMine) { return; }
 
-        if(collision.tag == "SpeedItem") // 스피드아이템일 경우
+        if (collision.tag == "SpeedItem") // 스피드아이템일 경우
         {
             Destroy(collision.gameObject);
             speed += 1.0f;
             remainSpeed = speed;
         }
-        else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우
+        else if (collision.tag == "BalloonItem") // 풍선 아이템일 경우
         {
             Destroy(collision.gameObject);
             waterBalloonCount += 1;
 
         }
-        else if(collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
+        else if (collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
         {
             power += 1;
             Destroy(collision.gameObject);
             //TODO 파워 +1;
         }
-        else if(collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
+        else if (collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
         {
             power = maxPower;
             Destroy(collision.gameObject);
             //TODO 파워 MAX;
 
         }
-        else if(collision.tag == "Niddle") // 바늘일 경우
+        else if (collision.tag == "Niddle") // 바늘일 경우
         {
             Destroy(collision.gameObject);
             niddleCount++;
         }
-        else if(collision.tag == "WaterExplosion")
+        else if (collision.tag == "WaterExplosion")
         {
             StuckWaterBalloon();
         }
@@ -118,20 +135,20 @@ public class PlayerController : MonoBehaviourPun
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "WaterBalloon")
+        if (collision.tag == "WaterBalloon")
         {
             collision.isTrigger = false;
         }
 
-        if(collision.tag == "tile")
+        if (collision.tag == "tile")
         {
-            collision.gameObject.GetComponent<SpriteRenderer>().color = Color.clear; 
+            collision.gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Tile") //만난 오브젝트가 타일일 경우
+        if (collision.gameObject.tag == "Tile") //만난 오브젝트가 타일일 경우
         {
             // TODO움직이는 함수 추가
         }
