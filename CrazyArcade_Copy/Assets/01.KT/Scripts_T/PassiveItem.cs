@@ -8,6 +8,7 @@ public class PassiveItem : MonoBehaviour
     void Start()
     {
         //처음생성시에는 비활성화 했다가, 특정시점에 활성화 필요(ex_ 타일이 삭제 or 비행기에서 떨어질때)
+        
         gameObject.SetActive(false);
     }
 

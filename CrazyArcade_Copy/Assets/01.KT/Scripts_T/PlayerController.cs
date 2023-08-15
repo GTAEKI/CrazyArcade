@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private bool isStuckWater = false;
     public float speed = 4.0f;
-    public float stuckSpeed = 0.5f;
+    public float stuckSpeed = 0.2f;
     private float remainSpeed = default;
 
     public float power = 0.66666f;
@@ -95,7 +95,6 @@ public class PlayerController : MonoBehaviour
             if(collision.tag == "SpeedItem") // 스피드아이템일 경우
             {
                 saveGetItem.Add(collision.gameObject);
-
                 collision.gameObject.SetActive(false);
                 //Destroy(collision.gameObject);
                 speed += 1.0f;
@@ -103,26 +102,33 @@ public class PlayerController : MonoBehaviour
             }
             else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우
             {
-                Destroy(collision.gameObject);
+                saveGetItem.Add(collision.gameObject);
+                collision.gameObject.SetActive(false);
+
                 waterBalloonCount += 1;
             }
             else if(collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
             {
-                if(power < maxPower) //Max파워를 넘지 못하도록 조정
+                saveGetItem.Add(collision.gameObject);
+                collision.gameObject.SetActive(false);
+
+                if (power < maxPower) //Max파워를 넘지 못하도록 조정
                 {
                     power += 0.66666f;
                 }
-
-                Destroy(collision.gameObject);
             }
             else if(collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
             {
+                saveGetItem.Add(collision.gameObject);
+                collision.gameObject.SetActive(false);
+
                 power = maxPower;
-                Destroy(collision.gameObject);
             }
             else if(collision.tag == "Niddle") // 바늘일 경우
             {
-                Destroy(collision.gameObject);
+                saveGetItem.Add(collision.gameObject);
+                collision.gameObject.SetActive(false);
+
                 niddleCount++;
             }
             else if(collision.tag == "WaterExplosion")
@@ -162,16 +168,22 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        isDead = true;
         playerRB.velocity = Vector2.zero;
         animator.SetTrigger("Die");
 
-        foreach(GameObject item in saveGetItem)
+        if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
-            item.transform.position = transform.position + new Vector3(3,0,0);
-            item.gameObject.SetActive(true);
+            foreach(GameObject item in saveGetItem)
+            {
+                float x = Random.Range(-3f, 3f);
+                float y = Random.Range(-3f, 3f);
+
+                item.transform.position = transform.position + new Vector3(x,y,0);
+                item.gameObject.SetActive(true);
+            }
         }
 
+        isDead = true;
         //TODO 죽었을때 lose, 상대방이 죽을경우 Win
     }
 
@@ -182,5 +194,4 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("StuckWater", isStuckWater);
         speed = remainSpeed;
     }
-
 }

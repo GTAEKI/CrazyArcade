@@ -359,6 +359,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Empty
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 391
+        width: 69
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2338a0d6757e4d33b505c37a4598573
+      internalID: -2128027583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -371,7 +392,6 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Bazzi_Die_0: 844393681
-      Bazzi_Die_1: -1009370098
       Bazzi_Die_10: 1046879862
       Bazzi_Die_11: -903731807
       Bazzi_Die_12: -1565835365
@@ -406,6 +426,7 @@ TextureImporter:
       Bazzi_Die_7: 721332222
       Bazzi_Die_8: 635574657
       Bazzi_Die_9: -627154317
+      Empty: -1009370098
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -165,7 +165,6 @@ public class WaterBalloonController : MonoBehaviour
     // 물풍선 폭발 오브젝트 처리 함수
     private void Bomb(GameObject tilePrefab,Vector2 bombPosition)
     {
-        //Vector3 bombPosition = new Vector3(transform.position.x, transform.position.y, 0);
         GameObject obj = Instantiate(tilePrefab, bombPosition, Quaternion.identity);
     }//BombHorizontal()
 
