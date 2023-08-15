@@ -37,13 +37,14 @@ public class WaterBomb : MonoBehaviour
         else if(collision.tag == "FixedBox")
         {
             Destroy(collision.gameObject);
-            // TODO 아이템 리스폰 내용 작성
         }
         else if(collision.tag == "MoveBox")
         {
             Destroy(collision.gameObject);
-
-            //TODO 아이템 리스폰 내용 작성
+        }
+        else if (collision.GetComponent<Item>())
+        {
+            collision.GetComponent<Item>().itemHp--;
         }
     }
 

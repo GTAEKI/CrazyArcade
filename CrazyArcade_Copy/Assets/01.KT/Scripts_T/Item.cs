@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public int itemHp = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,11 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(itemHp == 0)
+        {
+            Destroy(gameObject);
+        }
+
     }
     //TODO 타일 삭제 시 gameObject.SetActive(true);
 
