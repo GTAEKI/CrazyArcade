@@ -71,6 +71,10 @@ public class MoveBox : MonoBehaviour
                             isMove = true;
                             collisionPosition = col.transform.position;                                  
                         }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
+                        }
                     }
                 }//if()
                 // 오른쪽에서 플레이어가 박스 Push (position.x값 비교를 통해 오른쪽체크 + y축 범위(range)에 들어올때 밀리도록 함)
@@ -95,6 +99,10 @@ public class MoveBox : MonoBehaviour
                             isWall = false;
                             isMove = true;
                             collisionPosition = col.transform.position;
+                        }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
                         }
                     }
                 }//else if()
@@ -121,6 +129,10 @@ public class MoveBox : MonoBehaviour
                             isMove = true;
                             collisionPosition = col.transform.position;                            
                         }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
+                        }
                     }
                 }//else if()
                 // 아래쪽에서 플레이어가 박스 Push (position.y값 비교를 통해 아래쪽체크 + x축 범위(range)에 들어올때 밀리도록 함)
@@ -145,6 +157,10 @@ public class MoveBox : MonoBehaviour
                             isWall = false;
                             isMove = true;
                             collisionPosition = col.transform.position;
+                        }                        
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
                         }
                     }
                 }//else if()
