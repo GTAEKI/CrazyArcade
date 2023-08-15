@@ -13,15 +13,16 @@ public class MoveBox : MonoBehaviour
     //오버랩 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
+    // Lerp를 이용하여 부드러운 박스 움직임을 표현하기 위해 Update에서 사용함
     private void Update()
     {
-        if(isMove && !isWall)
+        if(isMove && !isWall) //움직이는중이거나 벽을 감지하지 않았다면
         {
-            if(transform.position.x == collisionPosition.x)
+            if(transform.position.x == collisionPosition.x && transform.position.y == collisionPosition.y) //움직이는 중을 체크
             {
                 isMove = false;
             }
-            else if(transform.position.x != collisionPosition.x)
+            else if(transform.position.x != collisionPosition.x || transform.position.y != collisionPosition.y)
             {
                 transform.position = Vector2.Lerp(transform.position, collisionPosition, Time.deltaTime*3);
             }
@@ -33,6 +34,7 @@ public class MoveBox : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            // 왼쪽에서 플레이어가 박스 Push (position.x값 비교를 통해 왼쪽체크 + y축 범위(range)에 들어올때 밀리도록 함)
             if (collision.transform.position.x - transform.position.x < 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
             {
                 Vector2 m_tr_Vector2 = new Vector2(transform.position.x + 0.67f, transform.position.y);
@@ -57,7 +59,7 @@ public class MoveBox : MonoBehaviour
                     }
                 }
             }//if()
-
+            // 오른쪽에서 플레이어가 박스 Push (position.x값 비교를 통해 오른쪽체크 + y축 범위(range)에 들어올때 밀리도록 함)
             else if (collision.transform.position.x - transform.position.x > 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
             {
                 Vector2 m_tr_Vector2 = new Vector2(transform.position.x - 0.67f, transform.position.y);
@@ -82,7 +84,7 @@ public class MoveBox : MonoBehaviour
                     }
                 }
             }//else if()
-
+            // 위쪽에서 플레이어가 박스 Push (position.y값 비교를 통해 오른쪽체크 + x축 범위(range)에 들어올때 밀리도록 함)
             else if (collision.transform.position.y - transform.position.y > 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
             {
                 Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y - 0.67f);
@@ -107,7 +109,7 @@ public class MoveBox : MonoBehaviour
                     }
                 }
             }//else if()
-
+            // 아래쪽에서 플레이어가 박스 Push (position.y값 비교를 통해 아래쪽체크 + x축 범위(range)에 들어올때 밀리도록 함)
             else if (collision.transform.position.y - transform.position.y < 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
             {
                 Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y + 0.67f);
