@@ -8,7 +8,6 @@ public class WaterBalloonController : MonoBehaviour
     // 물풍선 파워
     public float power;
     public GameObject player;
-    private PlayerController playerController;
     public float plusPosition = 0.666665f;
 
     // 물풍선 터졌을때 나오는 애니메이션

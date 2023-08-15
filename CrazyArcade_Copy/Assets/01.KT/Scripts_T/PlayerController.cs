@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRB;
     private Animator animator;
-    private int waterBalloonCount = 1;
+    private int waterBalloonCount = 2;
 
     private int niddleCount = 0;
     private bool isDead = false;
@@ -28,6 +28,14 @@ public class PlayerController : MonoBehaviour
     // 시간 체크하는 변수 (사망처리에 사용)
     private float time = 0f;
     private float setTime = 6f;
+
+
+    // 물풍선 중복방지 변수
+    public float range = 0.34f;
+    private bool isWaterBalloon = false;
+
+    //오버랩 변수
+    public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
     void Start()
     {
@@ -61,8 +69,24 @@ public class PlayerController : MonoBehaviour
             //Press the spacebar to create a water balloon
             if (Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
             {
-                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
+                Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y);
+                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.6f, 0);
+
+                foreach (Collider2D col in cols)
+                {
+                    if (col.tag == "WaterBalloon")
+                    {
+                        isWaterBalloon = true;
+                        Debug.Log("생성불가");
+                    }
+                }
+
+                if (!isWaterBalloon)
+                {
+                    Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
+                    Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
+                }
+                isWaterBalloon = false;
             }
         }
         // } 물풍선 설치 개수 제한

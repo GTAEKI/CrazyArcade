@@ -168,3 +168,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95bd86c26f344b8b4552fc79427026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterBombAnimator: {fileID: 0}
