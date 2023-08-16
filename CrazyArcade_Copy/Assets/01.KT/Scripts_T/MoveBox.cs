@@ -4,56 +4,169 @@ using UnityEngine;
 
 public class MoveBox : MonoBehaviour
 {
-    private Rigidbody2D MoveBoxRB;
+    public float range = 0.34f;
 
     private Vector2 collisionPosition;
-    // Start is called before the first frame update
-    void Start()
-    {
-        MoveBoxRB = GetComponent<Rigidbody2D>();
-    }
+    private bool isMove;
+    private bool isWall;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //오버랩 변수
+    public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    // 시간 체크하는 변수 (상자 위치 일치에 사용)
+    private float time = 0f;
+    private float setTime = 1f;
+
+    // Lerp를 이용하여 부드러운 박스 움직임을 표현하기 위해 Update에서 사용함
+    private void Update()
     {
-        if(collision.tag == "Tile")
+        if (isMove && !isWall) //움직이는중이거나 벽을 감지하지 않았다면
         {
-            MoveBoxRB.velocity = Vector2.zero;
-            collisionPosition = collision.transform.position;
-            transform.position = Vector2.Lerp(transform.position, collision.transform.position,Time.deltaTime);
-            StartCoroutine(CenterMatch());
-
-
-            //TODO Lerp로 구현하기
+            if (transform.position.x == collisionPosition.x && transform.position.y == collisionPosition.y) //움직이는 중을 체크
+            {
+                isMove = false;
+            }
+            else if (transform.position.x != collisionPosition.x || transform.position.y != collisionPosition.y)
+            {
+                transform.position = Vector2.Lerp(transform.position, collisionPosition, Time.deltaTime * 4);
+                Debug.Log("움직이는중");
+                time += Time.deltaTime;
+                if (time > setTime)
+                {
+                    time = 0f;
+                    isMove = false;
+                }
+            }
         }
-    }
+        //isWall = false;
+    }//Update()
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            //TODO 플레이어 만나면 내 현재 좌표를 변수에 기억해두기
+            //움직이는 중이라면 밀수 없음
+            if (!isMove)
+            {
+                // 왼쪽에서 플레이어가 박스 Push (position.x값 비교를 통해 왼쪽체크 + y축 범위(range)에 들어올때 밀리도록 함)
+                if (collision.transform.position.x - transform.position.x < 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
+                {
+                    Vector2 m_tr_Vector2 = new Vector2(transform.position.x + 0.67f, transform.position.y);
+                    Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
+                        {
+                            isWall = true;
+                            return;
+                        }
+                    }
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "Tile")
+                        {
+                            isWall = false;
+                            isMove = true;
+                            collisionPosition = col.transform.position;
+                        }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
+                        }
+                    }
+                }//if()
+                // 오른쪽에서 플레이어가 박스 Push (position.x값 비교를 통해 오른쪽체크 + y축 범위(range)에 들어올때 밀리도록 함)
+                else if (collision.transform.position.x - transform.position.x > 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
+                {
+                    Vector2 m_tr_Vector2 = new Vector2(transform.position.x - 0.67f, transform.position.y);
+                    Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
+                        {
+                            isWall = true;
+                            return;
+                        }
+                    }
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "Tile")
+                        {
+                            isWall = false;
+                            isMove = true;
+                            collisionPosition = col.transform.position;
+                        }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
+                        }
+                    }
+                }//else if()
+                // 위쪽에서 플레이어가 박스 Push (position.y값 비교를 통해 오른쪽체크 + x축 범위(range)에 들어올때 밀리도록 함)
+                else if (collision.transform.position.y - transform.position.y > 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
+                {
+                    Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y - 0.67f);
+                    Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
+                        {
+                            isWall = true;
+                            return;
+                        }
+                    }
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "Tile")
+                        {
+                            isWall = false;
+                            isMove = true;
+                            collisionPosition = col.transform.position;
+                        }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
+                        }
+                    }
+                }//else if()
+                // 아래쪽에서 플레이어가 박스 Push (position.y값 비교를 통해 아래쪽체크 + x축 범위(range)에 들어올때 밀리도록 함)
+                else if (collision.transform.position.y - transform.position.y < 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
+                {
+                    Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y + 0.67f);
+                    Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
+                        {
+                            isWall = true;
+                            return;
+                        }
+                    }
+
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.tag == "Tile")
+                        {
+                            isWall = false;
+                            isMove = true;
+                            collisionPosition = col.transform.position;
+                        }
+                        else if (col.GetComponent<Item>())
+                        {
+                            Destroy(col.gameObject);
+                        }
+                    }
+                }//else if()
+
+            }
+
         }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            //TODO 이동을 하지 않았다면 CollisionEnter2D에서 기억하고있는 현재 내 좌표로 다시 돌아감
-        }
-    }
-
-    IEnumerator CenterMatch()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        transform.position = collisionPosition;
-
-    }
+    }//OnCollisionEnter2D()
 }

@@ -24,6 +24,18 @@ public class PlayerController : MonoBehaviourPun
 
     public GameObject[] waterBalloons;
 
+    //// DEBUG:
+    //private AudioSource testAudio = default;
+    //[Header("For test")]
+    //[Space(2)]
+    //public AudioClip bumbBalloonClip;   // 풍선 폭발 소리
+
+    //// DEBUG:
+    //private void Awake()
+    //{
+    //    testAudio = Camera.main.GetComponent<AudioSource>();
+    //}
+
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -45,6 +57,9 @@ public class PlayerController : MonoBehaviourPun
         // 로컬 유저일 때만 물풍선 설치
         if (photonView.IsMine && Input.GetKeyDown(KeyCode.Space))
         {
+            //// DEBUG:
+            //testAudio.PlayOneShot(bumbBalloonClip);
+
             PutBalloon();
 
             //RPC로 원격지에 있는 함수 호출
@@ -99,24 +114,36 @@ public class PlayerController : MonoBehaviourPun
 
         if (collision.tag == "SpeedItem") // 스피드아이템일 경우
         {
+            AudioSource eatItemSound = GetComponent<AudioSource>();
+            eatItemSound.Play();
+
             Destroy(collision.gameObject);
             speed += 1.0f;
             remainSpeed = speed;
         }
         else if (collision.tag == "BalloonItem") // 풍선 아이템일 경우
         {
+            AudioSource eatItemSound = GetComponent<AudioSource>();
+            eatItemSound.Play();
+
             Destroy(collision.gameObject);
             waterBalloonCount += 1;
 
         }
         else if (collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
         {
+            AudioSource eatItemSound = GetComponent<AudioSource>();
+            eatItemSound.Play();
+
             power += 1;
             Destroy(collision.gameObject);
             //TODO 파워 +1;
         }
         else if (collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
         {
+            AudioSource eatItemSound = GetComponent<AudioSource>();
+            eatItemSound.Play();
+
             power = maxPower;
             Destroy(collision.gameObject);
             //TODO 파워 MAX;
@@ -124,11 +151,17 @@ public class PlayerController : MonoBehaviourPun
         }
         else if (collision.tag == "Niddle") // 바늘일 경우
         {
+            AudioSource eatItemSound = GetComponent<AudioSource>();
+            eatItemSound.Play();
+
             Destroy(collision.gameObject);
             niddleCount++;
         }
         else if (collision.tag == "WaterExplosion")
         {
+            AudioSource eatItemSound = GetComponent<AudioSource>();
+            eatItemSound.Play();
+
             StuckWaterBalloon();
         }
     }

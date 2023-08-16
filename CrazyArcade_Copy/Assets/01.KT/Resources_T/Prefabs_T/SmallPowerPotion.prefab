@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2336972687858218516}
   - component: {fileID: 8349155380939642188}
   - component: {fileID: -4715808569112062961}
+  - component: {fileID: 310802951846559291}
   m_Layer: 0
   m_Name: SmallPowerPotion
   m_TagString: SmallPowerPotion
@@ -101,3 +102,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.05
+--- !u!114 &310802951846559291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019920333089700689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16f3035b63ec048bbe856c6931df06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemHp: 2
+  eatItemSound: {fileID: 8300000, guid: 07c1f149fffd7429f8355733cab71481, type: 3}

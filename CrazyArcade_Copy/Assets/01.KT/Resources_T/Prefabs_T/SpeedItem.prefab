@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3788810056909895267}
   - component: {fileID: 3788810056909895268}
   - component: {fileID: 3788810056909895269}
+  - component: {fileID: -4545697898733730333}
   m_Layer: 0
   m_Name: SpeedItem
   m_TagString: SpeedItem
@@ -101,3 +102,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!114 &-4545697898733730333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3788810056909895270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16f3035b63ec048bbe856c6931df06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemHp: 2
+  eatItemSound: {fileID: 8300000, guid: 07c1f149fffd7429f8355733cab71481, type: 3}

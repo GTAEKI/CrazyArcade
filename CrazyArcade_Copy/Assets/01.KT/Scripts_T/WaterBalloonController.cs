@@ -20,14 +20,24 @@ public class WaterBalloonController : MonoBehaviour
     public GameObject BombWater_Right_Mid;
     public GameObject BombWater_Up_Last;
     public GameObject BombWater_Up_Mid;
+
+    public GameObject waterExplosionSound;
     
     // Overlap 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
+    // 효과음 오디오 클립 추가
+    //public AudioClip putBalloonClip;    // 풍선 설치 소리
+    //public AudioClip bumbBalloonClip;   // 풍선 폭발 소리
+
+    //private AudioSource playerAudioPlayer;
+
+    public AudioSource bombAudioSource; // "Bomb_Source" 오브젝트의 Audio Source에 대한 참조
 
     void Start()
     {
 
+        //playerAudioPlayer = GetComponent<AudioSource>();
         player = GameObject.Find("PlayerBazzi(Clone)");
         power = player.GetComponent<PlayerController>().power;
 
@@ -44,8 +54,13 @@ public class WaterBalloonController : MonoBehaviour
 
         ExplosionFunc();
 
+        //Debug.Log($"폭발 사운드 출력 {playerAudioPlayer.name}, Volume: {playerAudioPlayer.volume}");
+        //playerAudioPlayer.PlayOneShot(bumbBalloonClip);
+        Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
+        waterExplosionSound.SetActive(true);
         // 오브젝트 삭제
         Destroy(gameObject);
+
     }//IEnumerator Explosion()
 
     public void ExplosionFunc()
