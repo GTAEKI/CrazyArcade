@@ -1,10 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class WaterBalloonController : MonoBehaviour
 {
+    //====================================
+    public float range = 0.25f;
+
+    private Vector2 collisionPosition;
+    private bool isMove;
+    private bool isWall;
+
+    private bool playerIsDown = false, playerIsUp = false, playerIsLeft = false, playerIsRight = false;
+
+    private RaycastHit2D hitInfo;
+    private float tileSize = 0.7f;
+    //====================================
+
     // 물풍선 파워
     public float power;
     public GameObject player;
@@ -35,6 +50,7 @@ public class WaterBalloonController : MonoBehaviour
         StartCoroutine(Explosion());
 
     }//Start()
+
 
     // 2.5초 뒤 실행할 물풍선 폭발 관련 내용 전체
     public IEnumerator Explosion()
@@ -106,6 +122,7 @@ public class WaterBalloonController : MonoBehaviour
     private bool CheckTile_Horizontal(float i)
     {
         Vector2 m_tr_Vector2 = new Vector2(transform.position.x+i, transform.position.y);
+    
         Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
 
         // cols에 어떤순서로 감지가 되었는지 체크를 할 수없기때문에 foreach를 2번 사용하였음
@@ -175,4 +192,99 @@ public class WaterBalloonController : MonoBehaviour
             transform.position = collision.transform.position;
         }
     }//OnTriggerEnter2D()
+
+    //========================================================================
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("플레이어가 닿았음");
+            // 물풍선기준 플레이어는 왼쪽위치
+            if (collision.transform.position.x - transform.position.x < 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
+            {
+                playerIsLeft = true;
+                Debug.Log("플레이어: 왼쪽");
+            }//if()
+             // 물풍선기준 플레이어는 오른쪽위치
+            else if (collision.transform.position.x - transform.position.x > 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
+            {
+                playerIsRight = true;
+                Debug.Log("플레이어: 오른쪽");
+
+            }//else if()
+             // 물풍선기준 플레이어는 위쪽위치
+            else if (collision.transform.position.y - transform.position.y > 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
+            {
+                playerIsUp = true;
+                Debug.Log("플레이어: 위쪽");
+
+            }//else if()
+             // 물풍선기준 플레이어는 아래쪽위치
+            else if (collision.transform.position.y - transform.position.y < 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
+            {
+                playerIsDown = true;
+                Debug.Log("플레이어: 아래쪽");
+
+            }//else if()
+
+        }
+    }//OnCollisionEnter2D()
+
+    private void Update()
+    {
+        if (playerIsLeft)
+        {
+            hitInfo = default;            
+            Vector2 rayStartPoint = new Vector2(transform.position.x + tileSize, transform.position.y);
+            hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.right, 10f, LayerMask.GetMask("Wall"));
+            if (hitInfo == true)
+            {
+                Debug.Log("오른쪽으로 움직이는중");
+                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                transform.position = new Vector2(hitInfo.transform.position.x-tileSize, hitInfo.transform.position.y);
+                playerIsLeft = false;
+            }
+        }
+        else if (playerIsRight)
+        {
+            hitInfo = default;
+            Vector2 rayStartPoint = new Vector2(transform.position.x - tileSize, transform.position.y);
+            hitInfo = Physics2D.Raycast(rayStartPoint, -Vector2.right, 10f, LayerMask.GetMask("Wall"));
+            if (hitInfo == true)
+            {
+                Debug.Log("왼쪽으로 움직이는 중");
+                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                transform.position = new Vector2(hitInfo.transform.position.x + tileSize, hitInfo.transform.position.y);
+                playerIsRight = false;
+            }
+        }
+        else if (playerIsUp)
+        {
+            hitInfo = default;
+            Vector2 rayStartPoint = new Vector2(transform.position.x, transform.position.y - tileSize);
+            hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.down, 10f, LayerMask.GetMask("Wall"));
+            if (hitInfo == true)
+            {
+                Debug.Log("아래로 움직이는 중");
+                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                transform.position = new Vector2(hitInfo.transform.position.x , hitInfo.transform.position.y + tileSize);
+
+                playerIsUp = false;
+            }
+        }
+        else if (playerIsDown)
+        {
+            hitInfo = default;
+            Vector2 rayStartPoint = new Vector2(transform.position.x, transform.position.y + tileSize);
+            hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.up, 10f, LayerMask.GetMask("Wall"));
+            if (hitInfo == true)
+            {
+                Debug.Log("위로 움직이는 중");
+                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                transform.position = new Vector2(hitInfo.transform.position.x, hitInfo.transform.position.y - tileSize);
+                playerIsDown = false;
+            }
+        }
+    }
+    //========================================================================
 }//class WaterBalloonController

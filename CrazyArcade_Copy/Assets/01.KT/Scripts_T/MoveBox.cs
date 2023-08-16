@@ -56,7 +56,7 @@ public class MoveBox : MonoBehaviour
 
                     foreach (Collider2D col in cols)
                     {
-                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall"|| col.tag == "WaterBalloon" || col.tag == "Player")
                         {
                             isWall = true;
                             return;
@@ -85,7 +85,7 @@ public class MoveBox : MonoBehaviour
 
                     foreach (Collider2D col in cols)
                     {
-                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
                         {
                             isWall = true;
                             return;
@@ -114,7 +114,7 @@ public class MoveBox : MonoBehaviour
 
                     foreach (Collider2D col in cols)
                     {
-                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
                         {
                             isWall = true;
                             return;
@@ -143,7 +143,7 @@ public class MoveBox : MonoBehaviour
 
                     foreach (Collider2D col in cols)
                     {
-                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall")
+                        if (col.tag == "FixedBox" || col.tag == "MoveBox" || col.tag == "Wall" || col.tag == "WaterBalloon" || col.tag == "Player")
                         {
                             isWall = true;
                             return;
@@ -167,6 +167,6 @@ public class MoveBox : MonoBehaviour
 
             }
 
-        }//OnCollisionEnter2D()
-    }
+        }
+    }//OnCollisionEnter2D()
 }

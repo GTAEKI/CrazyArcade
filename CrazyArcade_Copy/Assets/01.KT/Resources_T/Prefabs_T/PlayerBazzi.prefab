@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8183286697827707930}
   - component: {fileID: 1588594733494504027}
   - component: {fileID: 4886978912271150338}
+  - component: {fileID: 7454850780733235833}
   m_Layer: 0
   m_Name: PlayerBazzi
   m_TagString: Player
@@ -106,6 +107,8 @@ MonoBehaviour:
   waterBalloon: {fileID: 3617638635874959152, guid: 2910b164289a54dccbe23623e5a57e08, type: 3}
   waterBalloons: []
   saveGetItem: []
+  range: 0.34
+  boxSize: {x: 0.67, y: 0.67}
 --- !u!50 &8183286697827707930
 Rigidbody2D:
   serializedVersion: 4
@@ -155,7 +158,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8183286697827707943}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -174,3 +177,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
+--- !u!58 &7454850780733235833
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183286697827707943}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.1}
+  serializedVersion: 2
+  m_Radius: 0.15

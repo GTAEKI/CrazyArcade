@@ -70,7 +70,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
             {
                 Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y);
-                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.6f, 0);
+                //캐릭터가 물풍선 중복해서 놓을수 없도록 체크하는 범위
+                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.9f, 0);
 
                 foreach (Collider2D col in cols)
                 {
