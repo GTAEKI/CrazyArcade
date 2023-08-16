@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // 변경시킬 Rigidbody와 animator
     private Rigidbody2D playerRB;
     private Animator animator;
+
+    //플레이어 기본 능력치
     private int waterBalloonCount = 2;
-
     private int niddleCount = 0;
-    private bool isDead = false;
-    private bool isStuckWater = false;
     public float speed = 4.0f;
-    public float stuckSpeed = 0.2f;
     public bool onShoe = false;
-    private float remainSpeed = default;
-    
-
     public float power = 0.66666f;
-    private float maxPower = 3.99996f;
 
+    // bool값 및 제한사항
+    private bool isDead = false;
+    private bool isStuckWater = false; 
+    public float stuckSpeed = 0.2f; //물풍선 갇혔을때 이동속도
+    private float maxPower = 3.99996f; //최대 파워
+    private float remainSpeed = default; //물풍선에서 바늘을 사용해서 나왔을때를 위해 속도 저장변수
+    
     // 물풍선 변수
     public GameObject waterBalloon;
     public GameObject[] waterBalloons;
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
         //waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
         if(waterBalloons.Length < waterBalloonCount)
         {
-            //Press the spacebar to create a water balloon
+            //스페이스바를 눌러 물풍선 생성
             if (Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
             {
                 Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y);
@@ -158,18 +160,14 @@ public class PlayerController : MonoBehaviour
 
                 niddleCount++;
             }
-            else if(collision.tag == "WaterExplosion")
-            {
-                //StuckWaterBalloon();
-            }
             else if (collision.tag == "ShoeItem") // 신발 아이템일 경우
             {
                 onShoe = true;
                 collision.gameObject.SetActive(false);
             }
         }
-    }
-    
+    } // OnTriggerEnter2D()
+
     // 물풍선 위에 서있다가 내려갈경우 Trigger를 false
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -177,20 +175,22 @@ public class PlayerController : MonoBehaviour
         {
             collision.isTrigger = false;
         }
-    }
+    } //OnTriggerExit2D()
 
+    //물에 갇히는 함수
     public void StuckWaterBalloon()
     {
         isStuckWater = true;
         animator.SetBool("StuckWater", isStuckWater);
         animator.SetTrigger("StuckTrigger");
         speed = stuckSpeed;
-    }
+    } // StuckWaterBalloon()
 
+    // 죽는 함수
     private void Die()
-    {
-        playerRB.velocity = Vector2.zero;
-        animator.SetTrigger("Die");
+    {        
+        playerRB.velocity = Vector2.zero; //속도 0으로 조정
+        animator.SetTrigger("Die"); //Die 애니메이션 실행
 
         if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
@@ -203,16 +203,16 @@ public class PlayerController : MonoBehaviour
                 item.gameObject.SetActive(true);
             }
         }
-
         isDead = true;
-        //TODO 죽었을때 lose, 상대방이 죽을경우 Win
-    }
+        //TODO 내가 죽었을때 상대방이 살아있다면, 내 모니터에는 Lose / 상대방이 먼저 죽었다면 Win
+    } // Die()
 
+    // 바늘 사용 함수
     private void UsingNiddle()
     {
         niddleCount--;
         isStuckWater = false;
         animator.SetBool("StuckWater", isStuckWater);
         speed = remainSpeed;
-    }
-}
+    } // UsingNiddle()
+} // Class PlayerController

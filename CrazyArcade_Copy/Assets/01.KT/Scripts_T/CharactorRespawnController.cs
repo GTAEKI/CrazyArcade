@@ -4,51 +4,57 @@ using UnityEngine;
 
 public class CharactorRespawnController : MonoBehaviour
 {
-    public GameObject Player;
+    // 생성할 플레이어오브젝트
+    public GameObject player;
 
-    private GameObject[] CharactorRespawnPoints;
+    // 리스폰포인트 오브젝트들 저장
+    private GameObject[] charactorRespawnPoints;
 
     // CharactorRespawnPoint중 랜덤으로 설치 위치를 설정하는데 필요한 변수
-    private int RandomIndex;
-    private List<int> ExceptNumbers = new List<int>();
+    private int randomIndex;
+    private List<int> exceptNumbers = new List<int>();
     private bool goContinue;
 
     void Awake()
     {
-        CharactorRespawnPoints = GameObject.FindGameObjectsWithTag("CharactorRespawnPoint");
-        CreatePlayer(Player,1);
-    }
+        // 하이어라키창의 캐릭터리스폰 포인트들을 배열에 저장
+        charactorRespawnPoints = GameObject.FindGameObjectsWithTag("CharactorRespawnPoint");
+
+        // 플레이어 생성
+        CreatePlayer(player, 1);
+    } //Awake()
 
     private void CreatePlayer(GameObject player, int playerAmount)
     {
         for (int i = 0; i < playerAmount; i++)
         {
-            RandomIndex = Random.Range(0, CharactorRespawnPoints.Length);
+            //랜덤한 인덱스번호 >> 랜덤한 위치로 리스폰
+            randomIndex = Random.Range(0, charactorRespawnPoints.Length);
 
-            if (ExceptNumbers.Count != 0) //ExceptNumbers가 비어있지 않다면
+            if (exceptNumbers.Count != 0) //제외할 인덱스넘버가 비어있지 않다면
             {
-                foreach (int ExceptNumber in ExceptNumbers)
+                foreach (int exceptNumber in exceptNumbers) //인덱스번호를 하나씩 꺼내서 랜덤으로 뽑힌 번호와 비교
                 {
-                    if (ExceptNumber == RandomIndex)
+                    if (exceptNumber == randomIndex) //랜덤 인덱스번호가 제외된 번호와 같다면 for문 반복실행
                     {
                         i--;
                         goContinue = true;
                     }
                 }
 
-                // 제외된 숫자와 랜덤숫자가 같다면 Continue를 통해 For문을 다시 실행
+                // 랜덤 인덱스번호가 제외된 번호와 같다면 for문 반복실행
                 if (goContinue)
                 {
                     goContinue = false;
                     continue;
                 }
-                else { ExceptNumbers.Add(RandomIndex); }
+                else { exceptNumbers.Add(randomIndex); } //같지 않다면 현재 랜덤인덱스 번호를 제외번호에 추가
             }
-            else { ExceptNumbers.Add(RandomIndex); }
+            else { exceptNumbers.Add(randomIndex); }//같지 않다면 현재 랜덤인덱스 번호를 제외번호에 추가
 
-            GameObject CreatedPlayer =
-            Instantiate(player, CharactorRespawnPoints[RandomIndex].transform.position, Quaternion.identity);
+            // 플레이어 생성
+            GameObject createdPlayer =
+            Instantiate(player, charactorRespawnPoints[randomIndex].transform.position, Quaternion.identity);
         }//for
     }//CreatePlayer()
-
-}
+} // Class CharactorRespawnController

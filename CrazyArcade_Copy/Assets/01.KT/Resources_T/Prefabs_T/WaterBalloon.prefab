@@ -103,15 +103,15 @@ MonoBehaviour:
   power: 0
   player: {fileID: 8183286697827707943, guid: 3fb2ce6762ed84bf28dd59fbb9f78b8e, type: 3}
   plusPosition: 0.7
-  BombWater_Center: {fileID: 7212866677644403439, guid: 56828181648c54230b32ac6d28b88c1a, type: 3}
-  BombWater_Down_Last: {fileID: 8006612671006982148, guid: abaa318920d43480babfbe09aea7f72a, type: 3}
-  BombWater_Down_Mid: {fileID: 1050779286167931439, guid: 2cd50e00829f644079b7ce8c74efeebe, type: 3}
-  BombWater_Left_Last: {fileID: 3443050504963636398, guid: d4d377635c372418897e5db1174d1f2f, type: 3}
-  BombWater_Left_Mid: {fileID: 2956943136289923904, guid: d68bfae5cbd714991a944d4c6d8de8fd, type: 3}
-  BombWater_Right_Last: {fileID: 149829555465330960, guid: 6a831aeba878541dca6c4b6a5dc84050, type: 3}
-  BombWater_Right_Mid: {fileID: 3336293872610607449, guid: 7ab94b72a2cf24d8284ec96da65e51d7, type: 3}
-  BombWater_Up_Last: {fileID: 4483874884231324698, guid: 642c7d78ab48f462b9c23006dfde8f00, type: 3}
-  BombWater_Up_Mid: {fileID: 10878030776164239, guid: 65adf86c3d33548099a96022e48fe09b, type: 3}
+  bombWater_Center: {fileID: 7212866677644403439, guid: 56828181648c54230b32ac6d28b88c1a, type: 3}
+  bombWater_Down_Last: {fileID: 8006612671006982148, guid: abaa318920d43480babfbe09aea7f72a, type: 3}
+  bombWater_Down_Mid: {fileID: 1050779286167931439, guid: 2cd50e00829f644079b7ce8c74efeebe, type: 3}
+  bombWater_Left_Last: {fileID: 3443050504963636398, guid: d4d377635c372418897e5db1174d1f2f, type: 3}
+  bombWater_Left_Mid: {fileID: 2956943136289923904, guid: d68bfae5cbd714991a944d4c6d8de8fd, type: 3}
+  bombWater_Right_Last: {fileID: 149829555465330960, guid: 6a831aeba878541dca6c4b6a5dc84050, type: 3}
+  bombWater_Right_Mid: {fileID: 3336293872610607449, guid: 7ab94b72a2cf24d8284ec96da65e51d7, type: 3}
+  bombWater_Up_Last: {fileID: 4483874884231324698, guid: 642c7d78ab48f462b9c23006dfde8f00, type: 3}
+  bombWater_Up_Mid: {fileID: 10878030776164239, guid: 65adf86c3d33548099a96022e48fe09b, type: 3}
   boxSize: {x: 0.666666, y: 0.666666}
 --- !u!95 &5110976618948410381
 Animator:

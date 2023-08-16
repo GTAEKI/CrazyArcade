@@ -25,8 +25,8 @@ public class ItemRespawnController : MonoBehaviour
     public GameObject shoe;
 
     // ItemRespawnPoint중 랜덤으로 설치 위치를 설정하는데 필요한 변수
-    private int RandomIndex;
-    private List<int> ExceptNumbers = new List<int>();
+    private int randomIndex;
+    private List<int> exceptNumbers = new List<int>();
     private bool goContinue;
 
     private GameObject[] itemRespawnPoints;
@@ -45,36 +45,40 @@ public class ItemRespawnController : MonoBehaviour
 
     }//Awake()
 
+    //생성할 아이템과 갯수를 삽입
     private void CreateRandomItems(GameObject itemPrefab, int Itemamount)
     {
-        for (int i = 0; i < Itemamount; i++)
+        for (int i = 0; i < Itemamount; i++) //생성할 아이템갯수만큼 반복
         {
-            RandomIndex = Random.Range(0, itemRespawnPoints.Length);
+            randomIndex = Random.Range(0, itemRespawnPoints.Length); //랜덤위치 뽑기
 
-            if (ExceptNumbers.Count != 0) //ExceptNumbers가 비어있지 않다면
+            if (exceptNumbers.Count != 0) //제외된 숫자 List가 비어있지 않다면
             {
-                foreach (int ExceptNumber in ExceptNumbers)
+                foreach (int exceptNumber in exceptNumbers) //제외된 숫자를 하나씩 꺼내서 randomIndex와 비교
                 {
-                    if (ExceptNumber == RandomIndex)
+                    if (exceptNumber == randomIndex)//같은 숫자가 있다면 다시 for문 반복
                     {
                         i--;
                         goContinue = true;
                     }
                 }
 
-                // 제외된 숫자와 랜덤숫자가 같다면 Continue를 통해 For문을 다시 실행
+                // 제외된 숫자와 같은 숫자가 있다면 다시 for문 반복
                 if (goContinue)
                 {
                     goContinue = false;
                     continue;
                 }
-                else { ExceptNumbers.Add(RandomIndex); }
+                else { exceptNumbers.Add(randomIndex); } //없을 경우 랜덤인덱스 제외된숫자에 추가
             }
-            else { ExceptNumbers.Add(RandomIndex); }
+            else { exceptNumbers.Add(randomIndex); }//없을 경우 랜덤인덱스 제외된숫자에 추가
 
-            GameObject CreatedItem =
-            Instantiate(itemPrefab, itemRespawnPoints[RandomIndex].transform.position, Quaternion.identity, inGameItems.transform);
-            CreatedItem.transform.localScale *= 1.5f;
+            //아이템 생성
+            GameObject createdItem =
+            Instantiate(itemPrefab, itemRespawnPoints[randomIndex].transform.position, Quaternion.identity, inGameItems.transform);
+
+            //아이템 스케일 UP
+            createdItem.transform.localScale *= 1.5f;
         }//for
     }//CreateRandomItems()
-}
+} // Class ItemRespawnController

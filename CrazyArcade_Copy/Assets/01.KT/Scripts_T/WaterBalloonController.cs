@@ -7,18 +7,15 @@ using UnityEngine.SocialPlatforms;
 
 public class WaterBalloonController : MonoBehaviour
 {
-    //====================================
-    public float range = 0.25f;
-
-    private Vector2 collisionPosition;
-    private bool isMove;
-    private bool isWall;
-
+    public float range = 0.25f; //물풍선이 Player가 어떤방향으로 들어오는지 감지하기 위한 범위
+    // 플레이어가 어떤방향으로 왔는지 체크한 뒤 변화시킬 bool변수
     private bool playerIsDown = false, playerIsUp = false, playerIsLeft = false, playerIsRight = false;
 
+    //레이캐스트 변수
     private RaycastHit2D hitInfo;
+
+    //레이캐스트에서 물풍선을 위치시킬때 간격을 띄우며 사용할 변수
     private float tileSize = 0.7f;
-    //====================================
 
     // 물풍선 파워
     public float power;
@@ -26,27 +23,26 @@ public class WaterBalloonController : MonoBehaviour
     public float plusPosition = 0.666665f;
 
     // 물풍선 터졌을때 나오는 애니메이션
-    public GameObject BombWater_Center;
-    public GameObject BombWater_Down_Last;
-    public GameObject BombWater_Down_Mid;
-    public GameObject BombWater_Left_Last;
-    public GameObject BombWater_Left_Mid;
-    public GameObject BombWater_Right_Last;
-    public GameObject BombWater_Right_Mid;
-    public GameObject BombWater_Up_Last;
-    public GameObject BombWater_Up_Mid;
+    public GameObject bombWater_Center;
+    public GameObject bombWater_Down_Last;
+    public GameObject bombWater_Down_Mid;
+    public GameObject bombWater_Left_Last;
+    public GameObject bombWater_Left_Mid;
+    public GameObject bombWater_Right_Last;
+    public GameObject bombWater_Right_Mid;
+    public GameObject bombWater_Up_Last;
+    public GameObject bombWater_Up_Mid;
     
     // Overlap 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
     void Start()
     {
+        //배찌 플레이어를 찾아서
         player = GameObject.Find("PlayerBazzi(Clone)");
+        //배찌 플레이어의 파워를 받아와서 물풍선에 적용
         power = player.GetComponent<PlayerController>().power;
-
-        Debug.Log(power);
-
-        // 물풍선 설치시 2.5초뒤 폭발
+        // 물풍선 설치시 자동으로 폭발
         StartCoroutine(Explosion());
 
     }//Start()
@@ -59,13 +55,11 @@ public class WaterBalloonController : MonoBehaviour
 
         Destroy(gameObject);
         ExplosionFunc();
-
-        // 오브젝트 삭제
     }//IEnumerator Explosion()
 
     public void ExplosionFunc()
     {
-        // LeftExplosion
+        // 좌측 폭발
         for (float i = 0; i >= -power; i = i - plusPosition)
         {
             // 폭발방향의 타일을 체크
@@ -78,7 +72,7 @@ public class WaterBalloonController : MonoBehaviour
             }
         }
 
-        // RightExplosion
+        // 우측 폭발
         for (float i = 0; i <= power; i = i + plusPosition)
         {
             // 폭발방향의 타일을 체크
@@ -91,7 +85,7 @@ public class WaterBalloonController : MonoBehaviour
             }
         }
 
-        // UpExplosion
+        // 위측 폭발
         for (float i = 0; i <= power; i = i + plusPosition)
         {
             // 폭발방향의 타일을 체크
@@ -104,7 +98,7 @@ public class WaterBalloonController : MonoBehaviour
             }
         }
 
-        // DownExplosion
+        // 아래측 폭발
         for (float i = 0; i >= -power; i = i - plusPosition)
         {
             // 폭발방향의 타일을 체크
@@ -118,50 +112,59 @@ public class WaterBalloonController : MonoBehaviour
         }
     }
 
-    // Overlap을 이용해서 타일을 체크하여 물줄기 제어
+    // Overlap을 이용해서 가로방향 타일을 체크하여 물줄기 제어
     private bool CheckTile_Horizontal(float i)
     {
-        Vector2 m_tr_Vector2 = new Vector2(transform.position.x+i, transform.position.y);
-    
-        Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
+        //overlap을 실행할 포인트를 설정
+        Vector2 overlapPoint_Vector2 = new Vector2(transform.position.x+i, transform.position.y);
+        // boxSize만큼의 범위의 collider를 감지하여 cols에 저장
+        Collider2D[] cols = Physics2D.OverlapBoxAll(overlapPoint_Vector2, boxSize * 0.1f, 0);
 
-        // cols에 어떤순서로 감지가 되었는지 체크를 할 수없기때문에 foreach를 2번 사용하였음
+        // cols에 어떤순서로 오브젝트가 들어갔을지 모르기 때문에 foreach를 2개로 나누었음
         foreach (Collider2D col in cols)
         {
+            // 감지된 콜라이더중 박스를 감지하여 있다면 한번더 폭발을 실행시키고 true를 반환하여 더이상 폭발이 진행되지 않도록 함
             if (col.tag == "FixedBox" || col.tag == "MoveBox")
             {                
-                Bomb(BombWater_Center, col.transform.position);
+                Bomb(bombWater_Center, col.transform.position);
 
                 return true;
             }
+            // 감지된 콜라이더가 Wall라면 그자리에 폭발을 진행시키지는 않음
             else if (col.tag == "Wall")
             {
                 return true;
             }
         }
-
+        
         foreach (Collider2D col in cols)
         {
+            // 타일일 경우 폭발을 계속 진행시킴
             if (col.tag == "Tile")
             {
-                Bomb(BombWater_Center, col.transform.position);
+                Bomb(bombWater_Center, col.transform.position);
             }
         }
         return false;
     }//CheckTile_Horizontal()
 
+    // Overlap을 이용해서 세로방향 타일을 체크하여 물줄기 제어
     private bool CheckTile_Vertical(float i)
     {
-        Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y + i);
-        Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.1f, 0);
-
+        //overlap을 실행할 포인트를 설정
+        Vector2 overlapPoint_Vector2 = new Vector2(transform.position.x, transform.position.y + i);
+        // boxSize만큼의 범위의 collider를 감지하여 cols에 저장
+        Collider2D[] cols = Physics2D.OverlapBoxAll(overlapPoint_Vector2, boxSize * 0.1f, 0);
+        // cols에 어떤순서로 오브젝트가 들어갔을지 모르기 때문에 foreach를 2개로 나누었음
         foreach (Collider2D col in cols)
         {
+            // 감지된 콜라이더중 박스를 감지하여 있다면 한번더 폭발을 실행시키고 true를 반환하여 더이상 폭발이 진행되지 않도록 함
             if (col.tag == "FixedBox" || col.tag == "MoveBox")
             {             
-                Bomb(BombWater_Center, col.transform.position);
+                Bomb(bombWater_Center, col.transform.position);
                 return true;
             }
+            // 감지된 콜라이더가 Wall라면 그자리에 폭발을 진행시키지는 않음
             else if (col.tag == "Wall")
             {
                 return true;
@@ -170,9 +173,10 @@ public class WaterBalloonController : MonoBehaviour
 
         foreach (Collider2D col in cols)
         {
-            if(col.tag == "Tile")
+            // 타일일 경우 폭발을 계속 진행시킴
+            if (col.tag == "Tile")
             {
-                Bomb(BombWater_Center, col.transform.position);
+                Bomb(bombWater_Center, col.transform.position);
             }
         }
         return false;
@@ -193,12 +197,10 @@ public class WaterBalloonController : MonoBehaviour
         }
     }//OnTriggerEnter2D()
 
-    //========================================================================
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>().onShoe)
+        if (collision.gameObject.GetComponent<PlayerController>().onShoe) // PlayerController스크립트를 갖고있고, onShoe가 true라면
         {
-            Debug.Log("플레이어가 닿았음");
             // 물풍선기준 플레이어는 왼쪽위치
             if (collision.transform.position.x - transform.position.x < 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
             {
@@ -230,58 +232,73 @@ public class WaterBalloonController : MonoBehaviour
         }
     }//OnCollisionEnter2D()
 
-    private void Update()
+    private void Update() //TODO Lerp를 이용해서 부드러운 물풍선 이동연출 필요
     {
         if (playerIsLeft)
         {
-            hitInfo = default;            
+            hitInfo = default; // hit정보를 Clear해줌
+
+            //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x + tileSize, transform.position.y);
+            //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.right, 10f, LayerMask.GetMask("Wall"));
             if (hitInfo == true)
             {
                 Debug.Log("오른쪽으로 움직이는중");
-                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                // 물풍선을 원하는 위치로 변경
                 transform.position = new Vector2(hitInfo.transform.position.x-tileSize, hitInfo.transform.position.y);
+                //반복실행 방지를 위해 bool값 원상복구
                 playerIsLeft = false;
             }
         }
         else if (playerIsRight)
         {
-            hitInfo = default;
+            hitInfo = default; // hit정보를 Clear해줌
+
+            //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x - tileSize, transform.position.y);
+            //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, -Vector2.right, 10f, LayerMask.GetMask("Wall"));
             if (hitInfo == true)
             {
                 Debug.Log("왼쪽으로 움직이는 중");
-                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                // 물풍선을 원하는 위치로 변경
                 transform.position = new Vector2(hitInfo.transform.position.x + tileSize, hitInfo.transform.position.y);
+                //반복실행 방지를 위해 bool값 원상복구
                 playerIsRight = false;
             }
         }
         else if (playerIsUp)
         {
-            hitInfo = default;
+            hitInfo = default; // hit정보를 Clear해줌
+
+            //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x, transform.position.y - tileSize);
+            //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.down, 10f, LayerMask.GetMask("Wall"));
             if (hitInfo == true)
             {
                 Debug.Log("아래로 움직이는 중");
-                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                // 물풍선을 원하는 위치로 변경
                 transform.position = new Vector2(hitInfo.transform.position.x , hitInfo.transform.position.y + tileSize);
-
+                //반복실행 방지를 위해 bool값 원상복구
                 playerIsUp = false;
             }
         }
         else if (playerIsDown)
         {
-            hitInfo = default;
+            hitInfo = default; // hit정보를 Clear해줌
+
+            //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x, transform.position.y + tileSize);
+            //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.up, 10f, LayerMask.GetMask("Wall"));
-            if (hitInfo == true)
+            if (hitInfo == true)//레이캐스트에 정보가 들어왔다면
             {
                 Debug.Log("위로 움직이는 중");
-                Debug.LogFormat("x:{0}, y:{1}", hitInfo.transform.position.x, hitInfo.transform.position.y);
+                // 물풍선을 원하는 위치로 변경
                 transform.position = new Vector2(hitInfo.transform.position.x, hitInfo.transform.position.y - tileSize);
+                //반복실행 방지를 위해 bool값 원상복구
                 playerIsDown = false;
             }
         }
