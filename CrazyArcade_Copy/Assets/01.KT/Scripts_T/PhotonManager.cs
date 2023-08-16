@@ -25,11 +25,20 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    // 포톤 서버 접속 후 가장 먼저 호출되는 콜백 함수
+    // 마스터 서버 접속 실패 시 호출되는 콜백 함수
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log("Disconnected to Master");
+
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
+    // 마스터 서버 접속 성공 후 가장 먼저 호출되는 콜백 함수
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to Master");
         Debug.Log($"PhotonNetwork.InLobby = {PhotonNetwork.InLobby}");
+
         // 로비 입장 함수
         PhotonNetwork.JoinLobby();
     }
@@ -53,7 +62,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;   // 로비에서 룸 목록에 노출시킬지
 
         // 룸 생성
-        PhotonNetwork.CreateRoom("My Room", roomOptions);
+        Debug.Log("Create New Room");
+        PhotonNetwork.CreateRoom(null, roomOptions);
     }
 
     // 룸 생성 완료 후 호출되는 콜백 함수

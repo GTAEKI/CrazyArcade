@@ -62,7 +62,8 @@ public class PlayerController : MonoBehaviourPun
 
             PutBalloon();
 
-            //RPC로 원격지에 있는 함수 호출
+            // RPC로 원격지에 있는 함수 호출
+            // 호출하지 않으면 상대방이 설치한 물풍선 동기화가 안됨 
             photonView.RPC("PutBalloon", RpcTarget.Others, null);
         }
 
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviourPun
     private void FixedUpdate()
     {
         if (!photonView.IsMine) { return; }
+
         Move();
     }
 
