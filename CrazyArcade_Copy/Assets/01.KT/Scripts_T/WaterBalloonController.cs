@@ -196,7 +196,7 @@ public class WaterBalloonController : MonoBehaviour
     //========================================================================
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<PlayerController>().onShoe)
         {
             Debug.Log("플레이어가 닿았음");
             // 물풍선기준 플레이어는 왼쪽위치
@@ -285,6 +285,6 @@ public class WaterBalloonController : MonoBehaviour
                 playerIsDown = false;
             }
         }
-    }
+    }//Update()
     //========================================================================
 }//class WaterBalloonController

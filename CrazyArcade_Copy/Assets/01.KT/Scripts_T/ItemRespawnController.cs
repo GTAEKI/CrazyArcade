@@ -8,19 +8,21 @@ public class ItemRespawnController : MonoBehaviour
     public GameObject inGameItems = default;
 
     //생성할 아이템의 개수를 설정
-    public int Amount_BalloonItem = 7;
-    public int Amount_SmallPowerPotion = 3;
-    public int Amount_BigPowerPotion = 3;
-    public int Amount_SpeedItem = 3; 
-    public int Amount_Niddle = 10;
+    public int amount_BalloonItem = 7;
+    public int amount_SmallPowerPotion = 3;
+    public int amount_BigPowerPotion = 3;
+    public int amount_SpeedItem = 3; 
+    public int amount_Niddle = 10;
+    public int amount_Shoe = 10;
 
 
-    //생성할 
-    public GameObject BalloonItem;
-    public GameObject SmallPowerPotion;
-    public GameObject BigPowerPotion;
-    public GameObject SpeedItem;
-    public GameObject Niddle;
+    //생성할 아이템 프리펩
+    public GameObject balloonItem;
+    public GameObject smallPowerPotion;
+    public GameObject bigPowerPotion;
+    public GameObject speedItem;
+    public GameObject niddle;
+    public GameObject shoe;
 
     // ItemRespawnPoint중 랜덤으로 설치 위치를 설정하는데 필요한 변수
     private int RandomIndex;
@@ -34,17 +36,18 @@ public class ItemRespawnController : MonoBehaviour
         // 하이어라키창 안에있는 ItemRespawnPoint를 찾아서 배열에 저장
         itemRespawnPoints = GameObject.FindGameObjectsWithTag("ItemRespawnPoint");
 
-        CreateRandomItems(BalloonItem, Amount_BalloonItem);
-        CreateRandomItems(SmallPowerPotion, Amount_SmallPowerPotion);
-        CreateRandomItems(BigPowerPotion, Amount_BigPowerPotion);
-        CreateRandomItems(SpeedItem, Amount_SpeedItem);
-        CreateRandomItems(Niddle, Amount_Niddle);
+        CreateRandomItems(balloonItem, amount_BalloonItem);
+        CreateRandomItems(smallPowerPotion, amount_SmallPowerPotion);
+        CreateRandomItems(bigPowerPotion, amount_BigPowerPotion);
+        CreateRandomItems(speedItem, amount_SpeedItem);
+        CreateRandomItems(niddle, amount_Niddle);
+        CreateRandomItems(shoe, amount_Shoe);
 
     }//Awake()
 
-    private void CreateRandomItems(GameObject itemPrefab, int ItemAmount)
+    private void CreateRandomItems(GameObject itemPrefab, int Itemamount)
     {
-        for (int i = 0; i < ItemAmount; i++)
+        for (int i = 0; i < Itemamount; i++)
         {
             RandomIndex = Random.Range(0, itemRespawnPoints.Length);
 

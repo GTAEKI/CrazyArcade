@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     private bool isStuckWater = false;
     public float speed = 4.0f;
     public float stuckSpeed = 0.2f;
+    public bool onShoe = false;
     private float remainSpeed = default;
+    
 
     public float power = 0.66666f;
     private float maxPower = 3.99996f;
@@ -158,15 +160,17 @@ public class PlayerController : MonoBehaviour
             }
             else if(collision.tag == "WaterExplosion")
             {
-                StuckWaterBalloon();
+                //StuckWaterBalloon();
             }
             else if (collision.tag == "ShoeItem") // 신발 아이템일 경우
             {
-                Destroy(collision.gameObject);
+                onShoe = true;
+                collision.gameObject.SetActive(false);
             }
         }
     }
-
+    
+    // 물풍선 위에 서있다가 내려갈경우 Trigger를 false
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.tag == "WaterBalloon")
@@ -175,15 +179,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Tile") //만난 오브젝트가 타일일 경우
-        {
-            // TODO움직이는 함수 추가
-        }
-    }
-
-    private void StuckWaterBalloon()
+    public void StuckWaterBalloon()
     {
         isStuckWater = true;
         animator.SetBool("StuckWater", isStuckWater);

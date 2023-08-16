@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class WaterBomb : MonoBehaviour
 {
-    //// Overlap 예제
-    //public Transform m_tr;
-    //public Vector2 boxSize = new Vector2(0.67f, 0.67f);
-    //public float halfSize = 1.0f;
-    //public LayerMask m_LayerMask = -1;
-    //// Overlap 예제
-
     public Animator waterBombAnimator;
 
     // 폭발 시작시 0.5초뒤 삭제
@@ -23,8 +16,9 @@ public class WaterBomb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "PlayerStuckCheck")
         {
+            collision.GetComponentInParent<PlayerController>().StuckWaterBalloon();
             Debug.Log("Player 물에 맞음");
         }
         else if(collision.tag == "WaterBalloon")
@@ -47,15 +41,4 @@ public class WaterBomb : MonoBehaviour
             collision.GetComponent<Item>().itemHp--;
         }
     }
-
-    //// OverLap 예제
-    //private void OnDrawGizmos()
-    //{
-    //    if(m_tr != null)
-    //    {
-    //        Gizmos.color = Color.yellow;
-    //        Gizmos.DrawCube(m_tr.position, boxSize);
-    //    }
-    //}
-    //// Overlap 예제
 }
