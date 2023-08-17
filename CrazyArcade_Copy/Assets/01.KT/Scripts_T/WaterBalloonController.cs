@@ -68,7 +68,7 @@ public class WaterBalloonController : MonoBehaviour
             {
                 continue;
             }
-            // 폭발방향의 타일을 체크
+            // 폭발방향의 타일을 체크하며 폭발
             bool CheckTile = CheckTile_Horizontal(i);
 
             // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
@@ -85,7 +85,7 @@ public class WaterBalloonController : MonoBehaviour
             {
                 continue;
             }
-            // 폭발방향의 타일을 체크
+            // 폭발방향의 타일을 체크하며 폭발
             bool CheckTile = CheckTile_Horizontal(i);
 
             // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
@@ -102,7 +102,7 @@ public class WaterBalloonController : MonoBehaviour
             {
                 continue;
             }
-            // 폭발방향의 타일을 체크
+            // 폭발방향의 타일을 체크하며 폭발
             bool CheckTile = CheckTile_Vertical(i);
 
             // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
@@ -119,7 +119,7 @@ public class WaterBalloonController : MonoBehaviour
             {
                 continue;
             }
-            // 폭발방향의 타일을 체크
+            // 폭발방향의 타일을 체크하며 폭발
             bool CheckTile = CheckTile_Vertical(i);
 
             // 폭발방향에 타일이 있다면 한번 더 실행하고 For문을 break하여 물줄기 정지
@@ -130,6 +130,8 @@ public class WaterBalloonController : MonoBehaviour
         }
     }
 
+    
+
     // Overlap을 이용해서 가로방향 타일을 체크하여 물줄기 제어
     private bool CheckTile_Horizontal(float i)
     {
@@ -138,38 +140,14 @@ public class WaterBalloonController : MonoBehaviour
         // boxSize만큼의 범위의 collider를 감지하여 cols에 저장
         Collider2D[] cols = Physics2D.OverlapBoxAll(overlapPoint_Vector2, boxSize * 0.1f, 0);
 
-        // cols에 어떤순서로 오브젝트가 들어갔을지 모르기 때문에 foreach를 2개로 나누었음
-        foreach (Collider2D col in cols)
+        if(i < 0)
         {
-            // 감지된 콜라이더중 박스를 감지하여 있다면 한번더 폭발을 실행시키고 true를 반환하여 더이상 폭발이 진행되지 않도록 함
-            if (col.tag == "FixedBox" || col.tag == "MoveBox")
-            {                
-                Bomb(bombWater_Center, col.transform.position);
-
-                return true;
-            }
-            // 감지된 콜라이더가 Wall라면 그자리에 폭발을 진행시키지는 않음
-            else if (col.tag == "Wall")
-            {
-                return true;
-            }
-            else if (col.tag == "WaterBalloon")
-            {
-                Destroy(col.gameObject);
-                col.GetComponent<WaterBalloonController>().ExplosionFunc();
-                return true;
-            }
+            return CheckTileAndBomb(bombWater_Left_Mid,bombWater_Left_Last, cols, i);
         }
-        
-        foreach (Collider2D col in cols)
+        else //(i>0)
         {
-            // 타일일 경우 폭발을 계속 진행시킴
-            if (col.tag == "Tile")
-            {
-                Bomb(bombWater_Center, col.transform.position);
-            }
+            return CheckTileAndBomb(bombWater_Right_Mid,bombWater_Right_Last, cols, i);
         }
-        return false;
     }//CheckTile_Horizontal()
 
     // Overlap을 이용해서 세로방향 타일을 체크하여 물줄기 제어
@@ -180,12 +158,33 @@ public class WaterBalloonController : MonoBehaviour
         // boxSize만큼의 범위의 collider를 감지하여 cols에 저장
         Collider2D[] cols = Physics2D.OverlapBoxAll(overlapPoint_Vector2, boxSize * 0.1f, 0);
         // cols에 어떤순서로 오브젝트가 들어갔을지 모르기 때문에 foreach를 2개로 나누었음
+
+        if (i < 0)
+        {
+            return CheckTileAndBomb(bombWater_Down_Mid, bombWater_Down_Last, cols, i);
+        }
+        else //(i>0)
+        {
+            return CheckTileAndBomb(bombWater_Up_Mid, bombWater_Up_Last, cols, i);
+        }
+    }//CheckTile_Vertical()
+
+    private bool CheckTileAndBomb(GameObject bombAnimation_Mid, GameObject bombAnimation_Last, Collider2D[] cols, float i)
+    {
+        bool playLast = false;
+        if(Mathf.Abs(i) >= power - plusPosition)
+        {
+            playLast = true;
+        }
+
+        // cols에 어떤순서로 오브젝트가 들어갔을지 모르기 때문에 foreach를 2개로 나누었음
         foreach (Collider2D col in cols)
         {
             // 감지된 콜라이더중 박스를 감지하여 있다면 한번더 폭발을 실행시키고 true를 반환하여 더이상 폭발이 진행되지 않도록 함
             if (col.tag == "FixedBox" || col.tag == "MoveBox")
-            {             
-                Bomb(bombWater_Center, col.transform.position);
+            {
+                Bomb(bombAnimation_Last, col.transform.position);
+
                 return true;
             }
             // 감지된 콜라이더가 Wall라면 그자리에 폭발을 진행시키지는 않음
@@ -206,11 +205,18 @@ public class WaterBalloonController : MonoBehaviour
             // 타일일 경우 폭발을 계속 진행시킴
             if (col.tag == "Tile")
             {
-                Bomb(bombWater_Center, col.transform.position);
+                if (playLast)
+                {
+                    Bomb(bombAnimation_Last, col.transform.position);
+                }
+                else
+                {
+                    Bomb(bombAnimation_Mid, col.transform.position);
+                }
             }
         }
         return false;
-    }//CheckTile_Vertical()
+    }//CheckTileAndBomb()
 
     // 물풍선 폭발 오브젝트 처리 함수
     private void Bomb(GameObject tilePrefab,Vector2 bombPosition)
@@ -236,29 +242,25 @@ public class WaterBalloonController : MonoBehaviour
             {
                 playerIsLeft = true;
                 Debug.Log("플레이어: 왼쪽");
-            }//if()
-             // 물풍선기준 플레이어는 오른쪽위치
+            }
+            // 물풍선기준 플레이어는 오른쪽위치
             else if (collision.transform.position.x - transform.position.x > 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
             {
                 playerIsRight = true;
                 Debug.Log("플레이어: 오른쪽");
-
-            }//else if()
-             // 물풍선기준 플레이어는 위쪽위치
+            }
+            // 물풍선기준 플레이어는 위쪽위치
             else if (collision.transform.position.y - transform.position.y > 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
             {
                 playerIsUp = true;
                 Debug.Log("플레이어: 위쪽");
-
-            }//else if()
-             // 물풍선기준 플레이어는 아래쪽위치
+            }
+            // 물풍선기준 플레이어는 아래쪽위치
             else if (collision.transform.position.y - transform.position.y < 0 && Mathf.Abs(collision.transform.position.x - transform.position.x) < range)
             {
                 playerIsDown = true;
                 Debug.Log("플레이어: 아래쪽");
-
-            }//else if()
-
+            }
         }
     }//OnCollisionEnter2D()
 
