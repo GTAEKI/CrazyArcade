@@ -59,9 +59,15 @@ public class WaterBalloonController : MonoBehaviour
 
     public void ExplosionFunc()
     {
+        Bomb(bombWater_Center, transform.position);
+
         // 좌측 폭발
         for (float i = 0; i >= -power; i = i - plusPosition)
         {
+            if (i == 0)
+            {
+                continue;
+            }
             // 폭발방향의 타일을 체크
             bool CheckTile = CheckTile_Horizontal(i);
 
@@ -75,6 +81,10 @@ public class WaterBalloonController : MonoBehaviour
         // 우측 폭발
         for (float i = 0; i <= power; i = i + plusPosition)
         {
+            if (i == 0)
+            {
+                continue;
+            }
             // 폭발방향의 타일을 체크
             bool CheckTile = CheckTile_Horizontal(i);
 
@@ -88,6 +98,10 @@ public class WaterBalloonController : MonoBehaviour
         // 위측 폭발
         for (float i = 0; i <= power; i = i + plusPosition)
         {
+            if (i == 0)
+            {
+                continue;
+            }
             // 폭발방향의 타일을 체크
             bool CheckTile = CheckTile_Vertical(i);
 
@@ -101,6 +115,10 @@ public class WaterBalloonController : MonoBehaviour
         // 아래측 폭발
         for (float i = 0; i >= -power; i = i - plusPosition)
         {
+            if (i == 0)
+            {
+                continue;
+            }
             // 폭발방향의 타일을 체크
             bool CheckTile = CheckTile_Vertical(i);
 
@@ -135,6 +153,12 @@ public class WaterBalloonController : MonoBehaviour
             {
                 return true;
             }
+            else if (col.tag == "WaterBalloon")
+            {
+                Destroy(col.gameObject);
+                col.GetComponent<WaterBalloonController>().ExplosionFunc();
+                return true;
+            }
         }
         
         foreach (Collider2D col in cols)
@@ -167,6 +191,12 @@ public class WaterBalloonController : MonoBehaviour
             // 감지된 콜라이더가 Wall라면 그자리에 폭발을 진행시키지는 않음
             else if (col.tag == "Wall")
             {
+                return true;
+            }
+            else if (col.tag == "WaterBalloon")
+            {
+                Destroy(col.gameObject);
+                col.GetComponent<WaterBalloonController>().ExplosionFunc();
                 return true;
             }
         }

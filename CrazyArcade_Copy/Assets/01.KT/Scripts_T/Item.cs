@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     //아이템 기본 체력
-    public int itemHp = 2;
+    public int itemHp = 3;
 
     // Update is called once per frame
     void Update()
@@ -15,7 +15,6 @@ public class Item : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     } // Update()
 
     //움직이는박스를 따라가도록 유지

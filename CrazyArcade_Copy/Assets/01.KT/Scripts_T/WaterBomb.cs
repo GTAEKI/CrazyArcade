@@ -22,13 +22,13 @@ public class WaterBomb : MonoBehaviour
             //플레이어를 맞힐경우 StuckWaterBalloon함수를 실행시킴
             collision.GetComponentInParent<PlayerController>().StuckWaterBalloon();
         }
-        else if(collision.tag == "WaterBalloon")
-        {
-            WaterBalloonController waterBalloonFuc;
-            waterBalloonFuc = collision.GetComponent<WaterBalloonController>(); //물풍선 스크립트 가져오기
-            waterBalloonFuc.ExplosionFunc(); // 스크립트의 폭발 함수 실행
-            Destroy(collision.gameObject); // 물풍선 삭제
-        }
+        //else if(collision.tag == "WaterBalloon")
+        //{
+        //    WaterBalloonController waterBalloonFuc;
+        //    waterBalloonFuc = collision.GetComponent<WaterBalloonController>(); //물풍선 스크립트 가져오기
+        //    waterBalloonFuc.ExplosionFunc(); // 스크립트의 폭발 함수 실행
+        //    Destroy(collision.gameObject); // 물풍선 삭제
+        //}
         else if(collision.tag == "FixedBox") //FixedBox일경우 삭제
         {
             Destroy(collision.gameObject);

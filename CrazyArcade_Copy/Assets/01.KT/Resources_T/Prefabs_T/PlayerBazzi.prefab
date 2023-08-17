@@ -151,8 +151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  onShoe: 0
+  power: 4.09
   stuckSpeed: 0.2
-  power: 1
   waterBalloon: {fileID: 3617638635874959152, guid: 2910b164289a54dccbe23623e5a57e08, type: 3}
   waterBalloons: []
   saveGetItem: []
