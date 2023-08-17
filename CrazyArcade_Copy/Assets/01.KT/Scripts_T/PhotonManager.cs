@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -9,14 +10,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private readonly string version = "1.0";
     private string userId = "ME";
 
+    // 유저명을 입력할 TextMeshPro Input Field
+    public TMP_InputField userInputField;
+    // 룸 이름을 입력할 TextMexhPro Input Field
+    public TMP_InputField roomNameInputField;
+
     private void Awake()
     {
         // 마스터 클라이언트의 씬 자동 동기화 옵션
         // 룸에 입장한 다른 접속 유저들에게도 마스터 클라이언트의 씬을 자동으로 로딩 해주기 위해
         PhotonNetwork.AutomaticallySyncScene = true;
 
+        // 게임 버전 설정
         PhotonNetwork.GameVersion = version;
-        PhotonNetwork.NickName = userId;
+
+        // 접속 유저의 닉네임 설정
+        // PhotonNetwork.NickName = userId;
 
         // 포톤 서버와의 데이터의 초당 전송 횟수 (초당 30회로 설정돼 있음)
         Debug.Log(PhotonNetwork.SendRate);
@@ -25,12 +34,42 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    // 마스터 서버 접속 실패 시 호출되는 콜백 함수
-    public override void OnDisconnected(DisconnectCause cause)
+    private void Start()
     {
-        Debug.Log("Disconnected to Master");
+        // 저장된 유저명 로드
+        userId = PlayerPrefs.GetString("USER_ID", $"USER_{Random.Range(1, 21):00}");
+        userInputField.text = userId;
+        // 접속 유저의 닉네임 등록
+        PhotonNetwork.NickName = userId;
+    }
 
-        PhotonNetwork.ConnectUsingSettings();
+    // 유저명 설정
+    public void SetUserId()
+    {
+        if (string.IsNullOrEmpty(userInputField.text))
+        {
+            userId = $"USER_{Random.Range(1, 21):00}";
+        }
+        else
+        {
+            userId = userInputField.text;
+        }
+
+        // 유저명 저장
+        PlayerPrefs.SetString("UWER_ID", userId);
+        // 접속 유저의 닉네임 등록
+        PhotonNetwork.NickName = userId;
+    }
+
+    // 룸 이름 입력 여부를 확인하는
+    private string SetRoomName()
+    {
+        if (string.IsNullOrEmpty(roomNameInputField.text))
+        {
+            roomNameInputField.text = $"ROOM_{Random.Range(1, 101):000}";
+        }
+
+        return roomNameInputField.text;
     }
 
     // 마스터 서버 접속 성공 후 가장 먼저 호출되는 콜백 함수
@@ -47,23 +86,28 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log($"PhotonNetwork.InLobby = {PhotonNetwork.InLobby}");
-        PhotonNetwork.JoinRandomRoom();
+
+        // 룸에 수동으로 접속하기 위해 자동 입장은 주석 처리함
+        // PhotonNetwork.JoinRandomRoom();
     }
 
     // 랜덤 룸 입장 실패했을 경우 호출되는 콜백 함수
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log($"JoinRandom Filed {returnCode}:{message}");
+        
+        // 룸 생성하는 함수 실행
+        OnMakeRoomClick();
 
-        // 룸 속성 정의
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 2;     // 룸에 입장 할 수 있는 최대 접속자 수
-        roomOptions.IsOpen = true;      // 룸 오픈 여부
-        roomOptions.IsVisible = true;   // 로비에서 룸 목록에 노출시킬지
+        //// 룸 속성 정의
+        //RoomOptions roomOptions = new RoomOptions();
+        //roomOptions.MaxPlayers = 2;     // 룸에 입장 할 수 있는 최대 접속자 수
+        //roomOptions.IsOpen = true;      // 룸 오픈 여부
+        //roomOptions.IsVisible = true;   // 로비에서 룸 목록에 노출시킬지
 
-        // 룸 생성
-        Debug.Log("Create New Room");
-        PhotonNetwork.CreateRoom(null, roomOptions);
+        //// 룸 생성
+        //Debug.Log("Create New Room");
+        //PhotonNetwork.CreateRoom(null, roomOptions);
     }
 
     // 룸 생성 완료 후 호출되는 콜백 함수
@@ -79,18 +123,54 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log($"PhotonNetwork.InRoom = {PhotonNetwork.InRoom}");
         Debug.Log($"Player Count = {PhotonNetwork.CurrentRoom.PlayerCount}");
 
-        foreach(var player in PhotonNetwork.CurrentRoom.Players)
+        foreach (var player in PhotonNetwork.CurrentRoom.Players)
         {
             Debug.Log($"{player.Value.NickName} , {player.Value.ActorNumber}");
         }
 
-        // 캐릭터 출현 위치 정보를 배열에 저장
-        Transform[] points = GameObject.Find("CharactorRespawnController").
-            GetComponentsInChildren<Transform>();
-        int idx = Random.Range(1, points.Length);
-        
-        // 네트워크상에 캐릭터 생성
-        PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
+        //// 캐릭터 출현 위치 정보를 배열에 저장
+        //Transform[] points = GameObject.Find("CharactorRespawnController").
+        //    GetComponentsInChildren<Transform>();
+        //int idx = Random.Range(1, points.Length);
+
+        //// 네트워크상에 캐릭터 생성
+        //PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
+
+        // 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log($"{userId}");
+
+            PhotonNetwork.LoadLevel("MJ_Scene_COPY_KT");
+        }
     }
 
+    #region UI_BUTTON_EVENT
+
+    public void OnLoginClick()
+    {
+        // 유저명 저장
+        SetUserId();
+
+        // 랜덤으로 룸 입장
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public void OnMakeRoomClick()
+    {
+        // 유저명 저장
+        SetUserId();
+
+        // 룸 속성 정의
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 2;     // 룸에 입장 할 수 있는 최대 접속자 수
+        roomOptions.IsOpen = true;      // 룸 오픈 여부
+        roomOptions.IsVisible = true;   // 로비에서 룸 목록에 노출시킬지
+
+        // 룸 생성
+        Debug.Log("Create New Room");
+        PhotonNetwork.CreateRoom(SetRoomName(), roomOptions);
+    }
+
+    #endregion
 }
