@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SmallPowerPotionIdle
+  m_Name: Niddle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,14 +20,14 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 1350671958, guid: cd20f878ba2e34319b1bf740d4c0cfd5, type: 3}
-    - time: 0.5
-      value: {fileID: -1949194724, guid: cd20f878ba2e34319b1bf740d4c0cfd5, type: 3}
+      value: {fileID: -592873688, guid: 1e1d04857423e457eb5e6970eca0e50d, type: 3}
+    - time: 1
+      value: {fileID: -460988777, guid: 1e1d04857423e457eb5e6970eca0e50d, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 2
+  m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -42,14 +42,14 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 1350671958, guid: cd20f878ba2e34319b1bf740d4c0cfd5, type: 3}
-    - {fileID: -1949194724, guid: cd20f878ba2e34319b1bf740d4c0cfd5, type: 3}
+    - {fileID: -592873688, guid: 1e1d04857423e457eb5e6970eca0e50d, type: 3}
+    - {fileID: -460988777, guid: 1e1d04857423e457eb5e6970eca0e50d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

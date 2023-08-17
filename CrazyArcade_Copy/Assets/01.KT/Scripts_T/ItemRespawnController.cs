@@ -77,6 +77,7 @@ public class ItemRespawnController : MonoBehaviour
             GameObject createdItem =
             Instantiate(itemPrefab, itemRespawnPoints[randomIndex].transform.position, Quaternion.identity, inGameItems.transform);
 
+
             //아이템 스케일 UP
             createdItem.transform.localScale *= 1.5f;
         }//for

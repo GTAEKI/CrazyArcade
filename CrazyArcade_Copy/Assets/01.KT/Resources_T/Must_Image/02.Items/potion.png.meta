@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 198d95c12bdda4cdc8dfb073f87eb186
+guid: cd20f878ba2e34319b1bf740d4c0cfd5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 110
+  spritePixelsToUnits: 90
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,43 +129,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ballon_0
+      name: potion_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 8
         y: 2
-        width: 42
+        width: 39
         height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76f6a5eda9ed646b0972ec3d3fd66fa8
-      internalID: 1580273898
+      spriteID: fa29502423f194b0fbb97324cea3b94a
+      internalID: 1350671958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ballon_1
+      name: potion_1
       rect:
         serializedVersion: 2
-        x: 63
+        x: 64
         y: 0
-        width: 42
-        height: 58
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 39
+        height: 59
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f84dab3f0fe444c35aa9609a1cf6eb79
-      internalID: 1645687755
+      spriteID: 0f9fe73527093423db6187ef729617b9
+      internalID: -1949194724
       vertices: []
       indices: 
       edges: []
@@ -181,9 +181,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ballon_0: 1580273898
-      ballon_1: 1645687755
-      ballon_2: 2003224147
+      potion_0: 1350671958
+      potion_1: -1949194724
+      potion_2: 525055185
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

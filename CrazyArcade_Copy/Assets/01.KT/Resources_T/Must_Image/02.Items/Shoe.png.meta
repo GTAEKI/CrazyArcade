@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cf4045a80d83f445fa5d962819449054
+guid: cc447558d50214089809075901312262
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 125
+  spritePixelsToUnits: 140
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,43 +129,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: skate_0
+      name: Shoe_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1
-        width: 47
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 119
+        y: 406
+        width: 74
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c460dd69b3e9043878ee8cdd5a735c9b
-      internalID: -244164823
+      spriteID: eda04ce318af845c6b06fbf5d1499e92
+      internalID: -1266811436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: skate_1
+      name: Shoe_1
       rect:
         serializedVersion: 2
-        x: 60
-        y: 0
-        width: 47
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 247
+        y: 403
+        width: 72
+        height: 92
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca77d69a9909142d1a01e015c9606346
-      internalID: 892996956
+      spriteID: 6a0f8d345741343fd92cf685d1827094
+      internalID: -1411963321
       vertices: []
       indices: 
       edges: []
@@ -181,8 +181,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      skate_0: -244164823
-      skate_1: 892996956
+      Shoe_0: -1266811436
+      Shoe_1: -1411963321
+      Shoe_2: 448202991
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

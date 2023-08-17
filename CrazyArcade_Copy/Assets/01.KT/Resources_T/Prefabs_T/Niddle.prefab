@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2997079053500483576}
   - component: {fileID: -1613657045412783742}
   - component: {fileID: -8675822026412473557}
+  - component: {fileID: 357321821}
   m_Layer: 0
   m_Name: Niddle
   m_TagString: Niddle
@@ -76,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 2113957557
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1e1d04857423e457eb5e6970eca0e50d, type: 3}
+  m_Sprite: {fileID: -460988777, guid: 1e1d04857423e457eb5e6970eca0e50d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.79, y: 1.74}
+  m_Size: {x: 0.76666665, y: 0.80833334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,3 +138,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &357321821
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997079053500483583}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e6e54f4ab85484e03aca50e7e742f31c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -37476,12 +37476,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inGameItems: {fileID: 1053340725}
-  amount_BalloonItem: 7
-  amount_SmallPowerPotion: 3
-  amount_BigPowerPotion: 3
-  amount_SpeedItem: 3
+  amount_BalloonItem: 10
+  amount_SmallPowerPotion: 5
+  amount_BigPowerPotion: 5
+  amount_SpeedItem: 5
   amount_Niddle: 10
-  amount_Shoe: 10
+  amount_Shoe: 2
   balloonItem: {fileID: 2924247081677612134, guid: 419a585203446445bbe75c468faea3ee, type: 3}
   smallPowerPotion: {fileID: 3788810056909895270, guid: 892db4d8ae1ee4d8b92a4fb7d1d682ae, type: 3}
   bigPowerPotion: {fileID: 9188979393970855134, guid: e9c676178a5124afe8b0c3fcc25ba933, type: 3}

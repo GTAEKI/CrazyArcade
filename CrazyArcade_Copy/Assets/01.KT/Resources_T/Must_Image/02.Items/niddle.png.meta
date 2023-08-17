@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd20f878ba2e34319b1bf740d4c0cfd5
+guid: 1e1d04857423e457eb5e6970eca0e50d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 90
+  spritePixelsToUnits: 120
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,43 +129,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: potion_0
+      name: niddle_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 2
-        width: 39
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 112
+        y: 541
+        width: 92
+        height: 97
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa29502423f194b0fbb97324cea3b94a
-      internalID: 1350671958
+      spriteID: 20ca95bcbc046471da6236548da92bed
+      internalID: -592873688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: potion_1
+      name: niddle_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 39
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 293
+        y: 540
+        width: 93
+        height: 110
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f9fe73527093423db6187ef729617b9
-      internalID: -1949194724
+      spriteID: 93e0bce947b354ac99ccabe63645f7e5
+      internalID: -460988777
       vertices: []
       indices: 
       edges: []
@@ -181,9 +181,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      potion_0: 1350671958
-      potion_1: -1949194724
-      potion_2: 525055185
+      niddle_0: -592873688
+      niddle_1: -1392224135
+      niddle_2: -460988777
+      niddle_3: 1101752638
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
