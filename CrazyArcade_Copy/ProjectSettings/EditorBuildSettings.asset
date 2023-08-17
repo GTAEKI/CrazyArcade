@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/02.MJ/Scenes_J/PlayScene_J.unity
     guid: 74e578e338ac8f340a7a7487890c826a
   - enabled: 1
-    path: Assets/01.KT/Scenes_T/MJ_Scene_COPY_KT.unity
+    path: Assets/01.KT/Scenes_T/03.PirateMapScene.unity
     guid: c368180b1deef4f99a346b5f71fd87b5
   m_configObjects: {}
