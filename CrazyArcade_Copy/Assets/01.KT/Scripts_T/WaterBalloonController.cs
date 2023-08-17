@@ -36,6 +36,10 @@ public class WaterBalloonController : MonoBehaviour
     // Overlap 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
+    // 시간 체크하는 변수 (상자 위치 일치에 사용)
+    private float time = 0f;
+    private float setTime = 1f;
+
     void Start()
     {
         //배찌 플레이어를 찾아서
@@ -264,76 +268,72 @@ public class WaterBalloonController : MonoBehaviour
         }
     }//OnCollisionEnter2D()
 
-    private void Update() //TODO Lerp를 이용해서 부드러운 물풍선 이동연출 필요
+    private void MoveWaterBalloon(Vector2 collisionPosition)
+    {
+        // 물풍선을 원하는 위치로 변경
+        transform.position = Vector2.Lerp(transform.position, collisionPosition, Time.deltaTime * 4);
+        time += Time.deltaTime;
+        if (time > setTime)
+        {
+            time = 0f;
+            //반복실행 방지를 위해 bool값 원상복구
+            playerIsLeft = false;
+        }
+    }//MoveWaterBalloon()
+
+    private void Update()
     {
         if (playerIsLeft)
         {
-            hitInfo = default; // hit정보를 Clear해줌
-
             //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x + tileSize, transform.position.y);
             //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.right, 10f, LayerMask.GetMask("Wall"));
+            Vector2 collisionPosition = new Vector2(hitInfo.transform.position.x-tileSize, hitInfo.transform.position.y);
             if (hitInfo == true)
             {
                 Debug.Log("오른쪽으로 움직이는중");
-                // 물풍선을 원하는 위치로 변경
-                transform.position = new Vector2(hitInfo.transform.position.x-tileSize, hitInfo.transform.position.y);
-                //반복실행 방지를 위해 bool값 원상복구
-                playerIsLeft = false;
+                MoveWaterBalloon(collisionPosition);
             }
         }
         else if (playerIsRight)
         {
-            hitInfo = default; // hit정보를 Clear해줌
-
             //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x - tileSize, transform.position.y);
             //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, -Vector2.right, 10f, LayerMask.GetMask("Wall"));
+            Vector2 collisionPosition = new Vector2(hitInfo.transform.position.x + tileSize, hitInfo.transform.position.y);
             if (hitInfo == true)
             {
                 Debug.Log("왼쪽으로 움직이는 중");
-                // 물풍선을 원하는 위치로 변경
-                transform.position = new Vector2(hitInfo.transform.position.x + tileSize, hitInfo.transform.position.y);
-                //반복실행 방지를 위해 bool값 원상복구
-                playerIsRight = false;
+                MoveWaterBalloon(collisionPosition);
             }
         }
         else if (playerIsUp)
         {
-            hitInfo = default; // hit정보를 Clear해줌
-
             //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x, transform.position.y - tileSize);
             //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.down, 10f, LayerMask.GetMask("Wall"));
+            Vector2 collisionPosition = new Vector2(hitInfo.transform.position.x , hitInfo.transform.position.y + tileSize);
             if (hitInfo == true)
             {
                 Debug.Log("아래로 움직이는 중");
-                // 물풍선을 원하는 위치로 변경
-                transform.position = new Vector2(hitInfo.transform.position.x , hitInfo.transform.position.y + tileSize);
-                //반복실행 방지를 위해 bool값 원상복구
-                playerIsUp = false;
+                MoveWaterBalloon(collisionPosition);
             }
         }
         else if (playerIsDown)
         {
-            hitInfo = default; // hit정보를 Clear해줌
-
             //레이캐스트 시작지점 설정
             Vector2 rayStartPoint = new Vector2(transform.position.x, transform.position.y + tileSize);
             //레이캐스트 실행
             hitInfo = Physics2D.Raycast(rayStartPoint, Vector2.up, 10f, LayerMask.GetMask("Wall"));
+            Vector2 collisionPosition = new Vector2(hitInfo.transform.position.x, hitInfo.transform.position.y - tileSize);
             if (hitInfo == true)//레이캐스트에 정보가 들어왔다면
             {
                 Debug.Log("위로 움직이는 중");
-                // 물풍선을 원하는 위치로 변경
-                transform.position = new Vector2(hitInfo.transform.position.x, hitInfo.transform.position.y - tileSize);
-                //반복실행 방지를 위해 bool값 원상복구
-                playerIsDown = false;
+                MoveWaterBalloon(collisionPosition);
             }
         }
     }//Update()
-    //========================================================================
 }//class WaterBalloonController
