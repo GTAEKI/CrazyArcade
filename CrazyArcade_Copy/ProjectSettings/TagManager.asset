@@ -64,6 +64,18 @@ TagManager:
   - name: WaterBalloon
     uniqueID: 3470517441
     locked: 0
+  - name: BoxBottom
+    uniqueID: 2085648263
+    locked: 0
+  - name: BoxFore
+    uniqueID: 3691771541
+    locked: 0
+  - name: Object
+    uniqueID: 1432805329
+    locked: 0
   - name: Player
     uniqueID: 2113957557
+    locked: 0
+  - name: Item
+    uniqueID: 1629192567
     locked: 0

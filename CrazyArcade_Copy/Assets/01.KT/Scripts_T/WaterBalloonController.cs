@@ -32,6 +32,8 @@ public class WaterBalloonController : MonoBehaviour
     public GameObject bombWater_Right_Mid;
     public GameObject bombWater_Up_Last;
     public GameObject bombWater_Up_Mid;
+
+    public GameObject waterExplosionSound;
     
     // Overlap 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
@@ -57,8 +59,14 @@ public class WaterBalloonController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
 
-        Destroy(gameObject);
+        //미정이 수정중
         ExplosionFunc();
+        
+        GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
+        Destroy(destroySound);
+
+        Destroy(gameObject);
+        //미정이 수정중
     }//IEnumerator Explosion()
 
     public void ExplosionFunc()
