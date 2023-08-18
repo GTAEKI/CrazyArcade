@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: ac5afa56cd4605c4589e3355f5bc4637
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: yellow_Down
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 563
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce7cf9c43ca61fd4b94a7a51b2c29271
+      internalID: -505438941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: darkGreen_Down
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 563
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae612eeae587cb4c8b9a0a100538e52
+      internalID: 1175157033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_Down
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 563
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26ef56a1f2f9c14458018b7dbdb63d78
+      internalID: -504928481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flower_Down
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 563
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65ab011a00d29fa49936caabc750f922
+      internalID: 1745245743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grass_Down
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 563
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1796a36a7ad382c4297674b820db070a
+      internalID: -1015399870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thicket_Yellow_Up
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 141
+        width: 50
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db22886647bd1e545a0de944f3adb6ea
+      internalID: -1248138877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thicket_Red_Up
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 56
+        width: 50
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d0f4e245c31874eaa4be7b1add24d2
+      internalID: -594935023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thicket_Yellow_Down
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 91
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dc74014b1d2fa04f9dca775bc3c2539
+      internalID: -1878121258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thicket_Red_Down
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 6
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c90b64bd46135cc41886dc4e097965da
+      internalID: -2145471675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yello_Up
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 613
+        width: 50
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce146f0d5b4b1b4aad562ba28d00111
+      internalID: -1330321671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: darkGreen_Up
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 613
+        width: 50
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 391ada5396fd5a34f8fda7fb5232913a
+      internalID: 765717584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_Up
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 613
+        width: 50
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03a49c06029f50a48a2a857c3f64d9a4
+      internalID: 648439467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flower_Up
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 613
+        width: 50
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41311c9cd351864428f65f344ec71857
+      internalID: 1768639199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grass_Up
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 613
+        width: 50
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd58999b27207484d9eeabaeb4db1278
+      internalID: 544973645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Block_merge_11: 697803834
+      Block_merge_12: 1060421938
+      Block_merge_13: 264505139
+      Block_merge_14: 2011985186
+      Block_merge_15: -306479203
+      Block_merge_16: 554317065
+      Block_merge_17: -1525444316
+      Block_merge_18: 1898738784
+      Block_merge_19: 206125104
+      Block_merge_20: -1683219541
+      Block_merge_21: -227515523
+      Block_merge_22: 1826490458
+      Block_merge_23: 115887396
+      Block_merge_24: 1160724888
+      Block_merge_25: 1318339097
+      Block_merge_26: 1955264649
+      Block_merge_27: -1748347476
+      Block_merge_28: 1399909724
+      Block_merge_29: 1399016427
+      Block_merge_30: -1071198437
+      Block_merge_31: 29623338
+      Block_merge_32: -1588994665
+      Block_merge_33: -120506096
+      Block_merge_34: 744991078
+      Block_merge_35: 508669872
+      Block_merge_36: -1249818541
+      Block_merge_37: -1307476991
+      Block_merge_38: 968531412
+      Block_merge_39: -51086604
+      Block_merge_40: 1069295400
+      Block_merge_41: 1797926108
+      Block_merge_42: -1330773262
+      Block_merge_43: -1460495052
+      Block_merge_44: -528319925
+      Block_merge_45: 473306296
+      Block_merge_46: -775733729
+      Block_merge_47: 291239927
+      Block_merge_48: 263929101
+      Block_merge_49: -934047666
+      Block_merge_5: 230614024
+      Block_merge_50: -551761914
+      Block_merge_51: -325691170
+      Block_merge_52: 1652145440
+      Block_merge_53: 1563271652
+      Block_merge_54: -333487569
+      Block_merge_56: -702001298
+      Block_merge_57: 2042861024
+      Block_merge_58: -1576890586
+      Block_merge_60: -370658195
+      Block_merge_61: 1424113414
+      Block_merge_62: -1641442609
+      Block_merge_67: 276885488
+      Block_merge_7: -751121022
+      Block_merge_9: 974720487
+      darkGreen_Down: 1175157033
+      darkGreen_Up: 765717584
+      flower_Down: 1745245743
+      flower_Up: 1768639199
+      grass_Down: -1015399870
+      grass_Up: 544973645
+      green_Down: -504928481
+      green_Up: 648439467
+      thicket_Red_Down: -2145471675
+      thicket_Red_Up: -594935023
+      thicket_Yellow_Down: -1878121258
+      thicket_Yellow_Up: -1248138877
+      yello_Up: -1330321671
+      yellow_Down: -505438941
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
