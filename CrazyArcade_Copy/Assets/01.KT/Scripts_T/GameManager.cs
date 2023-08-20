@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 
 
@@ -20,6 +21,10 @@ public class GameManager : MonoBehaviour
     private float time_Sec;
     private int time_Min;
 
+    //private void Awake()
+    //{
+    //    CreatePlayer();
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -57,5 +62,16 @@ public class GameManager : MonoBehaviour
                 time_Sec = 60f;
             }
         }
-    }
+    }// Update();
+
+    //void CreatePlayer()
+    //{
+    //    // 출현 위치 정보를 배열에 저장
+    //    Transform[] points = GameObject.Find("CharactorRespawnController_J").GetComponents<Transform>();
+    //    int idx = Random.Range(1, points.Length);
+
+    //    // 네트워크상에 캐릭터 생성
+    //    PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
+
+    //}
 }

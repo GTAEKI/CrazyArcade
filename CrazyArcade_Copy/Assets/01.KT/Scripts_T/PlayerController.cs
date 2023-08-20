@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerController : MonoBehaviourPun
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     // 변경시킬 Rigidbody와 animator
     private Rigidbody2D playerRB;
@@ -19,11 +19,11 @@ public class PlayerController : MonoBehaviourPun
 
     // bool값 및 제한사항
     private bool isDead = false;
-    private bool isStuckWater = false; 
+    private bool isStuckWater = false;
     public float stuckSpeed = 0.2f; //물풍선 갇혔을때 이동속도
     private float maxPower = 3.99996f; //최대 파워
     private float remainSpeed = default; //물풍선에서 바늘을 사용해서 나왔을때를 위해 속도 저장변수
-    
+
     // 물풍선 변수
     public GameObject waterBalloon;
     public GameObject[] waterBalloons;
@@ -67,21 +67,21 @@ public class PlayerController : MonoBehaviourPun
 
     void Update()
     {
-        if (!isDead)
-        {
-            //Implement player movement using GetAxisRaw
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
-            playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
+        //if (!isDead)
+        //{
+        //    //Implement player movement using GetAxisRaw
+        //    float horizontal = Input.GetAxisRaw("Horizontal");
+        //    float vertical = Input.GetAxisRaw("Vertical");
+        //    playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
 
-            animator.SetInteger("Horizontal", (int)horizontal);
-            animator.SetInteger("Vertical", (int)vertical);
-        }
+        //    animator.SetInteger("Horizontal", (int)horizontal);
+        //    animator.SetInteger("Vertical", (int)vertical);
+        //}
 
-
-        // { 물풍선 설치 개수 제한
+        // 로컬 아니면 return
         if (!photonView.IsMine) { return; }
 
+        // { 물풍선 설치 개수 제한
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
         waterBalloons = GameObject.FindGameObjectsWithTag("WaterBalloon");
 
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviourPun
     private void PutBalloon()
     {
         // { 물풍선 설치 개수 제한
-        //waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
+        // waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
         if (waterBalloons.Length < waterBalloonCount)
         {
             //Press the spacebar to create a water balloon
@@ -161,9 +161,12 @@ public class PlayerController : MonoBehaviourPun
 
     private void FixedUpdate()
     {
-        if (!photonView.IsMine) { return; }
-
-        Move();
+        //if (!photonView.IsMine) { return; }
+     
+        if (photonView.IsMine && !isDead)
+        { 
+            Move();
+        }
     }
 
     private void Move()
@@ -181,9 +184,9 @@ public class PlayerController : MonoBehaviourPun
     {
         if (!photonView.IsMine) { return; }
         // 죽거나 물에 갇히면 아래 행동을 못함(아이템 먹기, 물풍선에 맞기)
-        if(!isDead && !isStuckWater)
+        if (!isDead && !isStuckWater)
         {
-            if(collision.tag == "SpeedItem") // 스피드아이템일 경우
+            if (collision.tag == "SpeedItem") // 스피드아이템일 경우
             {
                 AudioSource eatItemSound = GetComponent<AudioSource>();
                 eatItemSound.Play();
@@ -194,21 +197,21 @@ public class PlayerController : MonoBehaviourPun
                 speed += 1.0f;
                 remainSpeed = speed;
             }
-            else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우
+            else if (collision.tag == "BalloonItem") // 풍선 아이템일 경우
             {
                 AudioSource eatItemSound = GetComponent<AudioSource>();
                 eatItemSound.Play();
-                
+
                 saveGetItem.Add(collision.gameObject);
                 collision.gameObject.SetActive(false);
 
                 waterBalloonCount += 1;
             }
-            else if(collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
+            else if (collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
             {
                 AudioSource eatItemSound = GetComponent<AudioSource>();
                 eatItemSound.Play();
-                
+
                 saveGetItem.Add(collision.gameObject);
                 collision.gameObject.SetActive(false);
 
@@ -217,17 +220,17 @@ public class PlayerController : MonoBehaviourPun
                     power += 0.66666f;
                 }
             }
-            else if(collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
+            else if (collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
             {
                 AudioSource eatItemSound = GetComponent<AudioSource>();
                 eatItemSound.Play();
-                
+
                 saveGetItem.Add(collision.gameObject);
                 collision.gameObject.SetActive(false);
 
                 power = maxPower;
             }
-            else if(collision.tag == "Niddle") // 바늘일 경우
+            else if (collision.tag == "Niddle") // 바늘일 경우
             {
                 AudioSource eatItemSound = GetComponent<AudioSource>();
                 eatItemSound.Play();
@@ -241,7 +244,7 @@ public class PlayerController : MonoBehaviourPun
             {
                 AudioSource eatItemSound = GetComponent<AudioSource>();
                 eatItemSound.Play();
-                
+
                 onShoe = true;
                 collision.gameObject.SetActive(false);
             }
@@ -268,18 +271,18 @@ public class PlayerController : MonoBehaviourPun
 
     // 죽는 함수
     private void Die()
-    {        
+    {
         playerRB.velocity = Vector2.zero; //속도 0으로 조정
         animator.SetTrigger("Die"); //Die 애니메이션 실행
 
         if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
-            foreach(GameObject item in saveGetItem)
+            foreach (GameObject item in saveGetItem)
             {
                 float x = Random.Range(-3f, 3f);
                 float y = Random.Range(-3f, 3f);
 
-                item.transform.position = transform.position + new Vector3(x,y,0);
+                item.transform.position = transform.position + new Vector3(x, y, 0);
                 item.gameObject.SetActive(true);
             }
         }

@@ -95,19 +95,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log($"JoinRandom Filed {returnCode}:{message}");
-        
+
         // 룸 생성하는 함수 실행
         OnMakeRoomClick();
-
-        //// 룸 속성 정의
-        //RoomOptions roomOptions = new RoomOptions();
-        //roomOptions.MaxPlayers = 2;     // 룸에 입장 할 수 있는 최대 접속자 수
-        //roomOptions.IsOpen = true;      // 룸 오픈 여부
-        //roomOptions.IsVisible = true;   // 로비에서 룸 목록에 노출시킬지
-
-        //// 룸 생성
-        //Debug.Log("Create New Room");
-        //PhotonNetwork.CreateRoom(null, roomOptions);
     }
 
     // 룸 생성 완료 후 호출되는 콜백 함수
@@ -128,21 +118,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName} , {player.Value.ActorNumber}");
         }
 
-        //// 캐릭터 출현 위치 정보를 배열에 저장
-        //Transform[] points = GameObject.Find("CharactorRespawnController").
-        //    GetComponentsInChildren<Transform>();
-        //int idx = Random.Range(1, points.Length);
-
-        //// 네트워크상에 캐릭터 생성
-        //PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
-
         // 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log($"{userId}");
 
-            PhotonNetwork.LoadLevel("MJ_Scene_COPY_KT");
+            PhotonNetwork.LoadLevel("03.PirateMapScene");
         }
+
     }
 
     #region UI_BUTTON_EVENT
