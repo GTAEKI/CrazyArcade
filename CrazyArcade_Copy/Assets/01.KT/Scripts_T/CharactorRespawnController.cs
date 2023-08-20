@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class CharactorRespawnController : MonoBehaviour
 {
@@ -21,12 +23,12 @@ public class CharactorRespawnController : MonoBehaviour
         charactorRespawnPoints = GameObject.FindGameObjectsWithTag("CharactorRespawnPoint");
 
         // 플레이어 생성
-        CreatePlayer(player, 1);
+        //CreatePlayer(player, 1);
     } //Awake()
 
-    private void CreatePlayer(GameObject player, int playerAmount)
+    public void CreatePlayer()
     {
-        for (int i = 0; i < playerAmount; i++)
+        for (int i = 0; i < 1; i++)
         {
             //랜덤한 인덱스번호 >> 랜덤한 위치로 리스폰
             randomIndex = Random.Range(0, charactorRespawnPoints.Length);
@@ -54,7 +56,7 @@ public class CharactorRespawnController : MonoBehaviour
 
             // 플레이어 생성
             GameObject createdPlayer =
-            Instantiate(player, charactorRespawnPoints[randomIndex].transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate("PlayerBazzi", charactorRespawnPoints[randomIndex].transform.position, Quaternion.identity);
         }//for
     }//CreatePlayer()
 } // Class CharactorRespawnController

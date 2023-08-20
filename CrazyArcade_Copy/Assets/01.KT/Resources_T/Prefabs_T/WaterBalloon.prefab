@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8756932164809349166}
   - component: {fileID: 5511018058050977977}
-  - component: {fileID: -5300071647313546409}
   - component: {fileID: 5110976618948410381}
   - component: {fileID: 4836905551407830677}
+  - component: {fileID: -355807454139308732}
+  - component: {fileID: -4733736706599626245}
+  - component: {fileID: -5300071647313546409}
   m_Layer: 6
   m_Name: WaterBalloon
   m_TagString: WaterBalloon
@@ -74,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2113957557
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 768836229, guid: f3254a48ebfbd495099a3660216cf9ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,32 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5300071647313546409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3617638635874959152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 0.25
-  power: 0
-  player: {fileID: 8183286697827707943, guid: 3fb2ce6762ed84bf28dd59fbb9f78b8e, type: 3}
-  plusPosition: 0.7
-  bombWater_Center: {fileID: 7212866677644403439, guid: 56828181648c54230b32ac6d28b88c1a, type: 3}
-  bombWater_Down_Last: {fileID: 8006612671006982148, guid: abaa318920d43480babfbe09aea7f72a, type: 3}
-  bombWater_Down_Mid: {fileID: 1050779286167931439, guid: 2cd50e00829f644079b7ce8c74efeebe, type: 3}
-  bombWater_Left_Last: {fileID: 3443050504963636398, guid: d4d377635c372418897e5db1174d1f2f, type: 3}
-  bombWater_Left_Mid: {fileID: 2956943136289923904, guid: d68bfae5cbd714991a944d4c6d8de8fd, type: 3}
-  bombWater_Right_Last: {fileID: 149829555465330960, guid: 6a831aeba878541dca6c4b6a5dc84050, type: 3}
-  bombWater_Right_Mid: {fileID: 3336293872610607449, guid: 7ab94b72a2cf24d8284ec96da65e51d7, type: 3}
-  bombWater_Up_Last: {fileID: 4483874884231324698, guid: 642c7d78ab48f462b9c23006dfde8f00, type: 3}
-  bombWater_Up_Mid: {fileID: 10878030776164239, guid: 65adf86c3d33548099a96022e48fe09b, type: 3}
-  boxSize: {x: 0.666666, y: 0.666666}
 --- !u!95 &5110976618948410381
 Animator:
   serializedVersion: 5
@@ -160,3 +136,70 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &-355807454139308732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617638635874959152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -4733736706599626245}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-4733736706599626245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617638635874959152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-5300071647313546409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617638635874959152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 0.25
+  power: 0
+  player: {fileID: 8183286697827707943, guid: 3fb2ce6762ed84bf28dd59fbb9f78b8e, type: 3}
+  plusPosition: 0.7
+  bombWater_Center: {fileID: 7212866677644403439, guid: 56828181648c54230b32ac6d28b88c1a, type: 3}
+  bombWater_Down_Last: {fileID: 8006612671006982148, guid: abaa318920d43480babfbe09aea7f72a, type: 3}
+  bombWater_Down_Mid: {fileID: 1050779286167931439, guid: 2cd50e00829f644079b7ce8c74efeebe, type: 3}
+  bombWater_Left_Last: {fileID: 3443050504963636398, guid: d4d377635c372418897e5db1174d1f2f, type: 3}
+  bombWater_Left_Mid: {fileID: 2956943136289923904, guid: d68bfae5cbd714991a944d4c6d8de8fd, type: 3}
+  bombWater_Right_Last: {fileID: 149829555465330960, guid: 6a831aeba878541dca6c4b6a5dc84050, type: 3}
+  bombWater_Right_Mid: {fileID: 3336293872610607449, guid: 7ab94b72a2cf24d8284ec96da65e51d7, type: 3}
+  bombWater_Up_Last: {fileID: 4483874884231324698, guid: 642c7d78ab48f462b9c23006dfde8f00, type: 3}
+  bombWater_Up_Mid: {fileID: 10878030776164239, guid: 65adf86c3d33548099a96022e48fe09b, type: 3}
+  waterExplosionSound: {fileID: 7648169590268741608, guid: 32c8386d853bcc246b961bea689f0e23, type: 3}
+  boxSize: {x: 0.666666, y: 0.666666}
+  actorNumber: 0

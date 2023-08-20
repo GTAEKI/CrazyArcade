@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class ItemRespawnController : MonoBehaviour
+public class ItemRespawnController : MonoBehaviourPun
 {
     // 생성된 아이템을 넣어놓을 오브젝트
     public GameObject inGameItems = default;
@@ -31,8 +33,14 @@ public class ItemRespawnController : MonoBehaviour
 
     private GameObject[] itemRespawnPoints;
 
-    void Awake()
+    //아이템 생성 함수
+    public void CreateItems()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         // 하이어라키창 안에있는 ItemRespawnPoint를 찾아서 배열에 저장
         itemRespawnPoints = GameObject.FindGameObjectsWithTag("ItemRespawnPoint");
 
@@ -42,13 +50,13 @@ public class ItemRespawnController : MonoBehaviour
         CreateRandomItems(speedItem, amount_SpeedItem);
         CreateRandomItems(niddle, amount_Niddle);
         CreateRandomItems(shoe, amount_Shoe);
-
-    }//Awake()
+    }
 
     //생성할 아이템과 갯수를 삽입
-    private void CreateRandomItems(GameObject itemPrefab, int Itemamount)
+    //포톤 변경전 >> private void CreateRandomItems(GameObject itemPrefab, int ItemAmount)
+    private void CreateRandomItems(GameObject itemPrefab, int ItemAmount)
     {
-        for (int i = 0; i < Itemamount; i++) //생성할 아이템갯수만큼 반복
+        for (int i = 0; i < ItemAmount; i++) //생성할 아이템갯수만큼 반복
         {
             randomIndex = Random.Range(0, itemRespawnPoints.Length); //랜덤위치 뽑기
 
@@ -71,15 +79,13 @@ public class ItemRespawnController : MonoBehaviour
                 }
                 else { exceptNumbers.Add(randomIndex); } //없을 경우 랜덤인덱스 제외된숫자에 추가
             }
-            else { exceptNumbers.Add(randomIndex); }//없을 경우 랜덤인덱스 제외된숫자에 추가
+            else { exceptNumbers.Add(randomIndex); } //없을 경우 랜덤인덱스 제외된숫자에 추가
 
             //아이템 생성
-            GameObject createdItem =
-            Instantiate(itemPrefab, itemRespawnPoints[randomIndex].transform.position, Quaternion.identity, inGameItems.transform);
-
-
-            //아이템 스케일 UP
-            createdItem.transform.localScale *= 1.5f;
+            // GameObject createdItem = Instantiate(itemPrefab, itemRespawnPoints[randomIndex].transform.position, Quaternion.identity, inGameItems.transform);
+            GameObject createdItem = PhotonNetwork.Instantiate(itemPrefab.name, itemRespawnPoints[randomIndex].transform.position, Quaternion.identity);
+            // inGameItems 게임오브젝트 하위로 이동
+            createdItem.transform.parent = inGameItems.transform;
         }//for
     }//CreateRandomItems()
 } // Class ItemRespawnController
