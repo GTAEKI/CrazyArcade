@@ -4,15 +4,15 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     // 변경시킬 Rigidbody와 animator
     private Rigidbody2D playerRB;
     private Animator animator;
-
+    private CircleCollider2D playerCD;
+    
     //플레이어 기본 능력치
     private int waterBalloonCount = 2;
-
     private int niddleCount = 0;
     public float speed = 3.0f;
     public bool onShoe = false;
@@ -122,6 +122,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerCD = GetComponent<CircleCollider2D>();
         remainSpeed = speed; //최초 속도 저장
         //BazziArrowSprite = GetComponentInChildren<SpriteRenderer>();
 
@@ -142,8 +143,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
-
-
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
         waterBalloons = GameObject.FindGameObjectsWithTag("WaterBalloon");
 
@@ -168,8 +167,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             //시간 더해주기
             time += Time.deltaTime;
 
-            //일정 시간 지날경우 Die함수 실행
-            if (time > setTime)
+            //일정 시간 지나거나 죽지 않았을 경우 Die함수 실행
+            if (time > setTime && !isDead)
             {
                 Die();
                 //photonView.RPC("Die", RpcTarget.All, null);
@@ -237,9 +236,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Move()
     {
-        //Implement player movement using GetAxisRaw
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = 0;
+        float vertical = 0;
+
+        // 대각선방향으로 곧바로 움직이지 못하도록 if를 두번 사용함
+        if(horizontal == 0)
+        {
+            vertical = Input.GetAxisRaw("Vertical");
+        }
+        if(vertical == 0)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
+
+
         playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
 
         animator.SetInteger("Horizontal", (int)horizontal);
@@ -286,6 +296,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 GetItem(collision);
                 onShoe = true;
+            }
+            else if(collision.tag == "Player" && collision.GetComponent<PlayerController>().isStuckWater)
+            {
+                Debug.Log("터뜨린다");
+                collision.GetComponent<PlayerController>().Die();
             }
         }
     } // OnTriggerEnter2D()
@@ -353,11 +368,4 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         animator.SetBool("StuckWater", isStuckWater);
         speed = remainSpeed;
     } // UsingNiddle()
-
-
-    // TODO
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        
-    }
 } // Class PlayerController

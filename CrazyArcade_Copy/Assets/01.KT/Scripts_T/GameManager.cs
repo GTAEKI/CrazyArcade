@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,10 +33,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         if (!isLose && !isWin && !isDraw) //결과(승리,패배,무승부)가 나오지 않았다면
         {
             time_Sec -= Time.deltaTime;
             timeText_Min.text = "0" + time_Min; //분은 10이상일 경우가 없으므로 0을 항상 앞에 붙임
+
             if (time_Sec < 10) //초 10이하일경우 0을 앞에 붙임
             {
                 timeText_Sec.text = "0" + (int)time_Sec;
@@ -50,7 +58,6 @@ public class GameManager : MonoBehaviour
                 {
                     isDraw = true;
                 }
-
                 time_Min--;
                 time_Sec = 60f;
             }

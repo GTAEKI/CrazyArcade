@@ -42,7 +42,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: -4801989528507823973}
   - component: {fileID: -1776532238627127055}
   - component: {fileID: 8183286697827707940}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerBazzi
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -317,7 +317,6 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: -4801989528507823973}
   - {fileID: -1776532238627127055}
-  - {fileID: 8183286697827707940}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

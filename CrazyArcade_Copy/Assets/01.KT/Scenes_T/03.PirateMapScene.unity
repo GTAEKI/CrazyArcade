@@ -23521,7 +23521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText_Sec: {fileID: 1805617885}
   timeText_Min: {fileID: 512110772}
-  remainTime_Sec: 11
+  remainTime_Sec: 120
 --- !u!1 &914994757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6539891811998868861, guid: 5980d406c61114f468b2c20718a27fcc, type: 3}
