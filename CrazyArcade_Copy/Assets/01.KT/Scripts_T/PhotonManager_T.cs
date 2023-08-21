@@ -12,7 +12,6 @@ public class PhotonManager_T : MonoBehaviourPunCallbacks
     // 유저의 닉네임
     private string userId = "Zack";
 
-
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;

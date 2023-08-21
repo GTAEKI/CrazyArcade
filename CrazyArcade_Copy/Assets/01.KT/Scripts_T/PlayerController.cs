@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviourPun
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     // 변경시킬 Rigidbody와 animator
     private Rigidbody2D playerRB;
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviourPun
 
     // bool값 및 제한사항
     private bool isDead = false;
-    private bool isStuckWater = false; 
+    public bool isStuckWater = false; 
     public float stuckSpeed = 0.2f; //물풍선 갇혔을때 이동속도
     private float maxPower = 3.99996f; //최대 파워
     private float remainSpeed = default; //물풍선에서 바늘을 사용해서 나왔을때를 위해 속도 저장변수
@@ -59,13 +60,64 @@ public class PlayerController : MonoBehaviourPun
 
     private PhotonView pv;
 
+    #region GPT Test _ When Die Random ItemRespawn
+    //Test
+    //[System.Serializable]
+    //public class SyncedItemData
+    //{
+    //    public int itemIndex;
+    //    public Vector3 position;
+    //}
+
+    //private List<SyncedItemData> syncedItems = new List<SyncedItemData>();
+
+    //private void UpdateSyncedItems()
+    //{
+    //    syncedItems.Clear();
+    //    for(int i = 0; i < saveGetItem.Count; i++)
+    //    {
+    //        SyncedItemData itemData = new SyncedItemData
+    //        {
+    //            itemIndex = i,
+    //            position = saveGetItem[i].transform.position
+    //        };
+    //        syncedItems.Add(itemData);
+    //    }
+    //}
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        UpdateSyncedItems();
+    //        stream.SendNext(syncedItems);
+    //    }
+    //    else
+    //    {
+    //        syncedItems = (List<SyncedItemData>)stream.ReceiveNext();
+    //    }
+    //}
+
+    //private void RespawnItems()
+    //{
+    //    foreach(SyncedItemData itemData in syncedItems)
+    //    {
+    //        GameObject item = saveGetItem[itemData.itemIndex];
+    //        item.transform.position = itemData.position;
+    //        item.SetActive(true);
+    //    }
+    //}
+
+    //Test
+    #endregion
+
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         remainSpeed = speed; //최초 속도 저장
 
-        //// 포톤뷰 컴포넌트 연결
+        // 포톤뷰 컴포넌트 연결
         pv = GetComponent<PhotonView>();
 
     }//Start()
@@ -80,7 +132,6 @@ public class PlayerController : MonoBehaviourPun
         {
             //PutBalloon();
             photonView.RPC("PutBalloon", RpcTarget.All, null);
-
         }
         //// DEBUG:
         //testAudio.PlayOneShot(bumbBalloonClip);
@@ -101,6 +152,7 @@ public class PlayerController : MonoBehaviourPun
             if (time > setTime)
             {
                 Die();
+                //photonView.RPC("Die", RpcTarget.All, null);
             }
         }
     }//Update()
@@ -141,9 +193,12 @@ public class PlayerController : MonoBehaviourPun
                 if (!isStuckWater)
                 {
                     Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                    GameObject myWaterBalloon = Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        GameObject myWaterBalloon =PhotonNetwork.Instantiate("WaterBalloon", waterBalloonPosition, Quaternion.identity);
+                        myWaterBalloon.GetComponent<WaterBalloonController>().actorNumber = pv.Owner.ActorNumber;
+                    }
                     //유저 고유번호 저장
-                    myWaterBalloon.GetComponent<WaterBalloonController>().actorNumber = pv.Owner.ActorNumber;
                 }
             }
             // } 물풍선 설치 개수 제한
@@ -244,18 +299,25 @@ public class PlayerController : MonoBehaviourPun
 
     // 죽는 함수
     private void Die()
-    {        
+    {
         playerRB.velocity = Vector2.zero; //속도 0으로 조정
         animator.SetTrigger("Die"); //Die 애니메이션 실행
 
+        //if (!PhotonNetwork.IsMasterClient) //호스트에서만 죽었을때 아이템 리스폰
+        //{
+        //    return;
+        //}
+
         if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
-            foreach(GameObject item in saveGetItem)
+            //RespawnItems();
+            foreach (GameObject item in saveGetItem)
             {
-                float x = Random.Range(-3f, 3f);
-                float y = Random.Range(-3f, 3f);
+                Debug.Log(item.name);
+                float x = Random.Range(-2f, 2f);
+                float y = Random.Range(-2f, 2f);
 
-                item.transform.position = transform.position + new Vector3(x,y,0);
+                item.transform.position = transform.position + new Vector3(x, y, 0);
                 item.gameObject.SetActive(true);
             }
         }
@@ -271,4 +333,11 @@ public class PlayerController : MonoBehaviourPun
         animator.SetBool("StuckWater", isStuckWater);
         speed = remainSpeed;
     } // UsingNiddle()
+
+
+    // TODO
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        
+    }
 } // Class PlayerController
