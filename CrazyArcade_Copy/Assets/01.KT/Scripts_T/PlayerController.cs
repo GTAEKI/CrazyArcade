@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     //오버랩 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
 
+    //캐릭터 머리위 화살표 표시 변수
+    [SerializeField]
+    private Sprite[] arrows;
+
+    public SpriteRenderer BazziArrowSprite;
     #region 교수님 디버그
     //// DEBUG:
     //private AudioSource testAudio = default;
@@ -59,6 +64,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     #endregion
 
     private PhotonView pv;
+
+    public 
 
     #region GPT Test _ When Die Random ItemRespawn
     //Test
@@ -116,14 +123,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         remainSpeed = speed; //최초 속도 저장
+        //BazziArrowSprite = GetComponentInChildren<SpriteRenderer>();
 
         // 포톤뷰 컴포넌트 연결
         pv = GetComponent<PhotonView>();
 
+        if (pv.IsMine)
+        {
+            BazziArrowSprite.sprite = arrows[0];
+            Debug.Log(BazziArrowSprite.sprite.name);
+        }
+        else
+        {
+            BazziArrowSprite.sprite = arrows[1];
+            Debug.Log(BazziArrowSprite.sprite.name);
+        }
     }//Start()
 
     void Update()
     {
+
+
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
         waterBalloons = GameObject.FindGameObjectsWithTag("WaterBalloon");
 
