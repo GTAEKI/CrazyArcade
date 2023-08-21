@@ -21,6 +21,7 @@ TagManager:
   - ShoeItem
   - Wall
   - PlayerStuckCheck
+  - ReadyPlayerPosition
   layers:
   - Default
   - TransparentFX

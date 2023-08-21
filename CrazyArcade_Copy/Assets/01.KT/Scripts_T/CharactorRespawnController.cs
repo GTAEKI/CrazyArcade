@@ -1,11 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharactorRespawnController : MonoBehaviour
 {
-    // 생성할 플레이어오브젝트
-    public GameObject player;
+    //// 생성할 플레이어오브젝트
+    //public GameObject player;
 
     // 리스폰포인트 오브젝트들 저장
     private GameObject[] charactorRespawnPoints;
@@ -21,13 +22,14 @@ public class CharactorRespawnController : MonoBehaviour
         charactorRespawnPoints = GameObject.FindGameObjectsWithTag("CharactorRespawnPoint");
 
         // 플레이어 생성
-        CreatePlayer(player, 1);
+        CreatePlayer();
     } //Awake()
 
-    private void CreatePlayer(GameObject player, int playerAmount)
+    public void CreatePlayer()
     {
-        for (int i = 0; i < playerAmount; i++)
+        for (int i = 0; i < 1; i++)
         {
+
             //랜덤한 인덱스번호 >> 랜덤한 위치로 리스폰
             randomIndex = Random.Range(0, charactorRespawnPoints.Length);
 
@@ -53,8 +55,19 @@ public class CharactorRespawnController : MonoBehaviour
             else { exceptNumbers.Add(randomIndex); }//같지 않다면 현재 랜덤인덱스 번호를 제외번호에 추가
 
             // 플레이어 생성
-            GameObject createdPlayer =
-            Instantiate(player, charactorRespawnPoints[randomIndex].transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate("PlayerBazzi", charactorRespawnPoints[randomIndex].transform.position, Quaternion.identity);
+
+            //void CreatePlayer()
+            //{
+            //    // 출현 위치 정보를 배열에 저장
+            //    Transform[] points = GameObject.Find("CharactorRespawnController_J").GetComponents<Transform>();
+            //    int idx = Random.Range(1, points.Length);
+
+            //    // 네트워크상에 캐릭터 생성
+            //    PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
+
+            //}
+
         }//for
     }//CreatePlayer()
 } // Class CharactorRespawnController

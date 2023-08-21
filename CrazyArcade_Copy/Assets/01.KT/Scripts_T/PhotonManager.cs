@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -14,6 +14,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public TMP_InputField userInputField;
     // 룸 이름을 입력할 TextMexhPro Input Field
     public TMP_InputField roomNameInputField;
+
+    public Button gameStartButton;
+    public Button loginButton;
+    public Button makeRoomButton;
+    public GameObject panelLogin;
+
+    //public Button StartButton;
 
     private void Awake()
     {
@@ -36,11 +43,24 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        // 첫 화면에서는 로그인 창 false
+        panelLogin.SetActive(false);
+
+        // 닉네임,룸 생성 버튼 잠시 비활성화
+        loginButton.interactable = false;
+        makeRoomButton.interactable = false;
+
         // 저장된 유저명 로드
         userId = PlayerPrefs.GetString("USER_ID", $"USER_{Random.Range(1, 21):00}");
         userInputField.text = userId;
         // 접속 유저의 닉네임 등록
         PhotonNetwork.NickName = userId;
+    }
+
+    public void TogglePanelLogin()
+    {
+        // 게임 시작 버튼 누를 시 로그인 창 상태 변경
+        panelLogin.SetActive(!panelLogin.activeSelf);
     }
 
     // 유저명 설정
@@ -89,6 +109,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         // 룸에 수동으로 접속하기 위해 자동 입장은 주석 처리함
         // PhotonNetwork.JoinRandomRoom();
+
+        // 닉네임,룸 생성 버튼 활성화
+        loginButton.interactable = true;
+        makeRoomButton.interactable = true;
     }
 
     // 랜덤 룸 입장 실패했을 경우 호출되는 콜백 함수
@@ -118,20 +142,35 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName} , {player.Value.ActorNumber}");
         }
 
-        // 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
-        if (PhotonNetwork.IsMasterClient)
-        {
+
+        //// 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
+        //if (PhotonNetwork.IsMasterClient)
+        //{
             Debug.Log($"{userId}");
 
-            PhotonNetwork.LoadLevel("03.PirateMapScene");
-        }
+            PhotonNetwork.LoadLevel("02.ReadyScene");
+        //}
 
     }
+
+    //public void OnPlayScene()
+    
+    //    // 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
+    //    if (PhotonNetwork.IsMasterClient)
+    //    {
+    //        Debug.Log($"{userId}");
+
+    //        PhotonNetwork.LoadLevel("03.PirateMapScene");
+    //    }
+    //}
 
     #region UI_BUTTON_EVENT
 
     public void OnLoginClick()
     {
+        // 중복 접속 시도를 막기 위해 접속 버튼 잠시 비활성화
+        loginButton.interactable = false;
+
         // 유저명 저장
         SetUserId();
 
@@ -141,6 +180,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void OnMakeRoomClick()
     {
+        // 중복 접속 시도를 막기 위해 접속 버튼 잠시 비활성화
+        makeRoomButton.interactable = false;
+
         // 유저명 저장
         SetUserId();
 
