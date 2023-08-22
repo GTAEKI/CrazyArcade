@@ -20,10 +20,23 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public Button makeRoomButton;
     public GameObject panelLogin;
 
-    //public Button StartButton;
+    public static PhotonManager instance;
+
+    public int maxPlayer = 2;
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;    // 자신을 넣어줌
+            DontDestroyOnLoad(gameObject);  // 씬이 로드됐을 때 자신을 파괴하지 않고 유지
+        }
+        else
+        {
+            Debug.LogWarning("씬에 두 개 이상의 게임 매니저가 존재합니다!");
+            Destroy(gameObject);    // 두 개 이상일 떄는 나 자신을 삭제
+        }
+
         // 마스터 클라이언트의 씬 자동 동기화 옵션
         // 룸에 입장한 다른 접속 유저들에게도 마스터 클라이언트의 씬을 자동으로 로딩 해주기 위해
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -188,7 +201,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         // 룸 속성 정의
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 2;     // 룸에 입장 할 수 있는 최대 접속자 수
+        roomOptions.MaxPlayers = maxPlayer;     // 룸에 입장 할 수 있는 최대 접속자 수
         roomOptions.IsOpen = true;      // 룸 오픈 여부
         roomOptions.IsVisible = true;   // 로비에서 룸 목록에 노출시킬지
 

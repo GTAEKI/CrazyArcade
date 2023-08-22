@@ -19,7 +19,7 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
 
 
-        readyPlayerPositions = new GameObject[8];
+        readyPlayerPositions = new GameObject[PhotonManager.instance.maxPlayer];
         // 하이어라키창의 캐릭터 입장 위치들을 배열에 저장
         //readyPlayerPositions = GameObject.FindGameObjectsWithTag("ReadyPlayerPosition");
         readyPlayerPositions[0] = GameObject.Find("ReadyPlayerPosition").transform.GetChild(0).gameObject;
