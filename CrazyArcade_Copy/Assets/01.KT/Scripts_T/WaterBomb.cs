@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class WaterBomb : MonoBehaviour
 {
@@ -19,8 +21,12 @@ public class WaterBomb : MonoBehaviour
     {
         if(collision.tag == "PlayerStuckCheck")
         {
-            //플레이어를 맞힐경우 StuckWaterBalloon함수를 실행시킴
-            collision.GetComponentInParent<PlayerController>().StuckWaterBalloon();
+            //플레이어가 물에 갇혔을 경우에는 플레이어가 물에 맞지 않음
+            if(collision.GetComponentInParent<PlayerController>().isStuckWater == false)
+            {
+                //플레이어를 맞힐경우 StuckWaterBalloon함수를 실행시킴
+                collision.GetComponentInParent<PlayerController>().StuckWaterBalloon();
+            }
         }
         //else if(collision.tag == "WaterBalloon")
         //{

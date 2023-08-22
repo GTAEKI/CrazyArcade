@@ -8,6 +8,7 @@ using UnityEngine.SocialPlatforms;
 public class WaterBalloonController : MonoBehaviour
 {
     public float range = 0.25f; //물풍선이 Player가 어떤방향으로 들어오는지 감지하기 위한 범위
+
     // 플레이어가 어떤방향으로 왔는지 체크한 뒤 변화시킬 bool변수
     private bool playerIsDown = false, playerIsUp = false, playerIsLeft = false, playerIsRight = false;
 
@@ -42,6 +43,8 @@ public class WaterBalloonController : MonoBehaviour
     private float time = 0f;
     private float setTime = 1f;
 
+    public int actorNumber;
+
     void Start()
     {
         //배찌 플레이어를 찾아서
@@ -50,7 +53,6 @@ public class WaterBalloonController : MonoBehaviour
         power = player.GetComponent<PlayerController>().power;
         // 물풍선 설치시 자동으로 폭발
         StartCoroutine(Explosion());
-
     }//Start()
 
 
@@ -58,21 +60,14 @@ public class WaterBalloonController : MonoBehaviour
     public IEnumerator Explosion()
     {
         yield return new WaitForSeconds(2.5f);
-
-        //미정이 수정중
-        ExplosionFunc();
-        
+        ExplosionFunc();        
         GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
-        Destroy(destroySound);
-
         Destroy(gameObject);
-        //미정이 수정중
     }//IEnumerator Explosion()
 
     public void ExplosionFunc()
     {
         Bomb(bombWater_Center, transform.position);
-
         // 좌측 폭발
         for (float i = 0; i >= -power; i = i - plusPosition)
         {
@@ -179,6 +174,7 @@ public class WaterBalloonController : MonoBehaviour
         {
             return CheckTileAndBomb(bombWater_Up_Mid, bombWater_Up_Last, cols, i);
         }
+
     }//CheckTile_Vertical()
 
     private bool CheckTileAndBomb(GameObject bombAnimation_Mid, GameObject bombAnimation_Last, Collider2D[] cols, float i)

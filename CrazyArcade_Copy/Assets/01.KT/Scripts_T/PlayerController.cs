@@ -2,28 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     // 변경시킬 Rigidbody와 animator
     private Rigidbody2D playerRB;
     private Animator animator;
-
+    private CircleCollider2D playerCD;
+    
     //플레이어 기본 능력치
     private int waterBalloonCount = 2;
-
     private int niddleCount = 0;
-    public float speed = 4.0f;
+    public float speed = 3.0f;
     public bool onShoe = false;
     public float power = 0.66666f;
 
     // bool값 및 제한사항
     private bool isDead = false;
-    private bool isStuckWater = false;
+    public bool isStuckWater = false; 
     public float stuckSpeed = 0.2f; //물풍선 갇혔을때 이동속도
     private float maxPower = 3.99996f; //최대 파워
     private float remainSpeed = default; //물풍선에서 바늘을 사용해서 나왔을때를 위해 속도 저장변수
-
+    
     // 물풍선 변수
     public GameObject waterBalloon;
     public GameObject[] waterBalloons;
@@ -42,6 +43,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     //오버랩 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
+
+    //캐릭터 머리위 화살표 표시 변수
+    [SerializeField]
+    private Sprite[] arrows;
+
+    public SpriteRenderer BazziArrowSprite;
+    #region 교수님 디버그
     //// DEBUG:
     //private AudioSource testAudio = default;
     //[Header("For test")]
@@ -53,73 +61,99 @@ public class PlayerController : MonoBehaviourPunCallbacks
     //{
     //    testAudio = Camera.main.GetComponent<AudioSource>();
     //}
+    #endregion
+
+    private PhotonView pv;
+
+    public 
+
+    #region GPT Test _ When Die Random ItemRespawn
+    //Test
+    //[System.Serializable]
+    //public class SyncedItemData
+    //{
+    //    public int itemIndex;
+    //    public Vector3 position;
+    //}
+
+    //private List<SyncedItemData> syncedItems = new List<SyncedItemData>();
+
+    //private void UpdateSyncedItems()
+    //{
+    //    syncedItems.Clear();
+    //    for(int i = 0; i < saveGetItem.Count; i++)
+    //    {
+    //        SyncedItemData itemData = new SyncedItemData
+    //        {
+    //            itemIndex = i,
+    //            position = saveGetItem[i].transform.position
+    //        };
+    //        syncedItems.Add(itemData);
+    //    }
+    //}
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        UpdateSyncedItems();
+    //        stream.SendNext(syncedItems);
+    //    }
+    //    else
+    //    {
+    //        syncedItems = (List<SyncedItemData>)stream.ReceiveNext();
+    //    }
+    //}
+
+    //private void RespawnItems()
+    //{
+    //    foreach(SyncedItemData itemData in syncedItems)
+    //    {
+    //        GameObject item = saveGetItem[itemData.itemIndex];
+    //        item.transform.position = itemData.position;
+    //        item.SetActive(true);
+    //    }
+    //}
+
+    //Test
+    #endregion
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerCD = GetComponent<CircleCollider2D>();
         remainSpeed = speed; //최초 속도 저장
+        //BazziArrowSprite = GetComponentInChildren<SpriteRenderer>();
 
-        //// 포톤뷰 컴포넌트 연결
-        //pv = GetComponent<PhotonView>();
+        // 포톤뷰 컴포넌트 연결
+        pv = GetComponent<PhotonView>();
 
+        if (pv.IsMine)
+        {
+            BazziArrowSprite.sprite = arrows[0];
+            Debug.Log(BazziArrowSprite.sprite.name);
+        }
+        else
+        {
+            BazziArrowSprite.sprite = arrows[1];
+            Debug.Log(BazziArrowSprite.sprite.name);
+        }
     }//Start()
 
     void Update()
     {
-        //if (!isDead)
-        //{
-        //    //Implement player movement using GetAxisRaw
-        //    float horizontal = Input.GetAxisRaw("Horizontal");
-        //    float vertical = Input.GetAxisRaw("Vertical");
-        //    playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
-
-        //    animator.SetInteger("Horizontal", (int)horizontal);
-        //    animator.SetInteger("Vertical", (int)vertical);
-        //}
-
-        // 로컬 아니면 return
-        if (!photonView.IsMine) { return; }
-
-        // { 물풍선 설치 개수 제한
         // waterBalloons배열에 하이어라키에 있는 WaterBalloon을 넣어줌
         waterBalloons = GameObject.FindGameObjectsWithTag("WaterBalloon");
 
-        // 로컬 유저일 때만 물풍선 설치
-        if (photonView.IsMine && Input.GetKeyDown(KeyCode.Space))
+        //스페이스바를 눌러 물풍선 생성
+        if (pv.IsMine && Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
         {
-            //스페이스바를 눌러 물풍선 생성
-            if (Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
-            {
-                Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y);
-                //캐릭터가 물풍선 중복해서 놓을수 없도록 체크하는 범위
-                Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.9f, 0);
-
-                foreach (Collider2D col in cols)
-                {
-                    if (col.tag == "WaterBalloon")
-                    {
-                        isWaterBalloon = true;
-                        Debug.Log("생성불가");
-                    }
-                }
-
-                if (!isWaterBalloon)
-                {
-                    Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                    Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
-                }
-                isWaterBalloon = false;
-            }
-            //// DEBUG:
-            //testAudio.PlayOneShot(bumbBalloonClip);
-
-            PutBalloon();
-
-            // RPC로 원격지에 있는 함수 호출
-            // 호출하지 않으면 상대방이 설치한 물풍선 동기화가 안됨 
-            photonView.RPC("PutBalloon", RpcTarget.Others, null);
+            //PutBalloon();
+            photonView.RPC("PutBalloon", RpcTarget.All, null);
         }
+        //// DEBUG:
+        //testAudio.PlayOneShot(bumbBalloonClip);
 
         // 바늘 아이템 사용시
         if (Input.GetKeyDown(KeyCode.Alpha1) && isStuckWater && niddleCount != 0)
@@ -133,10 +167,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
             //시간 더해주기
             time += Time.deltaTime;
 
-            //일정 시간 지날경우 Die함수 실행
-            if (time > setTime)
+            //일정 시간 지나거나 죽지 않았을 경우 Die함수 실행
+            if (time > setTime && !isDead)
             {
                 Die();
+                //photonView.RPC("Die", RpcTarget.All, null);
             }
         }
     }//Update()
@@ -145,35 +180,76 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     private void PutBalloon()
     {
-        // { 물풍선 설치 개수 제한
-        // waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
-        if (waterBalloons.Length < waterBalloonCount)
+        Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y);
+        //캐릭터가 물풍선 중복해서 놓을수 없도록 체크하는 범위
+        Collider2D[] cols = Physics2D.OverlapBoxAll(m_tr_Vector2, boxSize * 0.9f, 0);
+
+        foreach (Collider2D col in cols)
         {
-            //Press the spacebar to create a water balloon
-            if (!isStuckWater)
+            if (col.tag == "WaterBalloon")
             {
-                Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
+                isWaterBalloon = true;
+                Debug.Log("생성불가");
             }
         }
-        // } 물풍선 설치 개수 제한
+
+        if (!isWaterBalloon)
+        {
+            int putWaterCount = 0;
+            foreach(GameObject myWaterNumber in waterBalloons)
+            {
+                if(myWaterNumber.GetComponent<WaterBalloonController>().actorNumber == pv.Owner.ActorNumber)
+                {
+                    putWaterCount++;
+                }
+            }
+            // { 물풍선 설치 개수 제한
+            //waterBalloons의 개수를 체크하여 설치 가능한 숫자와 비교함
+            if (putWaterCount < waterBalloonCount)
+            {
+                putWaterCount = 0;
+                //Press the spacebar to create a water balloon
+                if (!isStuckWater)
+                {
+                    Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        GameObject myWaterBalloon =PhotonNetwork.Instantiate("WaterBalloon", waterBalloonPosition, Quaternion.identity);
+                        myWaterBalloon.GetComponent<WaterBalloonController>().actorNumber = pv.Owner.ActorNumber;
+                    }
+                    //유저 고유번호 저장
+                }
+            }
+            // } 물풍선 설치 개수 제한
+        }
+        isWaterBalloon = false;
     }
 
     private void FixedUpdate()
     {
-        //if (!photonView.IsMine) { return; }
-     
-        if (photonView.IsMine && !isDead)
-        { 
+        if (!pv.IsMine) { return; }
+        if (!isDead)
+        {
             Move();
         }
     }
 
     private void Move()
     {
-        //Implement player movement using GetAxisRaw
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = 0;
+        float vertical = 0;
+
+        // 대각선방향으로 곧바로 움직이지 못하도록 if를 두번 사용함
+        if(horizontal == 0)
+        {
+            vertical = Input.GetAxisRaw("Vertical");
+        }
+        if(vertical == 0)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
+
+
         playerRB.velocity = new Vector2(speed * horizontal, speed * vertical);
 
         animator.SetInteger("Horizontal", (int)horizontal);
@@ -182,74 +258,61 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!photonView.IsMine) { return; }
         // 죽거나 물에 갇히면 아래 행동을 못함(아이템 먹기, 물풍선에 맞기)
-        if (!isDead && !isStuckWater)
+        if(!isDead && !isStuckWater)
         {
-            if (collision.tag == "SpeedItem") // 스피드아이템일 경우
+            if(collision.tag == "SpeedItem") // 스피드아이템일 경우
             {
-                AudioSource eatItemSound = GetComponent<AudioSource>();
-                eatItemSound.Play();
+                GetItem(collision);
 
-                saveGetItem.Add(collision.gameObject);
-                collision.gameObject.SetActive(false);
-                //Destroy(collision.gameObject);
-                speed += 1.0f;
+                speed += 0.4f;
                 remainSpeed = speed;
             }
-            else if (collision.tag == "BalloonItem") // 풍선 아이템일 경우
+            else if(collision.tag == "BalloonItem") // 풍선 아이템일 경우
             {
-                AudioSource eatItemSound = GetComponent<AudioSource>();
-                eatItemSound.Play();
-
-                saveGetItem.Add(collision.gameObject);
-                collision.gameObject.SetActive(false);
-
+                GetItem(collision);
                 waterBalloonCount += 1;
             }
-            else if (collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
+            else if(collision.tag == "SmallPowerPotion") // 작은 파워업아이템일 경우
             {
-                AudioSource eatItemSound = GetComponent<AudioSource>();
-                eatItemSound.Play();
-
-                saveGetItem.Add(collision.gameObject);
-                collision.gameObject.SetActive(false);
+                GetItem(collision);
 
                 if (power < maxPower) //Max파워를 넘지 못하도록 조정
                 {
                     power += 0.66666f;
                 }
             }
-            else if (collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
+            else if(collision.tag == "BigPowerPotion") // 큰 파워업 아이템일 경우
             {
-                AudioSource eatItemSound = GetComponent<AudioSource>();
-                eatItemSound.Play();
-
-                saveGetItem.Add(collision.gameObject);
-                collision.gameObject.SetActive(false);
-
+                GetItem(collision);
                 power = maxPower;
             }
-            else if (collision.tag == "Niddle") // 바늘일 경우
+            else if(collision.tag == "Niddle") // 바늘일 경우
             {
-                AudioSource eatItemSound = GetComponent<AudioSource>();
-                eatItemSound.Play();
-
-                saveGetItem.Add(collision.gameObject);
-                collision.gameObject.SetActive(false);
-
+                GetItem(collision);
                 niddleCount++;
             }
             else if (collision.tag == "ShoeItem") // 신발 아이템일 경우
             {
-                AudioSource eatItemSound = GetComponent<AudioSource>();
-                eatItemSound.Play();
-
+                GetItem(collision);
                 onShoe = true;
-                collision.gameObject.SetActive(false);
+            }
+            else if(collision.tag == "Player" && collision.GetComponent<PlayerController>().isStuckWater)
+            {
+                Debug.Log("터뜨린다");
+                collision.GetComponent<PlayerController>().Die();
             }
         }
     } // OnTriggerEnter2D()
+
+    // 아이템 얻을경우
+    private void GetItem(Collider2D collision)
+    {
+        AudioSource eatItemSound = GetComponent<AudioSource>();
+        eatItemSound.Play();
+        saveGetItem.Add(collision.gameObject);
+        collision.gameObject.SetActive(false);
+    }//GetItem()
 
     // 물풍선 위에 서있다가 내려갈경우 Trigger를 false
     private void OnTriggerExit2D(Collider2D collision)
@@ -275,12 +338,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         playerRB.velocity = Vector2.zero; //속도 0으로 조정
         animator.SetTrigger("Die"); //Die 애니메이션 실행
 
+        //if (!PhotonNetwork.IsMasterClient) //호스트에서만 죽었을때 아이템 리스폰
+        //{
+        //    return;
+        //}
+
         if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
+            //RespawnItems();
             foreach (GameObject item in saveGetItem)
             {
-                float x = Random.Range(-3f, 3f);
-                float y = Random.Range(-3f, 3f);
+                Debug.Log(item.name);
+                float x = Random.Range(-2f, 2f);
+                float y = Random.Range(-2f, 2f);
 
                 item.transform.position = transform.position + new Vector3(x, y, 0);
                 item.gameObject.SetActive(true);
