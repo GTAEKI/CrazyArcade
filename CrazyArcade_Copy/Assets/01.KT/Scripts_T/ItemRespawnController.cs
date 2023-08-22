@@ -33,6 +33,11 @@ public class ItemRespawnController : MonoBehaviourPun
 
     private GameObject[] itemRespawnPoints;
 
+    private void Awake()
+    {
+        CreateItems();
+    }
+
     //아이템 생성 함수
     public void CreateItems()
     {
