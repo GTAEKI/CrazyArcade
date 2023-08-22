@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviourPun
 {
     //아이템 기본 체력
     public int itemHp = 2;
@@ -10,10 +12,9 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(itemHp == 0)
+        if(itemHp <= 0 && PhotonNetwork.IsMasterClient)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     } // Update()
 
