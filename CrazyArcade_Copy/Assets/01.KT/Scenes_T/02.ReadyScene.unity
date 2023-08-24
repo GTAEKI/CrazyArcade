@@ -1324,6 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startButton: {fileID: 1151227293}
+  button: {fileID: 1151227291}
 --- !u!1 &2070554152
 GameObject:
   m_ObjectHideFlags: 0

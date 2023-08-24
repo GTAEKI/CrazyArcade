@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01.KT/Scenes_T/03.PirateMapScene.unity
-    guid: c368180b1deef4f99a346b5f71fd87b5
+    path: Assets/01.KT/Scenes_T/01.LoginScene.unity
+    guid: 081da6be0b137472da176f1158c2ee49
   - enabled: 1
     path: Assets/01.KT/Scenes_T/02.ReadyScene.unity
     guid: e9f5c202aaf7c4e7d98603cb0462332f
   - enabled: 1
-    path: Assets/01.KT/Scenes_T/01.LoginScene.unity
-    guid: 081da6be0b137472da176f1158c2ee49
+    path: Assets/01.KT/Scenes_T/03.PirateMapScene.unity
+    guid: c368180b1deef4f99a346b5f71fd87b5
   m_configObjects: {}
