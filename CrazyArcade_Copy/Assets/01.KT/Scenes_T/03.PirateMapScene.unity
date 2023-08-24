@@ -23708,9 +23708,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory_NiddleImage: {fileID: 2120136957}
   itemCtrl_NiddleImage: {fileID: 935329150}
-  loseImage: {fileID: 0}
-  winImage: {fileID: 0}
-  drawImage: {fileID: 0}
+  loseImage: {fileID: 1973618154}
+  winImage: {fileID: 1275324376}
+  drawImage: {fileID: 1304528850}
   timeText_Sec: {fileID: 1805617885}
   timeText_Min: {fileID: 512110772}
   niddleAmount: {fileID: 1680937870}

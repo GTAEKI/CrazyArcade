@@ -11,11 +11,9 @@ public class StartVideoController : MonoBehaviour
     private Color endColor;
     private Color blackColor;
     private Image image;
-
     private float setTime = 0.0f;
     private float endTime = 2.0f;
 
-    // Start is called before the first frame update
     void Start()
     {
         firstColor = new Color(1, 1, 1, 1); //일반컬로 255로 쓰고싶으면 Color 32

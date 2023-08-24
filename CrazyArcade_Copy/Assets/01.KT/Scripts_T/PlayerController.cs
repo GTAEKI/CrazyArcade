@@ -112,10 +112,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 //일정 시간 지나거나 죽지 않았을 경우 Die함수 실행
                 if (time > setTime && !isDead)
                 {
-                    Die();
+                    //test
+                    //if (PhotonNetwork.IsMasterClient)
+                    //{
+                    //    isDead = true;
+                    //    photonView.RPC("ApplyUpdatedDeath", RpcTarget.Others, isDead);
+                    //    photonView.RPC("Die", RpcTarget.All);
+                    //}
+                    //test
+
+                    Die(); 
                 }
             }
         }
+        //test
+        //if (isDead)
+        //{
+        //    Die();
+        //}
+        //test
     }//Update()
 
     // 물풍선 설치 함수 
@@ -254,10 +269,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else if(collision.tag == "Player" && collision.GetComponent<PlayerController>().isStuckWater)
             {
                 Debug.Log("터뜨린다");
-                collision.GetComponent<PlayerController>().Die();
+
+                //test
+                //if (PhotonNetwork.IsMasterClient)
+                {
+                    collision.GetComponent<PlayerController>().Die();
+                    //Collider2D otherPlayer = collision;
+                    //photonView.RPC("KillOthers", RpcTarget.All, otherPlayer);
+                }
+                //test
             }
         }
     } // OnTriggerEnter2D()
+
+    //test
+    //[PunRPC]
+    //public void KillOthers(Collider2D collision)
+    //{
+    //    collision.GetComponent<PlayerController>().isDead = true;
+    //    collision.GetComponent<PlayerController>().Die();
+    //}
+    //test
 
     // 아이템 얻을경우
     private void GetItem(Collider2D collision)
@@ -286,14 +318,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
         speed = stuckSpeed;
     } // StuckWaterBalloon()
 
-    // 죽는 함수
-    private void Die()
-    {
-        photonView.RPC("ImDead", RpcTarget.MasterClient);
-    } // Die()
+    //test
+    //[PunRPC]
+    //public void ApplyUpdatedDeath(bool newDead)
+    //{
+    //    isDead = newDead;
+    //}
 
-    [PunRPC]
-    private void ImDead()
+
+    // 죽는 함수
+    //[PunRPC]
+    private void Die()
     {
         playerRB.velocity = Vector2.zero; //속도 0으로 조정
         animator.SetTrigger("Die"); //Die 애니메이션 실행
@@ -312,7 +347,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
         isDead = true;
-    }
+    } // Die()
 
     // 바늘 사용 함수
     private void UsingNiddle()
