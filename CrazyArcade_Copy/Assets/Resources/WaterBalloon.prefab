@@ -188,6 +188,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0.25
+  playerIsDown: 0
+  playerIsUp: 0
+  playerIsLeft: 0
+  playerIsRight: 0
   power: 0
   player: {fileID: 8183286697827707943, guid: 3fb2ce6762ed84bf28dd59fbb9f78b8e, type: 3}
   plusPosition: 0.7

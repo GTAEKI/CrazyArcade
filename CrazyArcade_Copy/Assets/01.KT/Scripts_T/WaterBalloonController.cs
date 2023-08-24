@@ -10,7 +10,7 @@ public class WaterBalloonController : MonoBehaviour
     public float range = 0.25f; //물풍선이 Player가 어떤방향으로 들어오는지 감지하기 위한 범위
 
     // 플레이어가 어떤방향으로 왔는지 체크한 뒤 변화시킬 bool변수
-    private bool playerIsDown = false, playerIsUp = false, playerIsLeft = false, playerIsRight = false;
+    public bool playerIsDown = false, playerIsUp = false, playerIsLeft = false, playerIsRight = false;
 
     //레이캐스트 변수
     private RaycastHit2D hitInfo;
@@ -33,7 +33,6 @@ public class WaterBalloonController : MonoBehaviour
     public GameObject bombWater_Right_Mid;
     public GameObject bombWater_Up_Last;
     public GameObject bombWater_Up_Mid;
-
     public GameObject waterExplosionSound;
     
     // Overlap 변수
@@ -137,8 +136,6 @@ public class WaterBalloonController : MonoBehaviour
         }
     }
 
-    
-
     // Overlap을 이용해서 가로방향 타일을 체크하여 물줄기 제어
     private bool CheckTile_Horizontal(float i)
     {
@@ -239,6 +236,13 @@ public class WaterBalloonController : MonoBehaviour
         {
             transform.position = collision.transform.position;
         }
+        else if(collision.gameObject.tag == "Bottom_Thorn")
+        {
+            transform.position = collision.transform.position;
+            ExplosionFunc();
+            GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }//OnTriggerEnter2D()
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -285,7 +289,7 @@ public class WaterBalloonController : MonoBehaviour
         }
     }//MoveWaterBalloon()
 
-    private void Update()
+    private void CheckDirection()
     {
         if (playerIsLeft)
         {
@@ -339,5 +343,11 @@ public class WaterBalloonController : MonoBehaviour
                 MoveWaterBalloon(collisionPosition);
             }
         }
+
+    }
+
+    private void Update()
+    {
+        CheckDirection();
     }//Update()
 }//class WaterBalloonController

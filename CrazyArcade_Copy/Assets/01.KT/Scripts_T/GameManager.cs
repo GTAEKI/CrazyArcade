@@ -24,31 +24,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject inventory_NiddleImage;
+    public GameObject itemCtrl_NiddleImage;
     public GameObject loseImage;
     public GameObject winImage;
     public GameObject drawImage;
     public Text timeText_Sec;
     public Text timeText_Min;
+    public Text niddleAmount;
 
     public float remainTime_Sec = 120f; // 남은 시간 2분
-    private bool isLose = false; // 패배 상태
-    private bool isWin = false; // 승리 상태
-    private bool isDraw = false; // 무승부 상태
+    public bool isLose = false; // 패배 상태
+    public bool isWin = false; // 승리 상태
+    public bool isDraw = false; // 무승부 상태
     private float time_Sec;
     private int time_Min;
 
-    //private void Awake()
-    //{
-    //    CreatePlayer();
-    //}
-
-    // Start is called before the first frame update
     void Start()
     {
         //시간 제어
         time_Sec = 60f;
         time_Min = (int)(remainTime_Sec / time_Sec);
         time_Sec = remainTime_Sec % time_Sec;
+
+        //이미지 false
+        inventory_NiddleImage.SetActive(false);
+        itemCtrl_NiddleImage.SetActive(false);
+        loseImage.SetActive(false);
+        winImage.SetActive(false);
+        drawImage.SetActive(false);
     }
 
     // Update is called once per frame
@@ -92,14 +96,8 @@ public class GameManager : MonoBehaviour
         }
     }// Update();
 
-    //void CreatePlayer()
-    //{
-    //    // 출현 위치 정보를 배열에 저장
-    //    Transform[] points = GameObject.Find("CharactorRespawnController_J").GetComponents<Transform>();
-    //    int idx = Random.Range(1, points.Length);
-
-    //    // 네트워크상에 캐릭터 생성
-    //    PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
-
-    //}
+    public void NiddleCount(int niddleCount)
+    {
+        niddleAmount.text = "x" + niddleCount;
+    }
 }

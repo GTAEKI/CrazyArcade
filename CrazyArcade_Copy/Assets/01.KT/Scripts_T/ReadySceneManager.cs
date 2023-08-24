@@ -8,38 +8,125 @@ using UnityEngine.UI;
 public class ReadySceneManager : MonoBehaviourPunCallbacks
 {
     public Button startButton;
+    public Button priateMap;
+    public Button tankMap;
+    public Button firstChoiceButton;
+    public Button secondChoiceButton;
+
+    public GameObject priate_Choiced;
+    public GameObject tank_Choiced;
+    public GameObject choiceMap;
+    public GameObject priateYellowEffect;
+    public GameObject tankYellowEffect;
 
     private int playerNum = 0;
     private GameObject[] readyPlayerPositions;
 
+    private bool[] playersReady;
+    private bool allPlayersReady = false;
+    private bool isMapPriate;
+    private bool isMapTank;
+
+    private enum ChoiceMap
+    {
+        map_Priate,
+        map_Tank
+    }
+    ChoiceMap confirmMap = default;
+
     private void Awake()
     {
-        // ¸¶½ºÅÍ Å¬¶óÀÌ¾ğÆ®ÀÇ ¾À ÀÚµ¿ µ¿±âÈ­ ¿É¼Ç
-        // ·ë¿¡ ÀÔÀåÇÑ ´Ù¸¥ Á¢¼Ó À¯Àúµé¿¡°Ôµµ ¸¶½ºÅÍ Å¬¶óÀÌ¾ğÆ®ÀÇ ¾ÀÀ» ÀÚµ¿À¸·Î ·Îµù ÇØÁÖ±â À§ÇØ
+        // ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ì˜ ì”¬ ìë™ ë™ê¸°í™” ì˜µì…˜
+        // ë£¸ì— ì…ì¥í•œ ë‹¤ë¥¸ ì ‘ì† ìœ ì €ë“¤ì—ê²Œë„ ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ì˜ ì”¬ì„ ìë™ìœ¼ë¡œ ë¡œë”© í•´ì£¼ê¸° ìœ„í•´
         PhotonNetwork.AutomaticallySyncScene = true;
+        confirmMap = ChoiceMap.map_Priate;
 
-
+        // ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ê°€ ì•„ë‹Œ í”Œë ˆì´ì–´ë“¤ë§Œ ë²„íŠ¼ì„ ëˆ„ë¥¼ ìˆ˜ ìˆë„ë¡ ì„¤ì •
         readyPlayerPositions = new GameObject[PhotonManager.instance.maxPlayer];
-        // ÇÏÀÌ¾î¶óÅ°Ã¢ÀÇ Ä³¸¯ÅÍ ÀÔÀå À§Ä¡µéÀ» ¹è¿­¿¡ ÀúÀå
+        playersReady = new bool[PhotonManager.instance.maxPlayer];
+
+        // í•˜ì´ì–´ë¼í‚¤ì°½ì˜ ìºë¦­í„° ì…ì¥ ìœ„ì¹˜ë“¤ì„ ë°°ì—´ì— ì €ì¥
         //readyPlayerPositions = GameObject.FindGameObjectsWithTag("ReadyPlayerPosition");
-        readyPlayerPositions[0] = GameObject.Find("ReadyPlayerPosition").transform.GetChild(0).gameObject;
-        Debug.Log(readyPlayerPositions[0].name);
-        Debug.Log(GameObject.Find("FirstPlayer").transform.root.GetChild(0).name);
+        //readyPlayerPositions[0] = GameObject.Find("ReadyPlayerPosition").transform.GetChild(0).gameObject;
+        //Debug.Log(readyPlayerPositions[0].name);
+        //Debug.Log(GameObject.Find("FirstPlayer").transform.root.GetChild(0).name);
 
-        // GameObject.Find(ÀÌ¸§) -> Scene ÇÏÀ§ÀÇ ¸ğµç ¿ÀºêÁ§Æ® Áß¿¡¼­ ÀÏÄ¡ÇÏ´Â ÀÌ¸§ÀÇ GameObject ¸¦ °¡Á®¿È
-        // gameObject.transform.Find ¶Ç´Â gameObject.transform.GetChild(ÀÎµ¦½º ¹øÈ£) -> 'gameObject' ÀÌ ¿ÀºêÁ§Æ®¸¦ ºÎ¸ğ·Î »ï°í
-        // ±× ÇÏÀ§¿¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®¸¦ ÀÎµ¦½º ¹øÈ£¿¡ ¸Â°Ô °¡Á®¿È
-        // gameObject.transform.parent.parent -> ºÎ¸ğ-ºÎ¸ğ¸¦ ºÎ¸§
-        // gameObject.transform.root.getChild(ÀÎµ¦½º¹øÈ£) -> ¾ÀÀ» Á¦¿ÜÇÏ°í °¡Àå ÃÖ»óÀÇ ¿ÀºêÁ§Æ®ÀÇ ÀÎµ¦½º¹øÈ£ ¹øÂ° ¿ÀºêÁ§Æ®¸¦ ºÎ¸§
+        // GameObject.Find(ì´ë¦„) -> Scene í•˜ìœ„ì˜ ëª¨ë“  ì˜¤ë¸Œì íŠ¸ ì¤‘ì—ì„œ ì¼ì¹˜í•˜ëŠ” ì´ë¦„ì˜ GameObject ë¥¼ ê°€ì ¸ì˜´
+        // gameObject.transform.Find ë˜ëŠ” gameObject.transform.GetChild(ì¸ë±ìŠ¤ ë²ˆí˜¸) -> 'gameObject' ì´ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¶€ëª¨ë¡œ ì‚¼ê³ 
+        // ê·¸ í•˜ìœ„ì— ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ ì¸ë±ìŠ¤ ë²ˆí˜¸ì— ë§ê²Œ ê°€ì ¸ì˜´
+        // gameObject.transform.parent.parent -> ë¶€ëª¨-ë¶€ëª¨ë¥¼ ë¶€ë¦„
+        // gameObject.transform.root.getChild(ì¸ë±ìŠ¤ë²ˆí˜¸) -> ì”¬ì„ ì œì™¸í•˜ê³  ê°€ì¥ ìµœìƒì˜ ì˜¤ë¸Œì íŠ¸ì˜ ì¸ë±ìŠ¤ë²ˆí˜¸ ë²ˆì§¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¶€ë¦„
 
-
-        // Ä³¸¯ÅÍ ÀÔÀå½Ã ¼ø¼­¿¡ ¸ÂÃç Ä³¸¯ÅÍ ¿ÀºêÁ§Æ® true
+        // ìºë¦­í„° ì…ì¥ì‹œ ìˆœì„œì— ë§ì¶° ìºë¦­í„° ì˜¤ë¸Œì íŠ¸ true
         OnReadyScene();
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ëŠ” ë‹¤ë¥¸ í”Œë ˆì´ì–´ê°€ ëª¨ë‘ ì¤€ë¹„í•˜ê¸° ì „ê¹Œì§€ ë²„íŠ¼ ë¹„í™œì„±í™”
+            startButton.interactable = false;
+        }
+        else
+        {
+            // ë§ˆìŠ¤í„°ë¥¼ ì œì™¸í•œ í”Œë ˆì´ì–´ëŠ” ë²„íŠ¼ í™œì„±í™”
+            startButton.interactable = true;
+        }
     }
 
+    // ë§µ ê³ ë¥´ëŠ” ì°½ì„ ì—¬ëŠ” ì²«ë²ˆì§¸ ë²„íŠ¼í´ë¦­ì‹œ ì‹¤í–‰
+    public void ClickFirstChoiceButton()
+    {
+        choiceMap.SetActive(true); // ë§µ ê³ ë¥´ëŠ” ì°½ í™œì„±í™”
+        firstChoiceButton.interactable = false; //ë§µ ê³ ë¥´ëŠ” ë²„íŠ¼ ë¹„í™œì„±í™”
+        startButton.interactable = false; // ì‹œì‘ë²„íŠ¼ ë¹„í™œì„±í™”
+    }
+    // ë§µì„ ê³ ë¥¸ ë’¤ í™•ì •í•˜ëŠ” ë‘ë²ˆì§¸ ë²„íŠ¼ í´ë¦­ì‹œ ì‹¤í–‰
+    public void ClickSecondChoiceButton()
+    {
+        firstChoiceButton.interactable = true; // ë§µ ê³ ë¥´ëŠ” ë²„íŠ¼ í™œì„±í™”
+        startButton.interactable = true; // ì‹œì‘ë²„íŠ¼ í™œì„±í™”
+        choiceMap.SetActive(false); // ë§µ ê³ ë¥´ëŠ” ì°½ ë¹„í™œì„±í™”
+        ConfirmMap(); // ë§µ í™•ì •í•¨ìˆ˜ ì‹¤í–‰
+    }
 
-    // Ä³¸¯ÅÍ ÀÔÀå ¼ø¼­¿¡ ¸ÂÃç¼­ ¿ÀºêÁ§Æ® ³ªÅ¸³»´Â
+    // í•´ì ë§µ ê³ ë¥¼ì‹œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
+    public void ClickPirateMap()
+    {
+        isMapPriate = true;
+        isMapTank = false;
+        priateYellowEffect.SetActive(true);
+        tankYellowEffect.SetActive(false);
+    }
+
+    // íƒ±í¬ë§µ ê³ ë¥¼ì‹œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
+    public void ClickTankMap()
+    {
+        isMapTank = true;
+        isMapPriate = false;
+        tankYellowEffect.SetActive(true);
+        priateYellowEffect.SetActive(false);
+    }
+
+    // ë§µ í™•ì •ì‹œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
+    public void ConfirmMap()
+    {
+        Debug.Log(confirmMap);
+
+        if (isMapPriate)
+        {
+            confirmMap = ChoiceMap.map_Priate;
+            priate_Choiced.SetActive(true);
+            tank_Choiced.SetActive(false);
+
+        }
+        else if (isMapTank)
+        {
+            confirmMap = ChoiceMap.map_Tank;
+            priate_Choiced.SetActive(false);
+            tank_Choiced.SetActive(true);
+        }
+    }
+
+    // ìºë¦­í„° ì…ì¥ ìˆœì„œì— ë§ì¶°ì„œ ì˜¤ë¸Œì íŠ¸ ë‚˜íƒ€ë‚´ëŠ”
     public void OnReadyScene()
     {
         Debug.Log($"{readyPlayerPositions.Length}");
@@ -48,6 +135,26 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         readyPlayerPositions[playerNum].SetActive(false);
         playerNum++;
     }
+
+    private void CheckAllReadyButton()
+    {
+        bool allReady = true;
+
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            if (i + 1 != PhotonNetwork.MasterClient.ActorNumber)
+            {
+                if (!playersReady[i])
+                {
+                    allReady = false;
+                    break;
+                }
+            }
+        }
+        allPlayersReady = allReady;
+        startButton.interactable = allReady;
+    }
+
     public void OnStartButtonClick()
     {
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
@@ -55,14 +162,22 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName} , {player.Value.ActorNumber}");
         }
 
-        // ¸¶½ºÅÍ Å¬¶óÀÌ¾ğÆ®ÀÎ °æ¿ì¿¡¸¸ ÇÃ·¹ÀÌ ¾À ·Îµù
-        if (PhotonNetwork.IsMasterClient)
+        // ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ì¸ ê²½ìš°ì—ë§Œ í”Œë ˆì´ ì”¬ ë¡œë”©
+        if (PhotonNetwork.IsMasterClient && startButton.interactable)
         {
-            PhotonNetwork.LoadLevel("03.PirateMapScene");
+            if (confirmMap == ChoiceMap.map_Priate)
+            {
+                PhotonNetwork.LoadLevel("03.PirateMapScene"); 
+            }
+            else if (confirmMap == ChoiceMap.map_Tank)
+            {
+                PhotonNetwork.LoadLevel("04.TankMapScene");
+            }
         }
         else
         {
-            Debug.Log("Only Master Client can move to Scene 03.");
+            Debug.Log("Only Master Client can move to Scene 03" +
+                "or all players are not ready.");
         }
     }
 }

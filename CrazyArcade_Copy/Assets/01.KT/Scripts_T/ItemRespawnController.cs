@@ -15,7 +15,9 @@ public class ItemRespawnController : MonoBehaviourPun
     public int amount_BigPowerPotion = 3;
     public int amount_SpeedItem = 3; 
     public int amount_Niddle = 10;
-    public int amount_Shoe = 10;
+    public int amount_Shoe = 3;
+    public int amount_SpringItem = 3;
+    public int amount_TankItem = 3;
 
 
     //생성할 아이템 프리펩
@@ -25,6 +27,8 @@ public class ItemRespawnController : MonoBehaviourPun
     public GameObject speedItem;
     public GameObject niddle;
     public GameObject shoe;
+    public GameObject springItem;
+    public GameObject tankItem;
 
     // ItemRespawnPoint중 랜덤으로 설치 위치를 설정하는데 필요한 변수
     private int randomIndex;
@@ -55,6 +59,8 @@ public class ItemRespawnController : MonoBehaviourPun
         CreateRandomItems(speedItem, amount_SpeedItem);
         CreateRandomItems(niddle, amount_Niddle);
         CreateRandomItems(shoe, amount_Shoe);
+        //CreateRandomItems(tankItem, amount_TankItem);
+        //CreateRandomItems(springItem, amount_SpringItem);
     }
 
     //생성할 아이템과 갯수를 삽입

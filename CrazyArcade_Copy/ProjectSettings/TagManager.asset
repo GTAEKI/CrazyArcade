@@ -22,6 +22,9 @@ TagManager:
   - Wall
   - PlayerStuckCheck
   - ReadyPlayerPosition
+  - TankItem
+  - SpringItem
+  - Bottom_Thorn
   layers:
   - Default
   - TransparentFX
@@ -62,14 +65,14 @@ TagManager:
   - name: BackGroundTile
     uniqueID: 1004686253
     locked: 0
-  - name: WaterBalloon
-    uniqueID: 3470517441
-    locked: 0
   - name: Item
     uniqueID: 1629192567
     locked: 0
   - name: BoxBottom
     uniqueID: 2085648263
+    locked: 0
+  - name: WaterBalloon
+    uniqueID: 3470517441
     locked: 0
   - name: Player
     uniqueID: 2113957557
@@ -82,4 +85,7 @@ TagManager:
     locked: 0
   - name: Box_Tile
     uniqueID: 2126097653
+    locked: 0
+  - name: WinAndLose
+    uniqueID: 3004973975
     locked: 0

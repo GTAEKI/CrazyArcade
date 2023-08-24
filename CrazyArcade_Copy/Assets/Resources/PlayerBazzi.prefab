@@ -381,8 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5974e960e6cd5448ca38112ee9182aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  onShoe: 0
+  speed: 4
+  onShoe: 1
+  onTank: 0
   power: 4.09
   isStuckWater: 0
   stuckSpeed: 0.2

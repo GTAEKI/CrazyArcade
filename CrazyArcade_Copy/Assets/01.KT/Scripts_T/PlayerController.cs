@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     //플레이어 기본 능력치
     private int waterBalloonCount = 2;
     private int niddleCount = 0;
+    private int springCount = 0;
     public float speed = 3.0f;
     public bool onShoe = false;
+    public bool onTank = false;
     public float power = 0.66666f;
 
     // bool값 및 제한사항
@@ -49,74 +51,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Sprite[] arrows;
 
     public SpriteRenderer BazziArrowSprite;
-    #region 교수님 디버그
-    //// DEBUG:
-    //private AudioSource testAudio = default;
-    //[Header("For test")]
-    //[Space(2)]
-    //public AudioClip bumbBalloonClip;   // 풍선 폭발 소리
-
-    //// DEBUG:
-    //private void Awake()
-    //{
-    //    testAudio = Camera.main.GetComponent<AudioSource>();
-    //}
-    #endregion
 
     private PhotonView pv;
-
-    public 
-
-    #region GPT Test _ When Die Random ItemRespawn
-    //Test
-    //[System.Serializable]
-    //public class SyncedItemData
-    //{
-    //    public int itemIndex;
-    //    public Vector3 position;
-    //}
-
-    //private List<SyncedItemData> syncedItems = new List<SyncedItemData>();
-
-    //private void UpdateSyncedItems()
-    //{
-    //    syncedItems.Clear();
-    //    for(int i = 0; i < saveGetItem.Count; i++)
-    //    {
-    //        SyncedItemData itemData = new SyncedItemData
-    //        {
-    //            itemIndex = i,
-    //            position = saveGetItem[i].transform.position
-    //        };
-    //        syncedItems.Add(itemData);
-    //    }
-    //}
-
-    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        UpdateSyncedItems();
-    //        stream.SendNext(syncedItems);
-    //    }
-    //    else
-    //    {
-    //        syncedItems = (List<SyncedItemData>)stream.ReceiveNext();
-    //    }
-    //}
-
-    //private void RespawnItems()
-    //{
-    //    foreach(SyncedItemData itemData in syncedItems)
-    //    {
-    //        GameObject item = saveGetItem[itemData.itemIndex];
-    //        item.transform.position = itemData.position;
-    //        item.SetActive(true);
-    //    }
-    //}
-
-    //Test
-    #endregion
 
     void Start()
     {
@@ -124,7 +60,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         animator = GetComponent<Animator>();
         playerCD = GetComponent<CircleCollider2D>();
         remainSpeed = speed; //최초 속도 저장
-        //BazziArrowSprite = GetComponentInChildren<SpriteRenderer>();
 
         // 포톤뷰 컴포넌트 연결
         pv = GetComponent<PhotonView>();
@@ -147,31 +82,38 @@ public class PlayerController : MonoBehaviourPunCallbacks
         waterBalloons = GameObject.FindGameObjectsWithTag("WaterBalloon");
 
         //스페이스바를 눌러 물풍선 생성
-        if (pv.IsMine && Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
+        if (onTank)
         {
-            //PutBalloon();
-            photonView.RPC("PutBalloon", RpcTarget.All, null);
+            if (pv.IsMine && Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
+            { 
+                photonView.RPC("PutBalloon", RpcTarget.All, null);
+            }
         }
-        //// DEBUG:
-        //testAudio.PlayOneShot(bumbBalloonClip);
-
-        // 바늘 아이템 사용시
-        if (Input.GetKeyDown(KeyCode.Alpha1) && isStuckWater && niddleCount != 0)
+        else
         {
-            UsingNiddle();
-        }
-
-        // 물풍선에 갇힌 상황이라면 일정시간 뒤 죽음
-        if (isStuckWater)
-        {
-            //시간 더해주기
-            time += Time.deltaTime;
-
-            //일정 시간 지나거나 죽지 않았을 경우 Die함수 실행
-            if (time > setTime && !isDead)
+            if (pv.IsMine && Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
             {
-                Die();
-                //photonView.RPC("Die", RpcTarget.All, null);
+                //PutBalloon();
+                photonView.RPC("PutBalloon", RpcTarget.All, null);
+            }
+
+            // 바늘 아이템 사용시
+            if (Input.GetKeyDown(KeyCode.LeftControl) && isStuckWater && niddleCount != 0)
+            {
+                UsingNiddle();
+            }
+
+            // 물풍선에 갇힌 상황이라면 일정시간 뒤 죽음
+            if (isStuckWater)
+            {
+                //시간 더해주기
+                time += Time.deltaTime;
+
+                //일정 시간 지나거나 죽지 않았을 경우 Die함수 실행
+                if (time > setTime && !isDead)
+                {
+                    Die();
+                }
             }
         }
     }//Update()
@@ -290,12 +232,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else if(collision.tag == "Niddle") // 바늘일 경우
             {
                 GetItem(collision);
-                niddleCount++;
+                GameManager.instance.inventory_NiddleImage.SetActive(true);
+                GameManager.instance.itemCtrl_NiddleImage.SetActive(true);
+                CountCheckNiddle(1);
             }
             else if (collision.tag == "ShoeItem") // 신발 아이템일 경우
             {
                 GetItem(collision);
                 onShoe = true;
+            }
+            else if (collision.tag == "TankItem") // 탱크 아이템일 경우
+            {
+                GetItem(collision);
+                onTank = true;
+            }
+            else if (collision.tag == "SpringItem") // 스프링 아이템일 경우
+            {
+                GetItem(collision);
+                springCount++;
             }
             else if(collision.tag == "Player" && collision.GetComponent<PlayerController>().isStuckWater)
             {
@@ -335,13 +289,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     // 죽는 함수
     private void Die()
     {
+        photonView.RPC("ImDead", RpcTarget.MasterClient);
+    } // Die()
+
+    [PunRPC]
+    private void ImDead()
+    {
         playerRB.velocity = Vector2.zero; //속도 0으로 조정
         animator.SetTrigger("Die"); //Die 애니메이션 실행
-
-        //if (!PhotonNetwork.IsMasterClient) //호스트에서만 죽었을때 아이템 리스폰
-        //{
-        //    return;
-        //}
 
         if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
@@ -357,15 +312,29 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
         isDead = true;
-        //TODO 내가 죽었을때 상대방이 살아있다면, 내 모니터에는 Lose / 상대방이 먼저 죽었다면 Win
-    } // Die()
+    }
 
     // 바늘 사용 함수
     private void UsingNiddle()
     {
-        niddleCount--;
+        CountCheckNiddle(-1);
         isStuckWater = false;
         animator.SetBool("StuckWater", isStuckWater);
         speed = remainSpeed;
+        if(niddleCount == 0)
+        {
+            GameManager.instance.inventory_NiddleImage.SetActive(false);
+            GameManager.instance.itemCtrl_NiddleImage.SetActive(false);
+        }
     } // UsingNiddle()
+
+    private void CountCheckNiddle(int number)
+    {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+        niddleCount = niddleCount + number;
+        GameManager.instance.NiddleCount(this.niddleCount);
+    }
 } // Class PlayerController
