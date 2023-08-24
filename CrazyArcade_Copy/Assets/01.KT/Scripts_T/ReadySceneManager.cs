@@ -18,6 +18,7 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
     public GameObject choiceMap;
     public GameObject priateYellowEffect;
     public GameObject tankYellowEffect;
+    public GameObject button;
 
     private int playerNum = 0;
     private GameObject[] readyPlayerPositions;
@@ -46,30 +47,33 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         playersReady = new bool[PhotonManager.instance.maxPlayer];
 
         // 하이어라키창의 캐릭터 입장 위치들을 배열에 저장
+        // ĳ���� ����� ������ ���� ĳ���� ������Ʈ true
+        OnReadyScene();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // ������ Ŭ���̾�Ʈ�� �ٸ� �÷��̾ ��� �غ��ϱ� ������ ��ư ��Ȱ��ȭ
+            startButton.interactable = false;
+        }
+        else
+        {
+            // �����͸� ������ �÷��̾�� ��ư Ȱ��ȭ
+            startButton.interactable = true;
+        }
+
+        #region Find,parent,root ����
+        // ���̾��Űâ�� ĳ���� ���� ��ġ���� �迭�� ����
         //readyPlayerPositions = GameObject.FindGameObjectsWithTag("ReadyPlayerPosition");
         //readyPlayerPositions[0] = GameObject.Find("ReadyPlayerPosition").transform.GetChild(0).gameObject;
         //Debug.Log(readyPlayerPositions[0].name);
         //Debug.Log(GameObject.Find("FirstPlayer").transform.root.GetChild(0).name);
 
-        // GameObject.Find(이름) -> Scene 하위의 모든 오브젝트 중에서 일치하는 이름의 GameObject 를 가져옴
-        // gameObject.transform.Find 또는 gameObject.transform.GetChild(인덱스 번호) -> 'gameObject' 이 오브젝트를 부모로 삼고
-        // 그 하위에 있는 자식 오브젝트를 인덱스 번호에 맞게 가져옴
-        // gameObject.transform.parent.parent -> 부모-부모를 부름
-        // gameObject.transform.root.getChild(인덱스번호) -> 씬을 제외하고 가장 최상의 오브젝트의 인덱스번호 번째 오브젝트를 부름
-
-        // 캐릭터 입장시 순서에 맞춰 캐릭터 오브젝트 true
-        OnReadyScene();
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            // 마스터 클라이언트는 다른 플레이어가 모두 준비하기 전까지 버튼 비활성화
-            startButton.interactable = false;
-        }
-        else
-        {
-            // 마스터를 제외한 플레이어는 버튼 활성화
-            startButton.interactable = true;
-        }
+        // GameObject.Find(�̸�) -> Scene ������ ��� ������Ʈ �߿��� ��ġ�ϴ� �̸��� GameObject �� ������
+        // gameObject.transform.Find �Ǵ� gameObject.transform.GetChild(�ε��� ��ȣ) -> 'gameObject' �� ������Ʈ�� �θ�� ���
+        // �� ������ �ִ� �ڽ� ������Ʈ�� �ε��� ��ȣ�� �°� ������
+        // gameObject.transform.parent.parent -> �θ�-�θ� �θ�
+        // gameObject.transform.root.getChild(�ε�����ȣ) -> ���� �����ϰ� ���� �ֻ��� ������Ʈ�� �ε�����ȣ ��° ������Ʈ�� �θ�
+        #endregion
     }
 
     // 맵 고르는 창을 여는 첫번째 버튼클릭시 실행
@@ -178,6 +182,23 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Only Master Client can move to Scene 03" +
                 "or all players are not ready.");
+        }
+    }
+
+    public void OnButtonAPressed()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("ButtonAPressed", RpcTarget.MasterClient);
+        }
+    }
+
+    [PunRPC]
+    private void ButtonAPressed()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            button.SetActive(true);
         }
     }
 }
