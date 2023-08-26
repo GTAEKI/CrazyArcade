@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  onShoe: 1
+  onShoe: 0
   power: 0.7
   isStuckWater: 0
   stuckSpeed: 0.5

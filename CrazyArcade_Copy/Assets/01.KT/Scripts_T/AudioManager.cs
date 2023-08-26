@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(AudioClip musicClip)
     {
         musicSource.clip = musicClip;
+        musicSource.loop = false;
         musicSource.Play();
     }
 

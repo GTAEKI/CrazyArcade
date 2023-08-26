@@ -23585,73 +23585,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6539891811998868861, guid: 1c906328d69c84744812fe8e3584d94f, type: 3}
   m_PrefabInstance: {fileID: 1210712059}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &905913598
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 905913600}
-  - component: {fileID: 905913601}
-  - component: {fileID: 905913603}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &905913600
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905913598}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &905913601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905913598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fc6b479cefca4858920e5069e501dc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &905913603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905913598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 141
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &914994757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6539891811998868861, guid: 5980d406c61114f468b2c20718a27fcc, type: 3}
@@ -24005,7 +23938,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &922609412
 MonoBehaviour:
@@ -41811,7 +41744,7 @@ RectTransform:
   - {fileID: 1304528851}
   - {fileID: 1973618155}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -43476,7 +43409,7 @@ GameObject:
   - component: {fileID: 1659709443}
   - component: {fileID: 1659709444}
   m_Layer: 5
-  m_Name: GameResult
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43495,7 +43428,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -43518,6 +43451,7 @@ MonoBehaviour:
   isLose: 0
   isWin: 0
   isDraw: 0
+  isGameOver: 0
   inventory_NiddleImage: {fileID: 2120136957}
   itemCtrl_NiddleImage: {fileID: 935329150}
   loseImage: {fileID: 1973618154}
@@ -43526,7 +43460,7 @@ MonoBehaviour:
   timeText_Sec: {fileID: 1805617885}
   timeText_Min: {fileID: 512110772}
   niddleAmount: {fileID: 1680937870}
-  remainTime_Sec: 120
+  remainTime_Sec: 10
   winSound: {fileID: 8300000, guid: ffa77fbeffeba41d2acb7c02ee909d40, type: 3}
   loseAndDrawSound: {fileID: 8300000, guid: 71a002c38f13a4854ac2c768ea32a7f8, type: 3}
 --- !u!114 &1659709444

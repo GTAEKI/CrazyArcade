@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     //플레이어 기본 능력치
     private int waterBalloonCount = 1;
     private int niddleCount = 0;
-    public float speed = 3.0f;
+    public float speed = 2.5f;
     public bool onShoe = false;
     public float power = 0.7f;
 
     // bool값 및 제한사항
     private bool isDead = false;
     public bool isStuckWater = false; 
-    public float stuckSpeed = 0.2f; //물풍선 갇혔을때 이동속도
+    public float stuckSpeed = 0.5f; //물풍선 갇혔을때 이동속도
     public float maxPower = 3.5f; //최대 파워
     private float remainSpeed = default; //물풍선에서 바늘을 사용해서 나왔을때를 위해 속도 저장변수
     
@@ -226,8 +226,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else if(collision.tag == "Niddle") // 바늘일 경우
             {
                 GetItem(collision);
-                gameResult.GetComponent<GameResult>().inventory_NiddleImage.SetActive(true);
-                gameResult.GetComponent<GameResult>().itemCtrl_NiddleImage.SetActive(true);
+                gameResult.GetComponent<GameManager>().inventory_NiddleImage.SetActive(true);
+                gameResult.GetComponent<GameManager>().itemCtrl_NiddleImage.SetActive(true);
                 //GameManager.instance.inventory_NiddleImage.SetActive(true);
                 //GameManager.instance.itemCtrl_NiddleImage.SetActive(true);
                 CountCheckNiddle(1);
@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         //test
         gameObject.SetActive(false);
-        gameResult.GetComponent<GameResult>().CheckPlayerCount(); //죽을경우 플레이어를 셈
+        gameResult.GetComponent<GameManager>().CheckPlayerCount(); //죽을경우 플레이어를 셈
 
         //StartCoroutine(ResultCalculate());
         //test
@@ -322,8 +322,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         speed = remainSpeed;
         if(niddleCount == 0)
         {
-            gameResult.GetComponent<GameResult>().inventory_NiddleImage.SetActive(false);
-            gameResult.GetComponent<GameResult>().itemCtrl_NiddleImage.SetActive(false);
+            gameResult.GetComponent<GameManager>().inventory_NiddleImage.SetActive(false);
+            gameResult.GetComponent<GameManager>().itemCtrl_NiddleImage.SetActive(false);
             //GameManager.instance.inventory_NiddleImage.SetActive(false);
             //GameManager.instance.itemCtrl_NiddleImage.SetActive(false);
         }
@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
         }
         niddleCount = niddleCount + number;
-        gameResult.GetComponent<GameResult>().NiddleCount(this.niddleCount);
+        gameResult.GetComponent<GameManager>().NiddleCount(this.niddleCount);
 
         //GameManager.instance.NiddleCount(this.niddleCount);
     }
