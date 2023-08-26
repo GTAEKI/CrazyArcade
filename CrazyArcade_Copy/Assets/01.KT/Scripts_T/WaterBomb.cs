@@ -43,6 +43,10 @@ public class WaterBomb : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+        else if (collision.tag == "HideBush") //MoveBox일경우 삭제
+        {
+            Destroy(collision.gameObject);
+        }
         else if (collision.GetComponent<Item>()) // itemd일경우 체력을 1깎음
         {
             collision.GetComponent<Item>().itemHp--;

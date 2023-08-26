@@ -7,6 +7,10 @@ using UnityEngine.SocialPlatforms;
 
 public class WaterBalloonController : MonoBehaviour
 {
+    public AudioClip bombSound;
+    public AudioClip bombSetSound;
+    public AudioClip kickSound;
+
     public float range = 0.25f; //물풍선이 Player가 어떤방향으로 들어오는지 감지하기 위한 범위
 
     // 플레이어가 어떤방향으로 왔는지 체크한 뒤 변화시킬 bool변수
@@ -52,6 +56,8 @@ public class WaterBalloonController : MonoBehaviour
         power = player.GetComponent<PlayerController>().power;
         // 물풍선 설치시 자동으로 폭발
         StartCoroutine(Explosion());
+        // 물풍선 설치 소리재생
+        AudioManager.instance.PlayOneShot(bombSetSound);
     }//Start()
 
 
@@ -59,8 +65,9 @@ public class WaterBalloonController : MonoBehaviour
     public IEnumerator Explosion()
     {
         yield return new WaitForSeconds(2.5f);
-        ExplosionFunc();        
-        GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
+        ExplosionFunc();
+        AudioManager.instance.PlayOneShot(bombSound);
+        //GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
         Destroy(gameObject);
     }//IEnumerator Explosion()
 
@@ -249,6 +256,7 @@ public class WaterBalloonController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>().onShoe) // PlayerController스크립트를 갖고있고, onShoe가 true라면
         {
+            AudioManager.instance.PlayOneShot(kickSound);
             // 물풍선기준 플레이어는 왼쪽위치
             if (collision.transform.position.x - transform.position.x < 0 && Mathf.Abs(collision.transform.position.y - transform.position.y) < range)
             {

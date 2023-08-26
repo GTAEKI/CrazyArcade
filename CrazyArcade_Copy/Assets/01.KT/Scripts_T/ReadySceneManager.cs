@@ -13,6 +13,8 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
     public Button firstChoiceButton;
     public Button secondChoiceButton;
 
+    public AudioClip readySceneSound;
+
     public GameObject priate_Choiced;
     public GameObject tank_Choiced;
     public GameObject choiceMap;
@@ -45,6 +47,8 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         // 마스터 클라이언트가 아닌 플레이어들만 버튼을 누를 수 있도록 설정
         readyPlayerPositions = new GameObject[PhotonManager.instance.maxPlayer];
         playersReady = new bool[PhotonManager.instance.maxPlayer];
+
+        AudioManager.instance.PlayMusicLoop(readySceneSound);
 
         // 하이어라키창의 캐릭터 입장 위치들을 배열에 저장
         // ĳ���� ����� ������ ���� ĳ���� ������Ʈ true
@@ -79,6 +83,11 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
     // 맵 고르는 창을 여는 첫번째 버튼클릭시 실행
     public void ClickFirstChoiceButton()
     {
+        //맵 선택은 방장만 할 수 있습니다.
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
         choiceMap.SetActive(true); // 맵 고르는 창 활성화
         firstChoiceButton.interactable = false; //맵 고르는 버튼 비활성화
         startButton.interactable = false; // 시작버튼 비활성화
@@ -89,7 +98,11 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         firstChoiceButton.interactable = true; // 맵 고르는 버튼 활성화
         startButton.interactable = true; // 시작버튼 활성화
         choiceMap.SetActive(false); // 맵 고르는 창 비활성화
-        ConfirmMap(); // 맵 확정함수 실행
+        if (PhotonNetwork.IsMasterClient) // 방장만 맵 확정가능
+        {
+            //확정한 함수 다른 클라이언트에게 전달하여 똑같이 실행하도록 함
+            photonView.RPC("ConfirmMap", RpcTarget.All,isMapPriate,isMapTank);
+        }
     }
 
     // 해적맵 고를시 실행되는 함수
@@ -111,18 +124,20 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
     }
 
     // 맵 확정시 실행되는 함수
-    public void ConfirmMap()
+    [PunRPC]
+    public void ConfirmMap(bool isMapPriate,bool isMapTank)
     {
-        Debug.Log(confirmMap);
+        this.isMapPriate = isMapPriate; //호스트에서 받은 bool값 클라이언트에서 전달받음
+        this.isMapTank = isMapTank;//호스트에서 받은 bool값 클라이언트에서 전달받음
 
-        if (isMapPriate)
+        if (this.isMapPriate)
         {
             confirmMap = ChoiceMap.map_Priate;
             priate_Choiced.SetActive(true);
             tank_Choiced.SetActive(false);
 
         }
-        else if (isMapTank)
+        else if (this.isMapTank)
         {
             confirmMap = ChoiceMap.map_Tank;
             priate_Choiced.SetActive(false);
@@ -136,7 +151,7 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         Debug.Log($"{readyPlayerPositions.Length}");
         Debug.Log($"{playerNum}");
 
-        readyPlayerPositions[playerNum].SetActive(false);
+        //readyPlayerPositions[playerNum].SetActive(false);
         playerNum++;
     }
 

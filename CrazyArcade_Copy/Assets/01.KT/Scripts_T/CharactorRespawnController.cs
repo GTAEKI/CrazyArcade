@@ -31,7 +31,6 @@ public class CharactorRespawnController : MonoBehaviour
     {
         for (int i = 0; i < 1; i++)
         {
-
             //랜덤한 인덱스번호 >> 랜덤한 위치로 리스폰
             randomIndex = Random.Range(0, charactorRespawnPoints.Length);
 
@@ -58,18 +57,6 @@ public class CharactorRespawnController : MonoBehaviour
 
             // 플레이어 생성
             PhotonNetwork.Instantiate("PlayerBazzi", charactorRespawnPoints[randomIndex].transform.position, Quaternion.identity);
-
-            //void CreatePlayer()
-            //{
-            //    // 출현 위치 정보를 배열에 저장
-            //    Transform[] points = GameObject.Find("CharactorRespawnController_J").GetComponents<Transform>();
-            //    int idx = Random.Range(1, points.Length);
-
-            //    // 네트워크상에 캐릭터 생성
-            //    PhotonNetwork.Instantiate("PlayerBazzi", points[idx].position, points[idx].rotation, 0);
-
-            //}
-
         }//for
     }//CreatePlayer()
 } // Class CharactorRespawnController

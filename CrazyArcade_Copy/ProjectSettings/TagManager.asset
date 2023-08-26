@@ -25,6 +25,7 @@ TagManager:
   - TankItem
   - SpringItem
   - Bottom_Thorn
+  - HideBush
   layers:
   - Default
   - TransparentFX
@@ -65,14 +66,17 @@ TagManager:
   - name: BackGroundTile
     uniqueID: 1004686253
     locked: 0
+  - name: Thorn
+    uniqueID: 4204627289
+    locked: 0
   - name: Item
     uniqueID: 1629192567
     locked: 0
-  - name: BoxBottom
-    uniqueID: 2085648263
-    locked: 0
   - name: WaterBalloon
     uniqueID: 3470517441
+    locked: 0
+  - name: BoxBottom
+    uniqueID: 2085648263
     locked: 0
   - name: Player
     uniqueID: 2113957557

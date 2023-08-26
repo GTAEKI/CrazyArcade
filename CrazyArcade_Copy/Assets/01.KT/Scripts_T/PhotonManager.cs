@@ -19,6 +19,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public Button loginButton;
     public Button makeRoomButton;
     public GameObject panelLogin;
+    public GameObject howToPlay;
 
     public static PhotonManager instance;
 
@@ -56,8 +57,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        // 첫 화면에서는 로그인 창 false
+        // 첫 화면에서는 로그인 창 false, 게임 방법 창 false;
         panelLogin.SetActive(false);
+        howToPlay.SetActive(false);
 
         // 닉네임,룸 생성 버튼 잠시 비활성화
         loginButton.interactable = false;
@@ -74,6 +76,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         // 게임 시작 버튼 누를 시 로그인 창 상태 변경
         panelLogin.SetActive(!panelLogin.activeSelf);
+    }
+
+    public void ToggleHowToPlay()
+    {
+        howToPlay.SetActive(!howToPlay.activeSelf);
     }
 
     // 유저명 설정

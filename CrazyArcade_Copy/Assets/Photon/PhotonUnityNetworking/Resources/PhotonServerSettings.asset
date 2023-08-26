@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: db62f436-3601-486b-b8a4-48dfd3639308
+    AppIdRealtime: 1f86768e-2fcc-425c-a2d4-ba2bd56c3632
     AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
@@ -42,6 +42,8 @@ MonoBehaviour:
   - PutBalloon
   - Die
   - ButtonAPressed
+  - ConfirmMap
+  - Result
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

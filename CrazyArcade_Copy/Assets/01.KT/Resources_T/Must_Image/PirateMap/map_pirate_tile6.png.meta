@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 40
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -141,16 +141,16 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SailSprite
+      name: Sail_Bottom
       rect:
         serializedVersion: 2
         x: 160
         y: 0
         width: 120
-        height: 160
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 120}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -162,22 +162,64 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BollardSprite
+      name: Bollard_Bottom
       rect:
         serializedVersion: 2
         x: 280
-        y: 2
+        y: 0
         width: 40
-        height: 65
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 27}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: ff6c9901026af5345bf38f049c3ea9bb
       internalID: 1929411795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sail_Top
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 40
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62d5ad2559f8248d4aab362706d396a0
+      internalID: -1399348033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bollard_Up
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 40
+        width: 40
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 808c3735caf7f4536a3231c2395ec40d
+      internalID: -1687134791
       vertices: []
       indices: 
       edges: []
@@ -193,8 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BollardSprite: 1929411795
-      SailSprite: -1682654
+      Bollard_Bottom: 1929411795
+      Bollard_Up: -1687134791
+      Sail_Bottom: -1682654
+      Sail_Top: -1399348033
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

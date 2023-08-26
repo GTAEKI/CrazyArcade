@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3617638635874959152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2113957557
-  m_SortingLayer: 5
+  m_SortingLayerID: -824449855
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 768836229, guid: f3254a48ebfbd495099a3660216cf9ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -187,6 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83b39fd5d55948d681b9f1b5e2c9956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bombSound: {fileID: 8300000, guid: 0fdddfe18d48a4c75806bf161f455dae, type: 3}
+  bombSetSound: {fileID: 8300000, guid: fa0e417ba77564fcc9e7645bfea6a823, type: 3}
+  kickSound: {fileID: 8300000, guid: 53e87e7833fd54cf09c2a7513c29ee63, type: 3}
   range: 0.25
   playerIsDown: 0
   playerIsUp: 0

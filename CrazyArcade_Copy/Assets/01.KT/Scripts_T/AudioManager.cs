@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    public AudioSource musicSource;
+    private AudioSource musicSource;
 
     private void Awake()
     {
@@ -19,11 +19,25 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        musicSource = GetComponent<AudioSource>();
     }
         
     public void PlayMusic(AudioClip musicClip)
     {
         musicSource.clip = musicClip;
         musicSource.Play();
+    }
+
+    public void PlayMusicLoop(AudioClip musicClip)
+    {
+        musicSource.clip = musicClip;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void PlayOneShot(AudioClip musicClip)
+    {
+        musicSource.PlayOneShot(musicClip);
     }
 }
