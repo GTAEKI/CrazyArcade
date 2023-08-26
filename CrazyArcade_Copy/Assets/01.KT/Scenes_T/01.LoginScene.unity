@@ -510,7 +510,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &287068867
 GameObject:
@@ -1783,7 +1783,7 @@ RectTransform:
   - {fileID: 1572744351}
   - {fileID: 1905195106}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2665,7 +2665,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1760765054
 GameObject:
@@ -3187,6 +3187,9 @@ MonoBehaviour:
   panelLogin: {fileID: 1572744350}
   howToPlay: {fileID: 1905195103}
   maxPlayer: 2
+  enterPlayerImages:
+  - {fileID: 5307870163220550058, guid: b89ef834aa7993e418d0b947089b33af, type: 3}
+  - {fileID: 5478727452160796281, guid: 2a8508464391d614d89b05ca7376ab84, type: 3}
 --- !u!4 &2120848972
 Transform:
   m_ObjectHideFlags: 0
@@ -3200,7 +3203,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129505580
 GameObject:
@@ -3233,7 +3236,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2129505582
 AudioSource:
