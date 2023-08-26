@@ -65,23 +65,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (!isGameOver)
         {
-            if (isLose)
+            if (isDraw)
             {
-                loseImage.SetActive(true);
-                AudioManager.instance.PlayMusic(loseAndDrawSound);
                 isGameOver = true;
-            }
-            else if (isWin)
-            {
-                winImage.SetActive(true);
-                AudioManager.instance.PlayMusic(winSound);
-                isGameOver = true;
-            }
-            else if (isDraw)
-            {
                 drawImage.SetActive(true);
                 AudioManager.instance.PlayMusic(loseAndDrawSound);
-                isGameOver = true;
             }
             else
             {
@@ -108,58 +96,30 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+        
     } //Update()
+
+    [PunRPC]
+    public void EndGame(bool isWin)
+    {
+        if (!isGameOver)
+        {
+            isGameOver = true;
+            if (isWin)
+            {
+                winImage.SetActive(true);
+                AudioManager.instance.PlayMusic(winSound);
+            }
+            else
+            {
+                loseImage.SetActive(true);
+                AudioManager.instance.PlayMusic(loseAndDrawSound);                
+            }
+        }
+    }
 
     public void NiddleCount(int niddleCount)
     {
         niddleAmount.text = "x" + niddleCount;
-    }
-
-    public void CheckPlayerCount()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-
-        playerCount = GameObject.FindGameObjectsWithTag("Player");
-
-        if (playerCount.Length == 1 && playerCount[0] != null)
-        {
-            CheckPlayerResult(playerCount[0]);
-        }
-        else if(playerCount.Length == 1 && playerCount[1] != null)
-        {
-            CheckPlayerResult(playerCount[1]);
-        }
-    }
-
-    private void CheckPlayerResult(GameObject playerObject)
-    {
-        PhotonView photonView = playerObject.GetComponent<PhotonView>();
-
-        if (photonView != null)
-        {
-            if (photonView.IsMine)
-            {
-                isWin = true;
-                isLose = false;
-                photonView.RPC("Result", RpcTarget.Others, isLose, isWin);
-            }
-            else
-            {
-                isLose = true;
-                isWin = false;
-                photonView.RPC("Result", RpcTarget.Others, isLose, isWin);
-            }
-        }
-    }
-
-    [PunRPC]
-    public void Result(bool isWin, bool isLose)
-    {
-        this.isWin = isWin;
-        this.isLose = isLose;
-        Debug.Log("나는 클라이언트야");
     }
 }

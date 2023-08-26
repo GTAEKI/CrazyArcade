@@ -43460,7 +43460,7 @@ MonoBehaviour:
   timeText_Sec: {fileID: 1805617885}
   timeText_Min: {fileID: 512110772}
   niddleAmount: {fileID: 1680937870}
-  remainTime_Sec: 10
+  remainTime_Sec: 120
   winSound: {fileID: 8300000, guid: ffa77fbeffeba41d2acb7c02ee909d40, type: 3}
   loseAndDrawSound: {fileID: 8300000, guid: 71a002c38f13a4854ac2c768ea32a7f8, type: 3}
 --- !u!114 &1659709444

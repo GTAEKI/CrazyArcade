@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCD = GetComponent<CircleCollider2D>();
-        gameResult = GameObject.Find("GameResult");
+        gameResult = GameObject.Find("GameManager");
         remainSpeed = speed; //최초 속도 저장
 
         // 포톤뷰 컴포넌트 연결
@@ -275,9 +275,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     // 죽는 함수
     private void Die()
     {
+        //test
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+        //test
+
         AudioManager.instance.PlayOneShot(dieSound);
         playerRB.velocity = Vector2.zero; //속도 0으로 조정
         animator.SetTrigger("Die"); //Die 애니메이션 실행
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.photonView.RPC("EndGame", RpcTarget.Others, true);
+        gameManager.EndGame(false);
 
         if (!isDead) //1번 생성하고 더이상 실행하지 않음
         {
@@ -291,24 +302,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 item.gameObject.SetActive(true);
             }
         }
-        //test
-        gameObject.SetActive(false);
-        gameResult.GetComponent<GameManager>().CheckPlayerCount(); //죽을경우 플레이어를 셈
-
-        //StartCoroutine(ResultCalculate());
-        //test
         isDead = true;
     } // Die()
-
-    //tset
-    //IEnumerator ResultCalculate()
-    //{
-    //    yield return new WaitForSeconds(1.2f);
-    //    GameManager.instance.CheckPlayerCount(); //죽을경우 플레이어를 셈
-        
-        
-    //}
-    //test
 
     // 바늘 사용 함수
     private void UsingNiddle()
