@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -824449855
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 768836229, guid: f3254a48ebfbd495099a3660216cf9ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -207,6 +207,5 @@ MonoBehaviour:
   bombWater_Right_Mid: {fileID: 3336293872610607449, guid: 7ab94b72a2cf24d8284ec96da65e51d7, type: 3}
   bombWater_Up_Last: {fileID: 4483874884231324698, guid: 642c7d78ab48f462b9c23006dfde8f00, type: 3}
   bombWater_Up_Mid: {fileID: 10878030776164239, guid: 65adf86c3d33548099a96022e48fe09b, type: 3}
-  waterExplosionSound: {fileID: 7648169590268741608, guid: 32c8386d853bcc246b961bea689f0e23, type: 3}
   boxSize: {x: 0.666666, y: 0.666666}
   actorNumber: 0

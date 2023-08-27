@@ -13,8 +13,8 @@ public class WaterBomb : MonoBehaviour
     {
         waterBombAnimator = GetComponent<Animator>();
 
-        // 폭발 시작시 0.5초뒤 삭제
-        Destroy(gameObject, 0.5f);
+        // 폭발 시작시 0.4초뒤 삭제
+        Destroy(gameObject, 0.4f);
     }//Start()
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,13 +28,13 @@ public class WaterBomb : MonoBehaviour
                 collision.GetComponentInParent<PlayerController>().StuckWaterBalloon();
             }
         }
-        //else if(collision.tag == "WaterBalloon")
-        //{
-        //    WaterBalloonController waterBalloonFuc;
-        //    waterBalloonFuc = collision.GetComponent<WaterBalloonController>(); //물풍선 스크립트 가져오기
-        //    waterBalloonFuc.ExplosionFunc(); // 스크립트의 폭발 함수 실행
-        //    Destroy(collision.gameObject); // 물풍선 삭제
-        //}
+        else if (collision.tag == "WaterBalloon")
+        {
+            WaterBalloonController waterBalloonFuc;
+            waterBalloonFuc = collision.GetComponent<WaterBalloonController>(); //물풍선 스크립트 가져오기
+            waterBalloonFuc.ExplosionFunc(); // 스크립트의 폭발 함수 실행
+            Destroy(collision.gameObject); // 물풍선 삭제
+        }
         else if(collision.tag == "FixedBox") //FixedBox일경우 삭제
         {
             Destroy(collision.gameObject);

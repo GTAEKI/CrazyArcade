@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public AudioClip winSound;
     public AudioClip loseAndDrawSound;
 
+    public GameObject ExitGame;
+
     void Start()
     {
         // 시간 초기화
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (isDraw)
             {
                 isGameOver = true;
+                StartCoroutine(GameOver()); //2초 뒤 방 나가기
+
                 drawImage.SetActive(true);
                 AudioManager.instance.PlayMusic(loseAndDrawSound);
             }
@@ -105,17 +109,28 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!isGameOver)
         {
             isGameOver = true;
+            StartCoroutine(GameOver()); //2초 뒤 방 나가기
             if (isWin)
             {
                 winImage.SetActive(true);
                 AudioManager.instance.PlayMusic(winSound);
+                
             }
             else
             {
                 loseImage.SetActive(true);
-                AudioManager.instance.PlayMusic(loseAndDrawSound);                
+                AudioManager.instance.PlayMusic(loseAndDrawSound);
+                
             }
         }
+    }
+
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2f);
+
+        ExitGame.GetComponent<ExitButton>().OnExitButton();
+
     }
 
     public void NiddleCount(int niddleCount)

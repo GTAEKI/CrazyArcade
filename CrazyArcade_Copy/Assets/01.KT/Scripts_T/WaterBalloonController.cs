@@ -29,6 +29,9 @@ public class WaterBalloonController : MonoBehaviour
     public GameObject player;
     public float plusPosition = 0.666665f;
 
+    //물풍선이 이미 터졌다면
+    bool alreadyBomb = false;
+
     // 물풍선 터졌을때 나오는 애니메이션
     public GameObject bombWater_Center;
     public GameObject bombWater_Down_Last;
@@ -39,7 +42,6 @@ public class WaterBalloonController : MonoBehaviour
     public GameObject bombWater_Right_Mid;
     public GameObject bombWater_Up_Last;
     public GameObject bombWater_Up_Mid;
-    public GameObject waterExplosionSound;
     
     // Overlap 변수
     public Vector2 boxSize = new Vector2(0.67f, 0.67f);
@@ -50,66 +52,35 @@ public class WaterBalloonController : MonoBehaviour
 
     public int actorNumber;
 
-
-    //void Start()
-    //{
-    //    //배찌 플레이어를 찾아서
-    //    player = GameObject.Find("PlayerBazzi(Clone)");
-    //    //배찌 플레이어의 파워를 받아와서 물풍선에 적용
-    //    power = player.GetComponent<PlayerController>().power;
-    //    // 물풍선 설치시 자동으로 폭발
-    //    StartCoroutine(Explosion());
-    //    // 물풍선 설치 소리재생
-    //    AudioManager.instance.PlayOneShot(bombSetSound);
-    //}//Start()
+    private PhotonView pv;
 
     void Start()
     {
-        // Find and store the local player's character
-        //FindLocalPlayer();
-
-        // Receive the power of the local player's character and apply it to the water balloon
-        //power = player.GetComponent<PlayerController>().power;
-
         // Automatically explode when the water balloon is installed
         StartCoroutine(Explosion());
+
+        pv = GetComponent<PhotonView>();
 
         // Play water balloon installation sound
         AudioManager.instance.PlayOneShot(bombSetSound);
     }
 
-    // Find the local player's character based on a unique identifier
-    private void FindLocalPlayer()
-    {
-        Player localPlayer = PhotonNetwork.LocalPlayer;
-        int playerID = localPlayer.ActorNumber; // Use the player's ActorNumber as a unique identifier
-
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player"); // Assuming players have a "Player" tag
-
-        foreach (var playerObject in playerObjects)
-        {
-            PlayerController playerController = playerObject.GetComponent<PlayerController>();
-            if (playerController != null && playerController.playerID == playerID)
-            {
-                player = playerObject;
-                break;
-            }
-        }
-    }
-
-
     // 2.5초 뒤 실행할 물풍선 폭발 관련 내용 전체
     public IEnumerator Explosion()
     {
         yield return new WaitForSeconds(2.5f);
-        ExplosionFunc();
-        AudioManager.instance.PlayOneShot(bombSound);
-        //GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
-        Destroy(gameObject);
+        if (!alreadyBomb)//이미 터진상태가 아니라면
+        {
+            ExplosionFunc();
+            AudioManager.instance.PlayOneShot(bombSound);
+            Destroy(gameObject);
+        }
+        //PhotonNetwork.Destroy(gameObject);
     }//IEnumerator Explosion()
 
     public void ExplosionFunc()
     {
+        // 센터 폭발
         Bomb(bombWater_Center, transform.position);
         // 좌측 폭발
         for (float i = 0; i >= -power; i = i - plusPosition)
@@ -241,12 +212,18 @@ public class WaterBalloonController : MonoBehaviour
             {
                 return true;
             }
-            else if (col.tag == "WaterBalloon")
-            {
-                Destroy(col.gameObject);
-                col.GetComponent<WaterBalloonController>().ExplosionFunc();
-                return true;
-            }
+            //else if (col.tag == "WaterBalloon")
+            //{
+            //    //if (!alreadyBomb)
+            //    {
+            //        Destroy(col.gameObject);
+            //        //PhotonNetwork.Destroy(col.gameObject);
+            //        WaterBalloonController otherWaterBalloon = col.GetComponent<WaterBalloonController>();
+            //        otherWaterBalloon.ExplosionFunc();
+            //        otherWaterBalloon.alreadyBomb = true;
+            //    }
+            //    return true;
+            //}
         }
 
         foreach (Collider2D col in cols)
@@ -270,6 +247,12 @@ public class WaterBalloonController : MonoBehaviour
     // 물풍선 폭발 오브젝트 처리 함수
     private void Bomb(GameObject tilePrefab,Vector2 bombPosition)
     {
+        //문제
+        if (!pv.IsMine)
+        {
+            return;
+        }
+        
         GameObject obj = PhotonNetwork.Instantiate(tilePrefab.name, bombPosition, Quaternion.identity);
     }//BombHorizontal()
 
@@ -283,9 +266,13 @@ public class WaterBalloonController : MonoBehaviour
         else if(collision.gameObject.tag == "Bottom_Thorn")
         {
             transform.position = collision.transform.position;
-            ExplosionFunc();
-            GameObject destroySound = Instantiate(waterExplosionSound, Vector3.zero, Quaternion.identity);
             Destroy(gameObject);
+            if (!alreadyBomb)
+            {
+                ExplosionFunc();
+                alreadyBomb = true;
+            }
+            //PhotonNetwork.Destroy(gameObject);
         }
     }//OnTriggerEnter2D()
 

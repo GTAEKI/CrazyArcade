@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (pv.IsMine && Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
         {
             PutBalloon();
-            //photonView.RPC("PutBalloon", RpcTarget.All, null);
         }
 
         // 바늘 아이템 사용시
@@ -118,7 +117,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }//Update()
 
     // 물풍선 설치 함수 
-    [PunRPC]
     private void PutBalloon()
     {
         Vector2 m_tr_Vector2 = new Vector2(transform.position.x, transform.position.y);
@@ -153,15 +151,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (!isStuckWater)
                 {
                     Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                    //if (PhotonNetwork.IsMasterClient)
-                    {
-                        GameObject myWaterBalloon =PhotonNetwork.Instantiate("WaterBalloon", waterBalloonPosition, Quaternion.identity);
-                        // 아래코드로 하면 각각 생성은 잘 되나, 위치 동기화가 안되는 오류가 있음
-                        //GameObject myWaterBalloon =Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
 
-                        myWaterBalloon.GetComponent<WaterBalloonController>().actorNumber = pv.Owner.ActorNumber;
-                        myWaterBalloon.GetComponent<WaterBalloonController>().power = power;
-                    }
+                    GameObject myWaterBalloon = PhotonNetwork.Instantiate("WaterBalloon", waterBalloonPosition, Quaternion.identity);
+                    myWaterBalloon.GetComponent<WaterBalloonController>().actorNumber = pv.Owner.ActorNumber;
+                    myWaterBalloon.GetComponent<WaterBalloonController>().power = power;
+
                     //유저 고유번호 저장
                 }
             }
@@ -236,9 +230,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 GetItem(collision);
                 gameResult.GetComponent<GameManager>().inventory_NiddleImage.SetActive(true);
-                gameResult.GetComponent<GameManager>().itemCtrl_NiddleImage.SetActive(true);
-                //GameManager.instance.inventory_NiddleImage.SetActive(true);
-                //GameManager.instance.itemCtrl_NiddleImage.SetActive(true);
+                gameResult.GetComponent<GameManager>().itemCtrl_NiddleImage.SetActive(true);             
                 CountCheckNiddle(1);
             }
             else if (collision.tag == "ShoeItem") // 신발 아이템일 경우
@@ -327,9 +319,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if(niddleCount == 0)
         {
             gameResult.GetComponent<GameManager>().inventory_NiddleImage.SetActive(false);
-            gameResult.GetComponent<GameManager>().itemCtrl_NiddleImage.SetActive(false);
-            //GameManager.instance.inventory_NiddleImage.SetActive(false);
-            //GameManager.instance.itemCtrl_NiddleImage.SetActive(false);
+            gameResult.GetComponent<GameManager>().itemCtrl_NiddleImage.SetActive(false);            
         }
     } // UsingNiddle()
 
@@ -341,7 +331,5 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         niddleCount = niddleCount + number;
         gameResult.GetComponent<GameManager>().NiddleCount(this.niddleCount);
-
-        //GameManager.instance.NiddleCount(this.niddleCount);
-    }
+    }//CountCheckNiddle()
 } // Class PlayerController

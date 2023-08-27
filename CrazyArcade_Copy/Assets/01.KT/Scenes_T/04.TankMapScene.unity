@@ -1536,6 +1536,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone_Box
       objectReference: {fileID: 0}
+    - target: {fileID: 8453109420650199409, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
 --- !u!4 &43458001 stripped
@@ -2428,7 +2432,7 @@ GameObject:
   - component: {fileID: 94986234}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2486,8 +2490,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2524,7 +2528,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &97426709
 GameObject:
@@ -2539,7 +2543,7 @@ GameObject:
   - component: {fileID: 97426712}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2597,8 +2601,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2635,7 +2639,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &105432575
 GameObject:
@@ -7204,6 +7208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone_Box
       objectReference: {fileID: 0}
+    - target: {fileID: 8453109420650199409, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
 --- !u!4 &352437100 stripped
@@ -7596,7 +7604,7 @@ GameObject:
   - component: {fileID: 388935966}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7654,8 +7662,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7692,7 +7700,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &389603217
 GameObject:
@@ -8727,7 +8735,7 @@ GameObject:
   - component: {fileID: 462394341}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8785,8 +8793,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8823,7 +8831,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &465714988
 GameObject:
@@ -18288,7 +18296,7 @@ GameObject:
   - component: {fileID: 818148705}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18346,8 +18354,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -18384,7 +18392,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1001 &822209828
 PrefabInstance:
@@ -21680,7 +21688,7 @@ GameObject:
   - component: {fileID: 969211782}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21738,8 +21746,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -21776,7 +21784,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &980226554
 GameObject:
@@ -22452,6 +22460,10 @@ PrefabInstance:
     - target: {fileID: 8453109420650199409, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
       propertyPath: m_Name
       value: Stone_Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453109420650199409, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
@@ -23510,7 +23522,7 @@ GameObject:
   - component: {fileID: 1091894879}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23568,8 +23580,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -23606,7 +23618,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1094341295
 GameObject:
@@ -28283,7 +28295,7 @@ GameObject:
   - component: {fileID: 1302643097}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28341,8 +28353,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -28379,7 +28391,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1304924252
 GameObject:
@@ -30115,7 +30127,7 @@ GameObject:
   - component: {fileID: 1366014695}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30173,8 +30185,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -30211,7 +30223,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1001 &1369021142
 PrefabInstance:
@@ -31113,7 +31125,7 @@ GameObject:
   - component: {fileID: 1384594487}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31171,8 +31183,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -31209,7 +31221,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1386372042
 GameObject:
@@ -32012,6 +32024,7 @@ MonoBehaviour:
   remainTime_Sec: 120
   winSound: {fileID: 8300000, guid: ffa77fbeffeba41d2acb7c02ee909d40, type: 3}
   loseAndDrawSound: {fileID: 8300000, guid: 71a002c38f13a4854ac2c768ea32a7f8, type: 3}
+  ExitGame: {fileID: 1339346648}
 --- !u!224 &1416940310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34605,6 +34618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone_Box
       objectReference: {fileID: 0}
+    - target: {fileID: 8453109420650199409, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8218925fae3cf44ac8d79fb48aff1beb, type: 3}
 --- !u!4 &1545602352 stripped
@@ -35323,7 +35340,7 @@ GameObject:
   - component: {fileID: 1598292220}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35381,8 +35398,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -35419,7 +35436,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1607926912
 GameObject:
@@ -38222,7 +38239,7 @@ GameObject:
   - component: {fileID: 1774609117}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38280,8 +38297,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -38318,7 +38335,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1778659101
 GameObject:
@@ -40586,7 +40603,7 @@ GameObject:
   - component: {fileID: 1879205709}
   m_Layer: 0
   m_Name: Dunks_vertical(Clone)(Clone)
-  m_TagString: Untagged
+  m_TagString: Drunk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40644,8 +40661,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2085648263
-  m_SortingLayer: 5
+  m_SortingLayerID: 1587024631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 49a5809837f3c45c695967a7fa8c9057, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -40682,7 +40699,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1885296582
 GameObject:

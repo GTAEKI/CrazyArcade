@@ -26,6 +26,7 @@ TagManager:
   - SpringItem
   - Bottom_Thorn
   - HideBush
+  - Drunk
   layers:
   - Default
   - TransparentFX
@@ -71,6 +72,9 @@ TagManager:
     locked: 0
   - name: Item
     uniqueID: 1629192567
+    locked: 0
+  - name: Drunk
+    uniqueID: 1587024631
     locked: 0
   - name: WaterBalloon
     uniqueID: 3470517441
