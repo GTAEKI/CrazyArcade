@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -48,17 +50,52 @@ public class WaterBalloonController : MonoBehaviour
 
     public int actorNumber;
 
+
+    //void Start()
+    //{
+    //    //배찌 플레이어를 찾아서
+    //    player = GameObject.Find("PlayerBazzi(Clone)");
+    //    //배찌 플레이어의 파워를 받아와서 물풍선에 적용
+    //    power = player.GetComponent<PlayerController>().power;
+    //    // 물풍선 설치시 자동으로 폭발
+    //    StartCoroutine(Explosion());
+    //    // 물풍선 설치 소리재생
+    //    AudioManager.instance.PlayOneShot(bombSetSound);
+    //}//Start()
+
     void Start()
     {
-        //배찌 플레이어를 찾아서
-        player = GameObject.Find("PlayerBazzi(Clone)");
-        //배찌 플레이어의 파워를 받아와서 물풍선에 적용
-        power = player.GetComponent<PlayerController>().power;
-        // 물풍선 설치시 자동으로 폭발
+        // Find and store the local player's character
+        //FindLocalPlayer();
+
+        // Receive the power of the local player's character and apply it to the water balloon
+        //power = player.GetComponent<PlayerController>().power;
+
+        // Automatically explode when the water balloon is installed
         StartCoroutine(Explosion());
-        // 물풍선 설치 소리재생
+
+        // Play water balloon installation sound
         AudioManager.instance.PlayOneShot(bombSetSound);
-    }//Start()
+    }
+
+    // Find the local player's character based on a unique identifier
+    private void FindLocalPlayer()
+    {
+        Player localPlayer = PhotonNetwork.LocalPlayer;
+        int playerID = localPlayer.ActorNumber; // Use the player's ActorNumber as a unique identifier
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player"); // Assuming players have a "Player" tag
+
+        foreach (var playerObject in playerObjects)
+        {
+            PlayerController playerController = playerObject.GetComponent<PlayerController>();
+            if (playerController != null && playerController.playerID == playerID)
+            {
+                player = playerObject;
+                break;
+            }
+        }
+    }
 
 
     // 2.5초 뒤 실행할 물풍선 폭발 관련 내용 전체
@@ -233,7 +270,7 @@ public class WaterBalloonController : MonoBehaviour
     // 물풍선 폭발 오브젝트 처리 함수
     private void Bomb(GameObject tilePrefab,Vector2 bombPosition)
     {
-        GameObject obj = Instantiate(tilePrefab, bombPosition, Quaternion.identity);
+        GameObject obj = PhotonNetwork.Instantiate(tilePrefab.name, bombPosition, Quaternion.identity);
     }//BombHorizontal()
 
     // 타일 중앙에 맞춰서 물풍선 포지션값 조정하는 함수

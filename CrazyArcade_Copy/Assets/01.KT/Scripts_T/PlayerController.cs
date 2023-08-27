@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public AudioClip dieSound;
     public AudioClip stuckBubbleSound;
 
+    public int playerID = default;
+
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -64,8 +66,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         gameResult = GameObject.Find("GameManager");
         remainSpeed = speed; //최초 속도 저장
 
+
         // 포톤뷰 컴포넌트 연결
         pv = GetComponent<PhotonView>();
+
+        playerID = pv.Owner.ActorNumber;
 
         if (pv.IsMine)
         {
@@ -87,8 +92,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         //스페이스바를 눌러 물풍선 생성
         if (pv.IsMine && Input.GetKeyDown(KeyCode.Space) && !isStuckWater)
         {
-            //PutBalloon();
-            photonView.RPC("PutBalloon", RpcTarget.All, null);
+            PutBalloon();
+            //photonView.RPC("PutBalloon", RpcTarget.All, null);
         }
 
         // 바늘 아이템 사용시
@@ -148,10 +153,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (!isStuckWater)
                 {
                     Vector2 waterBalloonPosition = new Vector2(transform.position.x, transform.position.y - 0.2f);
-                    if (PhotonNetwork.IsMasterClient)
+                    //if (PhotonNetwork.IsMasterClient)
                     {
                         GameObject myWaterBalloon =PhotonNetwork.Instantiate("WaterBalloon", waterBalloonPosition, Quaternion.identity);
+                        // 아래코드로 하면 각각 생성은 잘 되나, 위치 동기화가 안되는 오류가 있음
+                        //GameObject myWaterBalloon =Instantiate(waterBalloon, waterBalloonPosition, Quaternion.identity);
+
                         myWaterBalloon.GetComponent<WaterBalloonController>().actorNumber = pv.Owner.ActorNumber;
+                        myWaterBalloon.GetComponent<WaterBalloonController>().power = power;
                     }
                     //유저 고유번호 저장
                 }

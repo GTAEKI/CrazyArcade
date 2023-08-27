@@ -42346,10 +42346,10 @@ MonoBehaviour:
   amount_SmallPowerPotion: 10
   amount_BigPowerPotion: 4
   amount_SpeedItem: 10
-  amount_Niddle: 2
+  amount_Niddle: 3
   amount_Shoe: 3
   balloonItem: {fileID: 2924247081677612134, guid: 419a585203446445bbe75c468faea3ee, type: 3}
-  smallPowerPotion: {fileID: 3788810056909895270, guid: 892db4d8ae1ee4d8b92a4fb7d1d682ae, type: 3}
+  smallPowerPotion: {fileID: 3019920333089700689, guid: 9d1791cc56685490793cd28fa66e10ce, type: 3}
   bigPowerPotion: {fileID: 9188979393970855134, guid: e9c676178a5124afe8b0c3fcc25ba933, type: 3}
   speedItem: {fileID: 3788810056909895270, guid: 892db4d8ae1ee4d8b92a4fb7d1d682ae, type: 3}
   niddle: {fileID: 2997079053500483583, guid: 2c7ff7e164d1242a9bf5e6076c7fb5ad, type: 3}

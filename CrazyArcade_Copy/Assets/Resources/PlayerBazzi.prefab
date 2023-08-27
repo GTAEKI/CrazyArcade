@@ -302,6 +302,7 @@ MonoBehaviour:
   eatItemSound: {fileID: 8300000, guid: 07c1f149fffd7429f8355733cab71481, type: 3}
   dieSound: {fileID: 8300000, guid: a54921f401fc44671bdcac2105149d55, type: 3}
   stuckBubbleSound: {fileID: 8300000, guid: 3629db214219d49049635c2f5c58cae0, type: 3}
+  playerID: 0
 --- !u!1 &8279892472433205134
 GameObject:
   m_ObjectHideFlags: 0
