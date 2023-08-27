@@ -245,7 +245,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 526045802}
         m_TargetAssemblyTypeName: ReadySceneManager, Assembly-CSharp
         m_MethodName: ClickFirstChoiceButton
         m_Mode: 1
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 526045802}
         m_TargetAssemblyTypeName: ReadySceneManager, Assembly-CSharp
         m_MethodName: ClickTankMap
         m_Mode: 1
@@ -1495,7 +1495,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 526045802}
         m_TargetAssemblyTypeName: ReadySceneManager, Assembly-CSharp
         m_MethodName: OnStartButtonClick
         m_Mode: 1
@@ -1813,7 +1813,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 526045802}
         m_TargetAssemblyTypeName: ReadySceneManager, Assembly-CSharp
         m_MethodName: ClickPirateMap
         m_Mode: 1
@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 526045802}
         m_TargetAssemblyTypeName: ReadySceneManager, Assembly-CSharp
         m_MethodName: ClickSecondChoiceButton
         m_Mode: 1
