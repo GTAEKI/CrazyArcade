@@ -45,6 +45,16 @@ MonoBehaviour:
   - ConfirmMap
   - Result
   - EndGame
+  - CreateImg
+  - forRpcStartCoroutine
+  - EnterReadyRoom
+  - CreatePlayerImage
+  - SpawnImageWithIndex
+  - SendRandomImageIndex
+  - SendRandomNumber
+  - RPC_SendSelectedNumber
+  - RPC_RequestPrefabCount
+  - RPC_SendPrefabCount
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -4,6 +4,7 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -24,6 +25,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public static PhotonManager instance;
 
     public int maxPlayer = 3;
+
+    public GameObject[] enterPlayerImages;  // 이미지 프리팹 배열
+    private PhotonView photonView; // photonView 변수 추가
 
     private void Awake()
     {
@@ -161,31 +165,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             Debug.Log($"{player.Value.NickName} , {player.Value.ActorNumber}");
         }
-
-
-        //// 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        Debug.Log($"{userId}");
-
         PhotonNetwork.LoadLevel("02.ReadyScene");
-        //}
-
     }
 
-    //public void OnPlayScene()
-
-    //    // 마스터 클라이언트인 경우에 룸에 입장한 후 플레이 씬을 로딩
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        Debug.Log($"{userId}");
-
-    //        PhotonNetwork.LoadLevel("03.PirateMapScene");
-    //    }
-    //}
-
     #region UI_BUTTON_EVENT
-
     public void OnLoginClick()
     {
         // 중복 접속 시도를 막기 위해 접속 버튼 잠시 비활성화
@@ -216,6 +199,5 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Create New Room");
         PhotonNetwork.CreateRoom(SetRoomName(), roomOptions);
     }
-
     #endregion
 }

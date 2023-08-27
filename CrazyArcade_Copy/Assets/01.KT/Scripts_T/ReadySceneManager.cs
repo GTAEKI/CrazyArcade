@@ -7,6 +7,12 @@ using UnityEngine.UI;
 
 public class ReadySceneManager : MonoBehaviourPunCallbacks
 {
+    #region 씬 입장시 이미지 출력하기 위한
+    public Transform[] appearPositions;     // 출력할 위치 배열
+    public GameObject[] enterPlayerImages;  // 출력할 이미지 프리팹 배열
+    private int selectedNumber;
+    #endregion
+
     public Button startButton;
     public Button priateMap;
     public Button tankMap;
@@ -22,11 +28,6 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
     public GameObject tankYellowEffect;
     public GameObject button;
 
-    private int playerNum = 0;
-    private GameObject[] readyPlayerPositions;
-
-    private bool[] playersReady;
-    private bool allPlayersReady = false;
     private bool isMapPriate;
     private bool isMapTank;
 
@@ -39,47 +40,22 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        // 마스터 클라이언트의 씬 자동 동기화 옵션
-        // 룸에 입장한 다른 접속 유저들에게도 마스터 클라이언트의 씬을 자동으로 로딩 해주기 위해
-        PhotonNetwork.AutomaticallySyncScene = true;
         confirmMap = ChoiceMap.map_Priate;
 
-        // 마스터 클라이언트가 아닌 플레이어들만 버튼을 누를 수 있도록 설정
-        readyPlayerPositions = new GameObject[PhotonManager.instance.maxPlayer];
-        playersReady = new bool[PhotonManager.instance.maxPlayer];
-
-        AudioManager.instance.PlayMusicLoop(readySceneSound);
-
-        // 하이어라키창의 캐릭터 입장 위치들을 배열에 저장
-        // ĳ���� ����� ������ ���� ĳ���� ������Ʈ true
-        OnReadyScene();
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            // ������ Ŭ���̾�Ʈ�� �ٸ� �÷��̾ ��� �غ��ϱ� ������ ��ư ��Ȱ��ȭ
-            startButton.interactable = false;
-        }
-        else
-        {
-            // �����͸� ������ �÷��̾�� ��ư Ȱ��ȭ
-            startButton.interactable = true;
-        }
-
-        #region Find,parent,root ����
-        // ���̾��Űâ�� ĳ���� ���� ��ġ���� �迭�� ����
-        //readyPlayerPositions = GameObject.FindGameObjectsWithTag("ReadyPlayerPosition");
-        //readyPlayerPositions[0] = GameObject.Find("ReadyPlayerPosition").transform.GetChild(0).gameObject;
-        //Debug.Log(readyPlayerPositions[0].name);
-        //Debug.Log(GameObject.Find("FirstPlayer").transform.root.GetChild(0).name);
-
-        // GameObject.Find(�̸�) -> Scene ������ ��� ������Ʈ �߿��� ��ġ�ϴ� �̸��� GameObject �� ������
-        // gameObject.transform.Find �Ǵ� gameObject.transform.GetChild(�ε��� ��ȣ) -> 'gameObject' �� ������Ʈ�� �θ�� ���
-        // �� ������ �ִ� �ڽ� ������Ʈ�� �ε��� ��ȣ�� �°� ������
-        // gameObject.transform.parent.parent -> �θ�-�θ� �θ�
-        // gameObject.transform.root.getChild(�ε�����ȣ) -> ���� �����ϰ� ���� �ֻ��� ������Ʈ�� �ε�����ȣ ��° ������Ʈ�� �θ�
-        #endregion
+        CreatePlayerImg();
     }
 
+    public void CreatePlayerImg()
+    {
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        int idx = playerCount - 1;
+
+        selectedNumber = Random.Range(0, enterPlayerImages.Length);
+
+        PhotonNetwork.Instantiate(enterPlayerImages[selectedNumber].name,
+            appearPositions[idx].position, Quaternion.identity);
+    }
+    #region 맵 선택하는 부분
     // 맵 고르는 창을 여는 첫번째 버튼클릭시 실행
     public void ClickFirstChoiceButton()
     {
@@ -101,7 +77,7 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient) // 방장만 맵 확정가능
         {
             //확정한 함수 다른 클라이언트에게 전달하여 똑같이 실행하도록 함
-            photonView.RPC("ConfirmMap", RpcTarget.All,isMapPriate,isMapTank);
+            photonView.RPC("ConfirmMap", RpcTarget.All, isMapPriate, isMapTank);
         }
     }
 
@@ -125,7 +101,7 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
 
     // 맵 확정시 실행되는 함수
     [PunRPC]
-    public void ConfirmMap(bool isMapPriate,bool isMapTank)
+    public void ConfirmMap(bool isMapPriate, bool isMapTank)
     {
         this.isMapPriate = isMapPriate; //호스트에서 받은 bool값 클라이언트에서 전달받음
         this.isMapTank = isMapTank;//호스트에서 받은 bool값 클라이언트에서 전달받음
@@ -144,36 +120,9 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
             tank_Choiced.SetActive(true);
         }
     }
+    #endregion
 
-    // 캐릭터 입장 순서에 맞춰서 오브젝트 나타내는
-    public void OnReadyScene()
-    {
-        Debug.Log($"{readyPlayerPositions.Length}");
-        Debug.Log($"{playerNum}");
-
-        //readyPlayerPositions[playerNum].SetActive(false);
-        playerNum++;
-    }
-
-    private void CheckAllReadyButton()
-    {
-        bool allReady = true;
-
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            if (i + 1 != PhotonNetwork.MasterClient.ActorNumber)
-            {
-                if (!playersReady[i])
-                {
-                    allReady = false;
-                    break;
-                }
-            }
-        }
-        allPlayersReady = allReady;
-        startButton.interactable = allReady;
-    }
-
+    #region PlayScene으로 이동
     public void OnStartButtonClick()
     {
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
@@ -186,7 +135,7 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
         {
             if (confirmMap == ChoiceMap.map_Priate)
             {
-                PhotonNetwork.LoadLevel("03.PirateMapScene"); 
+                PhotonNetwork.LoadLevel("03.PirateMapScene");
             }
             else if (confirmMap == ChoiceMap.map_Tank)
             {
@@ -199,21 +148,5 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
                 "or all players are not ready.");
         }
     }
-
-    public void OnButtonAPressed()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("ButtonAPressed", RpcTarget.MasterClient);
-        }
-    }
-
-    [PunRPC]
-    private void ButtonAPressed()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            button.SetActive(true);
-        }
-    }
+    #endregion
 }
