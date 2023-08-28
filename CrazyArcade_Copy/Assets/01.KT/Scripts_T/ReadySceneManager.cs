@@ -42,6 +42,8 @@ public class ReadySceneManager : MonoBehaviourPunCallbacks
     {
         confirmMap = ChoiceMap.map_Priate;
 
+        AudioManager.instance.PlayMusicLoop(readySceneSound);
+
         CreatePlayerImg();
     }
 
