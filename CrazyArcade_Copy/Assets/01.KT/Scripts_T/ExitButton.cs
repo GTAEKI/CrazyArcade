@@ -15,9 +15,9 @@ public class ExitButton : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        // Unload the current scene
+        // 현재 활성화된 씬을 언로드 함
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        // Load the next scene
+        // 다음씬으로 이동함
         PhotonNetwork.LoadLevel("02.ReadyScene");
 
     }
