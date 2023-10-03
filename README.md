@@ -1,16 +1,17 @@
 # CrazyArcade_Copy
-CrazyArcade_Copy
 
-오후 5:54 2023-08-09
-[MJ] feat : "Pirate Map Background Tile"
-[KT] feat : "Create Fuction, Install waterballoon on tilemap"
+## 🖥️ 프로젝트 소개
+유니티 2D게임을 제작 프로젝트로 크레이지아케이드를 모작했습니다.
+<br>
 
-오전 09:31 2023-08-10
-[MJ] add : "Pirate Map Complete"
-[KT] feat : "Create WaterBalloon Explosion Scripts"
+## 🕰️ 개발 기간
+* 23.08.03(목) - 23.08.25(금)
 
-오후 14:28 2023-08-10
-[KT] feat : "Create WaterBalloon Explosion Fuction"
-
-오후 14:37 2023-08-10
-[MJ] feat : "Potion Animation"
+### 🧑‍🤝‍🧑 맴버구성
+ - 팀장  : 배경택 - 플레이어, 물풍선, 아이템, 게임매니저, 네트워크(포톤)
+ - 팀원  : 이미정 - 로그인 UI, 로비 UI, 게임 맵 제작, 네트워크(포톤)
+   
+### ⚙️ 개발 환경
+- Unity   : 2021.3.29f1
+- IDE     : Visual Studio 2022 / Visual Studio for Mac
+- Network : Photon.Pun
